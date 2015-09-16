@@ -37,7 +37,7 @@ static int cmd_q(char *args) {
 }
 static int cmd_si(char *args) {
 	int n = 0;
-	if (strlen(args) != 0)
+	if (args != NULL)
 	{
 		if (sscanf(args, "%d", &n) != 1)
 		{
