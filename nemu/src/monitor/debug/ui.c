@@ -63,6 +63,10 @@ static int cmd_info(char *args) {
 	{
 		for (int i = 0; i < 8; i++)
 			printf("%s:   0x%x     %d\n", regsl[i], reg_l(i), reg_l(i));
+		for (int i = 0; i < 8; i++)
+			printf("%s:   0x%x     %d\n", regsw[i], reg_w(i), reg_w(i));
+		for (int i = 0; i < 8; i++)
+			printf("%s:   0x%x     %d\n", regsb[i], reg_b(i), reg_b(i));
 	}
 	return 0;
 }
