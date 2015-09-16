@@ -54,6 +54,16 @@ static int cmd_p(char *args) {
 	return 0;
 }
 static int cmd_info(char *args) {
+	if (args == NULL || (strcmp(args, "w") != 0 && strcmp(args, "r") != 0))
+	{
+		printf("Argument should be either 'r' or 'w'.\n");
+		return 0;
+	}
+	if (strcmp(args, "r") == 0)
+	{
+		for (int i = 0; i < 8; i++)
+			printf("%x     %d", reg_l(i), reg_l(i));
+	}
 	return 0;
 }
 static int cmd_x(char *args) {
