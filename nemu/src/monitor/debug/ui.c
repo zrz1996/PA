@@ -36,6 +36,7 @@ static int cmd_q(char *args) {
 	return -1;
 }
 static int cmd_si(char *args) {
+	puts(args);
 	int n = 0;
 	if (sscanf(args, "%d", &n) != 1)
 		n = 1;
