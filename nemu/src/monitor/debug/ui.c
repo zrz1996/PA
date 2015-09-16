@@ -36,11 +36,18 @@ static int cmd_q(char *args) {
 	return -1;
 }
 static int cmd_si(char *args) {
-	puts(args);
 	int n = 0;
-	if (sscanf(args, "%d", &n) != 1)
+	if (strlen(args) != 0)
+	{
+		if (sscanf(args, "%d", &n) != 1)
+		{
+			printf("The number of Steps should be a positive integer.\n");
+			return 0;
+		}
+		printf("%d\n", n);
+	}
+	else
 		n = 1;
-	printf("%d\n", n);
 	cpu_exec(n);
 	return 0;
 }
