@@ -44,7 +44,6 @@ static int cmd_si(char *args) {
 			printf("The number of Steps should be a positive integer.\n");
 			return 0;
 		}
-		printf("%d\n", n);
 	}
 	else
 		n = 1;
