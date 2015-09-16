@@ -62,7 +62,7 @@ static int cmd_info(char *args) {
 	if (strcmp(args, "r") == 0)
 	{
 		for (int i = 0; i < 8; i++)
-			printf("%x     %d\n", reg_l(i), reg_l(i));
+			printf("%s:   0x%x     %d\n", regsl[i], reg_l(i), reg_l(i));
 	}
 	return 0;
 }
