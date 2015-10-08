@@ -1476,14 +1476,14 @@ yyreduce:
 
 /* Line 1806 of yacc.c  */
 #line 45 "parser.y"
-    { printf("MUL %d %d\n", (yyvsp[(1) - (3)]), (yyvsp[(3) - (3)])); (yyval) = (yyvsp[(1) - (3)]) * (yyvsp[(3) - (3)]); }
+    { /* printf("MUL %d %d\n", $1, $3); */ (yyval) = (yyvsp[(1) - (3)]) * (yyvsp[(3) - (3)]); }
     break;
 
   case 16:
 
 /* Line 1806 of yacc.c  */
 #line 46 "parser.y"
-    { printf("DIV %d %d\n", (yyvsp[(1) - (3)]), (yyvsp[(3) - (3)])); (yyval) = (yyvsp[(1) - (3)]) / (yyvsp[(3) - (3)]); }
+    { /* printf("DIV %d %d\n", $1, $3); */ (yyval) = (yyvsp[(1) - (3)]) / (yyvsp[(3) - (3)]); }
     break;
 
   case 17:
@@ -1497,14 +1497,14 @@ yyreduce:
 
 /* Line 1806 of yacc.c  */
 #line 52 "parser.y"
-    { printf("ADD %d %d\n", (yyvsp[(1) - (3)]), (yyvsp[(3) - (3)])); (yyval) = (yyvsp[(1) - (3)]) + (yyvsp[(3) - (3)]); }
+    { /* printf("ADD %d %d\n", $1, $3); */ (yyval) = (yyvsp[(1) - (3)]) + (yyvsp[(3) - (3)]); }
     break;
 
   case 20:
 
 /* Line 1806 of yacc.c  */
 #line 53 "parser.y"
-    { printf("SUB %d %d\n", (yyvsp[(1) - (3)]), (yyvsp[(3) - (3)])); (yyval) = (yyvsp[(1) - (3)]) - (yyvsp[(3) - (3)]); }
+    { /* printf("SUB %d %d\n", $1, $3); */ (yyval) = (yyvsp[(1) - (3)]) - (yyvsp[(3) - (3)]); }
     break;
 
   case 22:
