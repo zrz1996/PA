@@ -51,6 +51,8 @@ static int cmd_si(char *args) {
 	return 0;
 }
 static int cmd_p(char *args) {
+	int v = expr(args);
+	printf("%d\n", v);
 	return 0;
 }
 static int cmd_info(char *args) {

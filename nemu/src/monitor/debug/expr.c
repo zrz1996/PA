@@ -3,7 +3,7 @@
 int yyparse();
 void lex_debug();
 extern char *yyin;
-uint32_t expr(char *e, bool *success) {
+uint32_t expr(char *e) {
 	/*
 	globalReadOffset = 0;
 	int len = strlen(e);
