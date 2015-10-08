@@ -15,6 +15,8 @@ uint32_t expr(char *e) {
 	globalInputText[len] = '\n';
 	globalInputText[len + 1] = 0;
 	*/
+	if (e == NULL)
+		return 0;
 	int len = strlen(e);
 	for (int i = 0; i < len; i++)
 		str[i] = e[i];
