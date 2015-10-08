@@ -1,8 +1,10 @@
 #include "nemu.h"
 #include "parser.tab.h"
+typedef struct yy_buffer_state * YY_BUFFER_STATE;
 int yyparse();
 void lex_debug();
-extern char *yyin;
+extern YY_BUFFER_STATE yy_scan_string(char * str);
+extern void yy_delete_buffer(YY_BUFFER_STATE buffer);
 uint32_t expr(char *e) {
 	/*
 	globalReadOffset = 0;
@@ -12,7 +14,8 @@ uint32_t expr(char *e) {
 	globalInputText[len] = '\n';
 	globalInputText[len + 1] = 0;
 	*/
-	yyin = e;
+	YY_BUFFER_STATE buffer = yy_scan_string(e);
 	uint32_t v = yyparse();
+	yy_delete_buffer(buffer);
 	return v;
 }
