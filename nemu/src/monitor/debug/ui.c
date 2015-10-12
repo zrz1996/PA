@@ -75,7 +75,20 @@ static int cmd_info(char *args) {
 	return 0;
 }
 static int cmd_x(char *args) {
-	return 0;
+	char *num = strtok(str, " ");
+	int len;
+	if (num == NULL || sscanf(num, "%d", &len) != 1)
+	{
+		printf("Length required.\n");
+		return 0;
+	}
+	char *ret = num + strlen(num) + 1;
+	printf("%s", ret);
+	bool state;
+	int val = expr(ret, &state);
+	if (state == 0)
+		return 0;
+	
 }
 static int cmd_w(char *args) {
 	return 0;
