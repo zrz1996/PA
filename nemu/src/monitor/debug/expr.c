@@ -22,7 +22,7 @@ extern int accessReg(char *str)
 	for (int i = 0; i < 8; i++)
 		if (strstr(str, regsb[i]) != NULL)
 			return reg_b(i);
-	yyerror("");
+	yyerror("no such register!");
 	return 0;
 }
 uint32_t expr(char *e, bool *success) {
