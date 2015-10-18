@@ -50,7 +50,7 @@ extern void add_wp(char *args)
 		WP *p = new_wp();
 		p->NO = ++numWP;
 		p->val1 = v;
-		p->val2 = 0;
+		p->val2 = v;
 		strcpy(p->Expr, args);
 		p->next = head;
 		head = p;
@@ -80,4 +80,22 @@ extern void delete_wp(int id)
 	}
 	if (!flag)
 		printf("No such watchpoint!\n");
+}
+extern bool check_wp()
+{
+	WP *p;
+	for (p = head; p != NULL; p = p->next)
+	{
+		bool parseState;
+		int v = expr(p->Expr, &parseState);
+		if (parseState)
+		{
+			p->val1 = p->val2;
+			p->val2 = v;
+		}
+	}
+	for (p = head; p != NULL; p = p->next)
+		if (p->val1 != p->val2)
+			return true;
+	return false;
 }
