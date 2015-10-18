@@ -75,7 +75,7 @@ static int cmd_info(char *args) {
 	return 0;
 }
 static int cmd_x(char *args) {
-	char *num = strtok(str, " ");
+	char *num = strtok(args, " ");
 	int len;
 	if (num == NULL || sscanf(num, "%d", &len) != 1)
 	{
@@ -88,7 +88,16 @@ static int cmd_x(char *args) {
 	int val = expr(ret, &state);
 	if (state == 0)
 		return 0;
-	
+	int i;
+	uint32_t v;
+	for (i = 0; i < len; i++)
+	{
+		v = swaddr_read(val, 4);
+		val += 4;
+		printf("0x%x ", v);
+		puts("");
+	}	
+	return 0;
 }
 static int cmd_w(char *args) {
 	return 0;
