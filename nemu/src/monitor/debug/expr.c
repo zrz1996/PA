@@ -31,6 +31,11 @@ extern int accessReg(char *str, int *isReg)
 			*isReg = 1;
 			return reg_b(i);
 		}
+	if (strstr(str, "eip") != NULL)
+	{
+		*isReg = 1;
+		return cpu.eip;
+	}
 	*isReg = 0;
 	yyerror("no such register!");
 	return 0;
