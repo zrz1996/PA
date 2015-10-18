@@ -64,7 +64,8 @@
      QUE = 282,
      COLON = 283,
      EOL = 284,
-     UNKNOW = 285
+     UNKNOW = 285,
+     ERROR = 286
    };
 #endif
 
