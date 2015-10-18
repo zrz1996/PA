@@ -94,7 +94,7 @@ static int cmd_x(char *args) {
 	{
 		v = swaddr_read(val, 4);
 		printf("0x%-12x:  0x%x ", val, v);
-		val += 5;
+		val += 4;
 		puts("");
 	}	
 	return 0;
