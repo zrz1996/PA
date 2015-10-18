@@ -775,7 +775,7 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 29 "parser.l"
-{ yylval = accessReg(yytext, &isReg); if (isReg) return ERROR; else return NUMBER; }
+{ yylval = accessReg(yytext, &isReg); if (!isReg) return ERROR; else return NUMBER; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
