@@ -56,7 +56,6 @@ static int cmd_p(char *args) {
 		printf("%d\n", v);
 	return 0;
 }
-static WP* head;
 static int cmd_info(char *args) {
 	if (args == NULL || (strcmp(args, "w") != 0 && strcmp(args, "r") != 0))
 	{
@@ -74,12 +73,7 @@ static int cmd_info(char *args) {
 	}
 	else
 	{
-		WP *p;
-		printf(" Num     Value1     Value2   What\n");
-		for (p = head; p != NULL; p = p->next)
-		{
-			printf("%4d %10d %10d %s\n", p->NO, p->val1, p->val2, p->Expr);
-		}
+		print_wp();
 	}
 	return 0;
 }
@@ -109,18 +103,7 @@ static int cmd_x(char *args) {
 }
 static int cmd_w(char *args) 
 {
-	bool parseState;
-	int v = expr(args, &parseState);
-	if (parseState)
-	{
-		WP *p = new_wp();
-		p->NO = ++numWP;
-		p->val1 = v;
-		p->val2 = 0;
-		strcpy(p->Expr, args);
-		p->next = head;
-		head = p;
-	}
+	add_wp(args);
 	return 0;
 }
 static int cmd_d(char *args) 
@@ -131,28 +114,7 @@ static int cmd_d(char *args)
 		printf("Watchpoint Num required.\n");
 		return 0;
 	}
-	WP *p = head;
-	bool flag = 0;
-	if (p->NO == id)
-	{
-		head = p->next;
-		free_wp(p);
-		flag = 1;
-	}
-	else
-	{
-		for (; p != NULL; p = p->next)
-			if (p->next != NULL && p->next->NO == id)
-			{
-				WP *q = p->next;
-				p->next = q->next;
-				free_wp(q);
-				flag = 1;
-				break;
-			}
-	}
-	if (!flag)
-		printf("No such watchpoint!\n");
+	delete_wp(id);
 	return 0;
 }
 static int cmd_help(char *args);
