@@ -11,17 +11,27 @@ extern int parseValue;
 //const char *regsl[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi"};
 //const char *regsw[] = {"ax", "cx", "dx", "bx", "sp", "bp", "si", "di"};
 //const char *regsb[] = {"al", "cl", "dl", "bl", "ah", "ch", "dh", "bh"};
-extern int accessReg(char *str)
+extern int accessReg(char *str, int *isReg)
 {
 	for (int i = 0; i < 8; i++)
 		if (strstr(str, regsl[i]) != NULL)
+		{
+			*isReg = 1;
 			return reg_l(i);
+		}
 	for (int i = 0; i < 8; i++)
 		if (strstr(str, regsw[i]) != NULL)
+		{
+			*isReg = 1;
 			return reg_w(i);
+		}
 	for (int i = 0; i < 8; i++)
 		if (strstr(str, regsb[i]) != NULL)
+		{
+			*isReg = 1;
 			return reg_b(i);
+		}
+	*isReg = 0;
 	yyerror("no such register!");
 	return 0;
 }
