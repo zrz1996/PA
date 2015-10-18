@@ -2,6 +2,7 @@
 #include "parser.tab.h"
 typedef struct yy_buffer_state * YY_BUFFER_STATE;
 int yyparse();
+int yyerror();
 void lex_debug();
 extern YY_BUFFER_STATE yy_scan_string(char * str);
 extern void yy_delete_buffer(YY_BUFFER_STATE buffer);
@@ -21,6 +22,7 @@ extern int accessReg(char *str)
 	for (int i = 0; i < 8; i++)
 		if (strstr(str, regsb[i]) != NULL)
 			return reg_b(i);
+	yyerror("");
 	return 0;
 }
 uint32_t expr(char *e, bool *success) {
