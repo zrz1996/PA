@@ -1446,7 +1446,7 @@ yyreduce:
 
 /* Line 1806 of yacc.c  */
 #line 26 "parser.y"
-    { yyerror("No such register!"); }
+    { YYABORT; }
     break;
 
   case 6:
