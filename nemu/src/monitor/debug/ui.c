@@ -83,7 +83,7 @@ static int cmd_x(char *args) {
 		return 0;
 	}
 	char *ret = num + strlen(num) + 1;
-	printf("%s", ret);
+	//printf("%s", ret);
 	bool state;
 	int val = expr(ret, &state);
 	if (state == 0)
@@ -93,8 +93,8 @@ static int cmd_x(char *args) {
 	for (i = 0; i < len; i++)
 	{
 		v = swaddr_read(val, 4);
+		printf("0x%-12x:  0x%x ", val, v);
 		val += 4;
-		printf("0x%x ", v);
 		puts("");
 	}	
 	return 0;
