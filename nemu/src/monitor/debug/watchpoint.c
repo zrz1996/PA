@@ -6,7 +6,7 @@
 static WP wp_list[NR_WP];
 static WP *head, *free_;
 
-void init_wp_list() {
+extern void init_wp_list() {
 	int i;
 	for(i = 0; i < NR_WP; i ++) {
 		wp_list[i].NO = i;
@@ -18,7 +18,7 @@ void init_wp_list() {
 	free_ = wp_list;
 }
 
-WP* new_wp()
+extern WP* new_wp()
 {
 	if (free_ == NULL)
 		return NULL;
@@ -26,7 +26,7 @@ WP* new_wp()
 	free_ = free_->next;
 	return node;
 }
-void free_wp(WP *wp)
+extern void free_wp(WP *wp)
 {
 	wp->next = free_; free_ = wp;
 	free_->next = NULL;

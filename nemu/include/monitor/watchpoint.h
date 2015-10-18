@@ -10,4 +10,6 @@ typedef struct watchpoint {
 	int val1, val2;
 } WP;
 int numWP;
+void free_wp(WP *p);
+WP *new_wp();
 #endif

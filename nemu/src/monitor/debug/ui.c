@@ -2,7 +2,6 @@
 #include "monitor/expr.h"
 #include "monitor/watchpoint.h"
 #include "nemu.h"
-
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -57,6 +56,7 @@ static int cmd_p(char *args) {
 		printf("%d\n", v);
 	return 0;
 }
+static WP* head;
 static int cmd_info(char *args) {
 	if (args == NULL || (strcmp(args, "w") != 0 && strcmp(args, "r") != 0))
 	{
@@ -126,7 +126,7 @@ static int cmd_w(char *args)
 static int cmd_d(char *args) 
 {
 	int id;
-	if (num == NULL || sscanf(args, "%d", &id) != 1)
+	if (args == NULL || sscanf(args, "%d", &id) != 1)
 	{
 		printf("Watchpoint Num required.\n");
 		return 0;
@@ -137,7 +137,6 @@ static int cmd_d(char *args)
 	{
 		head = p->next;
 		free_wp(p);
-		delete p;
 		flag = 1;
 	}
 	else
@@ -148,7 +147,6 @@ static int cmd_d(char *args)
 				WP *q = p->next;
 				p->next = q->next;
 				free_wp(q);
-				delete q;
 				flag = 1;
 				break;
 			}
