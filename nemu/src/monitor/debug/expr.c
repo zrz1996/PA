@@ -47,7 +47,7 @@ uint32_t expr(char *e, bool *success) {
 	str[len] = '\n';
 	str[len + 1] = 0;
 	YY_BUFFER_STATE buffer = yy_scan_string(str);
-	if (yyparse() == 1)
+	if (yyparse() != 0)
 		*success = 0;
 	else
 		*success = 1;
