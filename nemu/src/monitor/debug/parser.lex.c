@@ -774,7 +774,7 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 28 "parser.l"
-{ yylval = accessReg(yytext); return NUMBER; }
+{ yylval = accessReg(yytext); printf("%d\n", yylval); return NUMBER; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
