@@ -1607,14 +1607,14 @@ yyreduce:
 
 /* Line 1806 of yacc.c  */
 #line 88 "parser.y"
-    { (yyval) = (yyvsp[(1) - (3)]) && (yyvsp[(3) - (3)]); }
+    { /*$$ = $1 && $3;*/ if (!(yyvsp[(1) - (3)])) (yyval) = 0; else (yyval) = (yyvsp[(1) - (3)]) && (yyvsp[(3) - (3)]); }
     break;
 
   case 42:
 
 /* Line 1806 of yacc.c  */
 #line 93 "parser.y"
-    { (yyval) = (yyvsp[(1) - (3)]) || (yyvsp[(3) - (3)]); }
+    { /*$$ = $1 || $3;*/ if ((yyvsp[(1) - (3)])) (yyval) = 1; else (yyval) = (yyvsp[(1) - (3)]) || (yyvsp[(3) - (3)]); }
     break;
 
   case 44:
