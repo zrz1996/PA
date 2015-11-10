@@ -1502,14 +1502,14 @@ yyreduce:
 
 /* Line 1806 of yacc.c  */
 #line 47 "parser.y"
-    { /* printf("DIV %d %d\n", $1, $3); */ (yyval) = (yyvsp[(1) - (3)]) / (yyvsp[(3) - (3)]); }
+    { /* printf("DIV %d %d\n", $1, $3); */ if ((yyvsp[(3) - (3)]) == 0) YYABORT; (yyval) = (yyvsp[(1) - (3)]) / (yyvsp[(3) - (3)]); }
     break;
 
   case 18:
 
 /* Line 1806 of yacc.c  */
 #line 48 "parser.y"
-    { (yyval) = (yyvsp[(1) - (3)]) % (yyvsp[(3) - (3)]); }
+    { if ((yyvsp[(3) - (3)]) == 0) YYABORT; (yyval) = (yyvsp[(1) - (3)]) % (yyvsp[(3) - (3)]); }
     break;
 
   case 20:
@@ -1607,14 +1607,14 @@ yyreduce:
 
 /* Line 1806 of yacc.c  */
 #line 88 "parser.y"
-    { /*$$ = $1 && $3;*/ if (!(yyvsp[(1) - (3)])) (yyval) = 0; else (yyval) = (yyvsp[(1) - (3)]) && (yyvsp[(3) - (3)]); }
+    { (yyval) = (yyvsp[(1) - (3)]) && (yyvsp[(3) - (3)]); }
     break;
 
   case 42:
 
 /* Line 1806 of yacc.c  */
 #line 93 "parser.y"
-    { /*$$ = $1 || $3;*/ if ((yyvsp[(1) - (3)])) (yyval) = 1; else (yyval) = (yyvsp[(1) - (3)]) || (yyvsp[(3) - (3)]); }
+    { (yyval) = (yyvsp[(1) - (3)]) || (yyvsp[(3) - (3)]); }
     break;
 
   case 44:
