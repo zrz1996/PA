@@ -72,7 +72,7 @@ static int cmd_info(char *args) {
 		for (i = 0; i < 8; i++)
 			printf("%3s:   0x%-12x     %d\n", regsb[i], reg_b(i), reg_b(i));
 		printf("eip:   0x%-12x\n", cpu.eip);
-		printf("eflags:  0x%x detail: \n", cpu.eflags);
+		printf("eflags:  0x%x\n", cpu.eflags);
 		printf("CF PF ZF SF IF DF OF\n");
 		printf(" %s  %s  %s  %s  %s  %s  %s\n", 
 				cpu.cf ? "1" : "0",
