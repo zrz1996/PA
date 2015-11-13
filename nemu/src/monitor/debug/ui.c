@@ -71,14 +71,17 @@ static int cmd_info(char *args) {
 			printf("%3s:   0x%-12x     %d\n", regsw[i], reg_w(i), reg_w(i));
 		for (i = 0; i < 8; i++)
 			printf("%3s:   0x%-12x     %d\n", regsb[i], reg_b(i), reg_b(i));
-		printf("eflags\t%#10x [%s%s%s%s%s%s%s ]\n", cpu.eflags,
-				cpu.cf ? "CF" : "",
-				cpu.pf ? "PF" : "",
-				cpu.zf ? "ZF" : "",
-				cpu.sf ? "SF" : "",
-				cpu._if_? "IF" : "",
-				cpu.df ? "DF" : "",
-				cpu.of ? "OF" : ""
+		printf("eip:   0x%-12x\n", cpu.eip);
+		printf("eflags:  0x%x detail: \n", cpu.eflags);
+		printf("CF PF ZF SF IF DF OF\n");
+		printf(" %s  %s  %s  %s  %s  %s  %s\n", 
+				cpu.cf ? "1" : "0",
+				cpu.pf ? "1" : "0",
+				cpu.zf ? "1" : "0",
+				cpu.sf ? "1" : "0",
+				cpu._if_? "1" : "0",
+				cpu.df ? "1" : "0",
+				cpu.of ? "1" : "0"
 			  );
 	}
 	else
