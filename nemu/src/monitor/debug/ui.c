@@ -64,11 +64,12 @@ static int cmd_info(char *args) {
 	}
 	if (strcmp(args, "r") == 0)
 	{
-		for (int i = 0; i < 8; i++)
+		int i;
+		for (i = 0; i < 8; i++)
 			printf("%3s:   0x%-12x     %d\n", regsl[i], reg_l(i), reg_l(i));
-		for (int i = 0; i < 8; i++)
+		for (i = 0; i < 8; i++)
 			printf("%3s:   0x%-12x     %d\n", regsw[i], reg_w(i), reg_w(i));
-		for (int i = 0; i < 8; i++)
+		for (i = 0; i < 8; i++)
 			printf("%3s:   0x%-12x     %d\n", regsb[i], reg_b(i), reg_b(i));
 	}
 	else

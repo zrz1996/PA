@@ -24,7 +24,34 @@ typedef struct {
 
 		/* Do NOT change the order of the GPRs' definitions. */
 
-		struct { uint32_t eax, ecx, edx, ebx, esp, ebp, esi, edi; };
+		struct { 
+			uint32_t eax, ecx, edx, ebx, esp, ebp, esi, edi; 
+		};
+	};
+	struct {
+		union {
+			uint32_t eflags;
+			struct {
+				uint8_t cf : 1;
+				uint8_t res1 : 1;
+				uint8_t pf : 1;
+				uint8_t res2 : 1;
+				uint8_t af : 1;
+				uint8_t res3 : 1;
+				uint8_t zf : 1;
+				uint8_t sf : 1;
+				uint8_t tf : 1;
+				uint8_t _if_ : 1; 
+				uint8_t df : 1;
+				uint8_t of : 1;
+				uint8_t ol : 1;
+				uint8_t ip : 1;
+				uint8_t nt : 1;
+				uint8_t res4 : 1;
+				uint8_t rf : 1;
+				uint8_t vm : 1;
+			};
+		};
 	};
 	swaddr_t eip;
 

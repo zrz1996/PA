@@ -498,7 +498,7 @@ char *yytext;
 	#ifdef CALC_LEX  
 		YYSTYPE yylval;
 	#endif 
-	#define _POSIX_C_SOURCE 1
+	//#define _POSIX_C_SOURCE 1
 	int accessReg(char *str, int *isReg);
 	int isReg;
 #define YY_NO_INPUT 1

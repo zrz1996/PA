@@ -13,19 +13,20 @@ extern int parseValue;
 //const char *regsb[] = {"al", "cl", "dl", "bl", "ah", "ch", "dh", "bh"};
 extern int accessReg(char *str, int *isReg)
 {
-	for (int i = 0; i < 8; i++)
+	int i;
+	for (i = 0; i < 8; i++)
 		if (strstr(str, regsl[i]) != NULL)
 		{
 			*isReg = 1;
 			return reg_l(i);
 		}
-	for (int i = 0; i < 8; i++)
+	for (i = 0; i < 8; i++)
 		if (strstr(str, regsw[i]) != NULL)
 		{
 			*isReg = 1;
 			return reg_w(i);
 		}
-	for (int i = 0; i < 8; i++)
+	for (i = 0; i < 8; i++)
 		if (strstr(str, regsb[i]) != NULL)
 		{
 			*isReg = 1;
@@ -35,6 +36,11 @@ extern int accessReg(char *str, int *isReg)
 	{
 		*isReg = 1;
 		return cpu.eip;
+	}
+	if (strstr(str, "eflags") != NULL)
+	{
+		*isReg = 1;
+		return cpu.eflags;
 	}
 	*isReg = 0;
 	yyerror("no such register!");
@@ -47,7 +53,8 @@ uint32_t expr(char *e, bool *success) {
 		return 0;
 	}
 	int len = strlen(e);
-	for (int i = 0; i < len; i++)
+	int i;
+	for (i = 0; i < len; i++)
 		str[i] = e[i];
 	str[len] = '\n';
 	str[len + 1] = 0;
