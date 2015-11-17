@@ -1,5 +1,6 @@
 uint32_t alu(uint32_t a, uint32_t b, uint8_t type, uint32_t op)
 {
+	printf("%d %d %d %d\n", a, b, type, op);
 	uint32_t ret = 0;
 	if (type)  //arithmetic
 	{
