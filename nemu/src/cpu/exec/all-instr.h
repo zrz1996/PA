@@ -29,3 +29,4 @@
 
 #include "control/call.h"
 #include "control/push.h"
+#include "logic/test.h"

@@ -1,4 +1,5 @@
 #include "cpu/exec/template-start.h"
+#include "../alu.h"
 #define instr sub
 static void do_execute () {
 	//DATA_TYPE result = op_dest->val & op_src->val;
