@@ -10,6 +10,7 @@ static void do_execute()
 	#if DATA_BYTE == 2
 		cpu.eip &= 0x0000ffff;
 	#endif
+	printf("%d %d\n", cpu.eip, op_src->val);
 	print_asm_template1();
 }
 make_instr_helper(i)
