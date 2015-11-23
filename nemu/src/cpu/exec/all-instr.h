@@ -29,4 +29,5 @@
 
 #include "control/call.h"
 #include "control/push.h"
+#include "control/je.h"
 #include "logic/test.h"
