@@ -6,6 +6,7 @@ static void do_execute()
 {
 	REG(R_ESP) -= DATA_BYTE;
 	MEM_W(REG(R_ESP), op_src->val);
+	print_asm_template1();
 }
 make_instr_helper(r)
 #include "cpu/exec/template-end.h"
