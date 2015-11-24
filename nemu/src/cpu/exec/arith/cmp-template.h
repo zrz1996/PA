@@ -2,8 +2,9 @@
 #include "../alu.h"
 #define instr cmp
 static void do_execute () {
-	//DATA_TYPE result = op_dest->val & op_src->val;
 	cpu.cf = 0;
+	int size = DATA_BYTE;
+	printf("%d\n", size);
 	alu(op_dest->val, op_src->val, 1, 1);
 	print_asm_template2();
 }
