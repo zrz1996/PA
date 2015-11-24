@@ -7,7 +7,7 @@ make_helper(ret) {
 	cpu.eip = MEM_R(REG(R_ESP));
 	REG(R_ESP) += 4;
 	print_asm("ret");
-	return 1;
+	return 0;
 }
 
 
