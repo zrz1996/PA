@@ -3,7 +3,7 @@
 #define instr lea
 
 static void do_execute() {
-	uint32_t tmp = MEM_R(op_src->val);
+	uint32_t tmp = op_src->val;
 	#if DATA_BYTE == 2
 		tmp &= 0xffff;
 	#endif
