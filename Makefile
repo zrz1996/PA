@@ -52,7 +52,7 @@ clean: clean-cpp
 
 ##### some convinient rules #####
 
-USERPROG := obj/testcase/sum
+USERPROG := obj/testcase/add
 ##USERPROG := obj/testcase/mov-c
 ENTRY := $(USERPROG)
 
