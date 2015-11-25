@@ -7,6 +7,7 @@ static void do_execute() {
 	#if DATA_BYTE == 2
 		tmp &= 0xffff;
 	#endif
+		printf("%d\n", tmp);
 	OPERAND_W(op_dest, tmp);
 	print_asm_template2();
 }
