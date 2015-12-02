@@ -123,7 +123,7 @@ make_instr_helper(i)
 #define instr jle
 static void do_execute()
 {
-	if (cpu.zf == 1 && cpu.sf != cpu.of)
+	if (cpu.zf == 1 || cpu.sf != cpu.of)
 		cpu.eip += signExtend(op_src->val, DATA_BYTE);
 	print_asm_template1();
 }

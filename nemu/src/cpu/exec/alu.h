@@ -39,6 +39,7 @@
 		cpu.pf = !(((ret >> 1) ^ (ret >> 2) ^ (ret >> 4)) & 1); \
 		cpu.sf = ret >> 31; \
 	}\
+	printf("%d\n", ret);\
  	ret; \
 })
 
