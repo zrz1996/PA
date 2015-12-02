@@ -16,6 +16,7 @@
  	DATA_TYPE _op = (op); \
  	uint32_t ret = 0; \
  	uint32_t size = DATA_BYTE * 8; \
+ 	printf("%u\n", size); \
 	if (_type) \
 	{\
 		if (_op) \
