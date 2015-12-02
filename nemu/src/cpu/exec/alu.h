@@ -9,7 +9,6 @@
 })
 #define alu(a, b, type, op) \
 ({\
- 	printf("%d %d\n", a, b);\
  	DATA_TYPE s1 = (a); \
  	DATA_TYPE s2 = (b); \
 	DATA_TYPE _type = (type); \
@@ -39,7 +38,6 @@
 		cpu.pf = !(((ret >> 1) ^ (ret >> 2) ^ (ret >> 4)) & 1); \
 		cpu.sf = ret >> 31; \
 	}\
-	printf("%d\n", ret);\
  	ret; \
 })
 
