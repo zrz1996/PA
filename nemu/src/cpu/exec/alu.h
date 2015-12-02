@@ -9,6 +9,7 @@
 })
 #define alu(a, b, type, op) \
 ({\
+ 	printf("%d %d\n", a, b);\
  	DATA_TYPE s1 = (a); \
  	DATA_TYPE s2 = (b); \
 	DATA_TYPE _type = (type); \
