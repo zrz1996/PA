@@ -80,7 +80,7 @@ void load_elf_tables(int argc, char *argv[]) {
 
 	fclose(fp);
 }
-extern int accessVariable(char *str, int *isVar)
+int accessVariable(char *str, int *isVar)
 {
 	int i;
 	*isVar = 0;
@@ -94,6 +94,7 @@ extern int accessVariable(char *str, int *isVar)
 			return symtab[i].st_value;
 		}
 	}
+	printf("no such variable\n");
 	*isVar = 0;
 	return 0;
 }
