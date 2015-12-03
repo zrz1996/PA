@@ -80,4 +80,20 @@ void load_elf_tables(int argc, char *argv[]) {
 
 	fclose(fp);
 }
-
+extern int accessVariable(char *str, int *isVar)
+{
+	int i;
+	*isVar = 0;
+	for (i = 0; i < nr_symtab_entry; i++)
+	{
+		if (symtab[i].st_info != STT_OBJECT)
+			continue;
+		if (strstr(strtab + symtab[i].st_name, str) == (strtab + symtab[i].st_name))
+		{
+			*isVar = 1;
+			return symtab[i].st_value;
+		}
+	}
+	*isVar = 0;
+	return 0;
+}
