@@ -84,11 +84,11 @@ int accessVariable(char *str, int *isVar)
 {
 	int i;
 	*isVar = 0;
+	printf("%d\n", nr_symtab_entry);
 	for (i = 0; i < nr_symtab_entry; i++)
 	{
 		if (symtab[i].st_info != STT_OBJECT)
 			continue;
-		printf("%d\n", symtab[i].st_info);
 		if (strstr(strtab + symtab[i].st_name, str) == (strtab + symtab[i].st_name))
 		{
 			*isVar = 1;
