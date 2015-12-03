@@ -176,6 +176,8 @@ static int cmd_help(char *args) {
 }
 
 void ui_mainloop() {
+	extern void load_elf_tables();
+	load_elf_tables();
 	while(1) {
 		char *str = rl_gets();
 		char *str_end = str + strlen(str);
