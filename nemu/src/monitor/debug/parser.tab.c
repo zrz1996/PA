@@ -75,10 +75,11 @@
 	extern void yyerror(char *s);
 	extern int yylex();
 	int parseValue;
+	int isNumber;
 
 
 /* Line 268 of yacc.c  */
-#line 82 "parser.tab.c"
+#line 83 "parser.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -151,7 +152,7 @@ typedef int YYSTYPE;
 
 
 /* Line 343 of yacc.c  */
-#line 155 "parser.tab.c"
+#line 156 "parser.tab.c"
 
 #ifdef short
 # undef short
@@ -456,11 +457,11 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    21,    21,    22,    25,    26,    27,    30,    33,    34,
-      35,    36,    37,    38,    41,    45,    46,    47,    48,    52,
-      53,    54,    57,    58,    59,    62,    63,    64,    65,    66,
-      69,    70,    71,    74,    75,    79,    80,    83,    84,    87,
-      88,    92,    93,    97,    98,   101
+       0,    22,    22,    23,    26,    27,    28,    31,    34,    35,
+      36,    37,    38,    39,    42,    46,    47,    48,    49,    53,
+      54,    55,    58,    59,    60,    63,    64,    65,    66,    67,
+      70,    71,    72,    75,    76,    80,    81,    84,    85,    88,
+      89,    93,    94,    98,    99,   102
 };
 #endif
 
@@ -1438,196 +1439,203 @@ yyreduce:
         case 3:
 
 /* Line 1806 of yacc.c  */
-#line 22 "parser.y"
+#line 23 "parser.y"
     { parseValue = (yyvsp[(1) - (2)]); }
+    break;
+
+  case 4:
+
+/* Line 1806 of yacc.c  */
+#line 26 "parser.y"
+    { isNumber = 1; }
     break;
 
   case 5:
 
 /* Line 1806 of yacc.c  */
-#line 26 "parser.y"
+#line 27 "parser.y"
     { YYABORT; }
     break;
 
   case 6:
 
 /* Line 1806 of yacc.c  */
-#line 27 "parser.y"
+#line 28 "parser.y"
     { (yyval) = (yyvsp[(2) - (3)]);}
     break;
 
   case 9:
 
 /* Line 1806 of yacc.c  */
-#line 34 "parser.y"
+#line 35 "parser.y"
     { (yyval) = swaddr_read((yyvsp[(2) - (2)]), 4); }
     break;
 
   case 10:
 
 /* Line 1806 of yacc.c  */
-#line 35 "parser.y"
+#line 36 "parser.y"
     { (yyval) = (yyvsp[(2) - (2)]); }
     break;
 
   case 11:
 
 /* Line 1806 of yacc.c  */
-#line 36 "parser.y"
+#line 37 "parser.y"
     { (yyval) = -(yyvsp[(2) - (2)]);}
     break;
 
   case 12:
 
 /* Line 1806 of yacc.c  */
-#line 37 "parser.y"
+#line 38 "parser.y"
     { (yyval) = ~(yyvsp[(2) - (2)]); }
     break;
 
   case 13:
 
 /* Line 1806 of yacc.c  */
-#line 38 "parser.y"
+#line 39 "parser.y"
     { (yyval) = !(yyvsp[(2) - (2)]); }
     break;
 
   case 16:
 
 /* Line 1806 of yacc.c  */
-#line 46 "parser.y"
+#line 47 "parser.y"
     { /* printf("MUL %d %d\n", $1, $3); */ (yyval) = (yyvsp[(1) - (3)]) * (yyvsp[(3) - (3)]); }
     break;
 
   case 17:
 
 /* Line 1806 of yacc.c  */
-#line 47 "parser.y"
+#line 48 "parser.y"
     { /* printf("DIV %d %d\n", $1, $3); */ if ((yyvsp[(3) - (3)]) == 0) { yyerror("Divided by zero!"); YYABORT; } else (yyval) = (yyvsp[(1) - (3)]) / (yyvsp[(3) - (3)]); }
     break;
 
   case 18:
 
 /* Line 1806 of yacc.c  */
-#line 48 "parser.y"
+#line 49 "parser.y"
     { if ((yyvsp[(3) - (3)]) == 0) { yyerror("Divided by zero!"); YYABORT; } else (yyval) = (yyvsp[(1) - (3)]) % (yyvsp[(3) - (3)]); }
     break;
 
   case 20:
 
 /* Line 1806 of yacc.c  */
-#line 53 "parser.y"
+#line 54 "parser.y"
     { /* printf("ADD %d %d\n", $1, $3); */ (yyval) = (yyvsp[(1) - (3)]) + (yyvsp[(3) - (3)]); }
     break;
 
   case 21:
 
 /* Line 1806 of yacc.c  */
-#line 54 "parser.y"
+#line 55 "parser.y"
     { /* printf("SUB %d %d\n", $1, $3); */ (yyval) = (yyvsp[(1) - (3)]) - (yyvsp[(3) - (3)]); }
     break;
 
   case 23:
 
 /* Line 1806 of yacc.c  */
-#line 58 "parser.y"
+#line 59 "parser.y"
     { (yyval) = (yyvsp[(1) - (3)]) << (yyvsp[(3) - (3)]); }
     break;
 
   case 24:
 
 /* Line 1806 of yacc.c  */
-#line 59 "parser.y"
+#line 60 "parser.y"
     { (yyval) = (yyvsp[(1) - (3)]) >> (yyvsp[(3) - (3)]); }
     break;
 
   case 26:
 
 /* Line 1806 of yacc.c  */
-#line 63 "parser.y"
+#line 64 "parser.y"
     { (yyval) = ((yyvsp[(1) - (3)]) < (yyvsp[(3) - (3)])); }
     break;
 
   case 27:
 
 /* Line 1806 of yacc.c  */
-#line 64 "parser.y"
+#line 65 "parser.y"
     { (yyval) = ((yyvsp[(1) - (3)]) > (yyvsp[(3) - (3)])); }
     break;
 
   case 28:
 
 /* Line 1806 of yacc.c  */
-#line 65 "parser.y"
+#line 66 "parser.y"
     { (yyval) = ((yyvsp[(1) - (3)]) <= (yyvsp[(3) - (3)])); }
     break;
 
   case 29:
 
 /* Line 1806 of yacc.c  */
-#line 66 "parser.y"
+#line 67 "parser.y"
     { (yyval) = ((yyvsp[(1) - (3)]) >= (yyvsp[(3) - (3)])); }
     break;
 
   case 31:
 
 /* Line 1806 of yacc.c  */
-#line 70 "parser.y"
+#line 71 "parser.y"
     { (yyval) = ((yyvsp[(1) - (3)]) == (yyvsp[(3) - (3)])); }
     break;
 
   case 32:
 
 /* Line 1806 of yacc.c  */
-#line 71 "parser.y"
+#line 72 "parser.y"
     { (yyval) = ((yyvsp[(1) - (3)]) != (yyvsp[(3) - (3)])); }
     break;
 
   case 34:
 
 /* Line 1806 of yacc.c  */
-#line 75 "parser.y"
+#line 76 "parser.y"
     { (yyval) = (yyvsp[(1) - (3)]) & (yyvsp[(3) - (3)]); }
     break;
 
   case 36:
 
 /* Line 1806 of yacc.c  */
-#line 80 "parser.y"
+#line 81 "parser.y"
     { (yyval) = (yyvsp[(1) - (3)]) ^ (yyvsp[(3) - (3)]); }
     break;
 
   case 38:
 
 /* Line 1806 of yacc.c  */
-#line 84 "parser.y"
+#line 85 "parser.y"
     { (yyval) = (yyvsp[(1) - (3)]) | (yyvsp[(3) - (3)]); }
     break;
 
   case 40:
 
 /* Line 1806 of yacc.c  */
-#line 88 "parser.y"
+#line 89 "parser.y"
     { (yyval) = (yyvsp[(1) - (3)]) && (yyvsp[(3) - (3)]); }
     break;
 
   case 42:
 
 /* Line 1806 of yacc.c  */
-#line 93 "parser.y"
+#line 94 "parser.y"
     { (yyval) = (yyvsp[(1) - (3)]) || (yyvsp[(3) - (3)]); }
     break;
 
   case 44:
 
 /* Line 1806 of yacc.c  */
-#line 98 "parser.y"
+#line 99 "parser.y"
     { (yyval) = (yyvsp[(1) - (5)]) ? (yyvsp[(3) - (5)]) : (yyvsp[(5) - (5)]); }
     break;
 
 
 
 /* Line 1806 of yacc.c  */
-#line 1631 "parser.tab.c"
+#line 1639 "parser.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1858,7 +1866,7 @@ yyreturn:
 
 
 /* Line 2067 of yacc.c  */
-#line 105 "parser.y"
+#line 106 "parser.y"
  
 /*
 int main (int argc, char** argv) {

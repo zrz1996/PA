@@ -778,7 +778,7 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 31 "parser.l"
-{ yylval = accessVariable(yytext, &isVar); if (!isVar) return ERROR; else return NUMBER; }
+{ yylval = accessVariable(yytext, &isVar);  if (!isVar) return ERROR; else return NUMBER; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP

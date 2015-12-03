@@ -49,11 +49,18 @@ static int cmd_si(char *args) {
 	cpu_exec(n);
 	return 0;
 }
+extern int isNumber;
 static int cmd_p(char *args) {
 	bool parseState;
+	isNumber = 0;
 	int v = expr(args, &parseState);
 	if (parseState)
-		printf("%d\n", v);
+	{
+		if (isNumber)
+			printf("0x%x\n", v);
+		else
+			printf("%d\n", v);
+	}
 	return 0;
 }
 static int cmd_info(char *args) {
