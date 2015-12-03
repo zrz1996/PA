@@ -82,13 +82,13 @@ void load_elf_tables(int argc, char *argv[]) {
 }
 int accessVariable(char *str, int *isVar)
 {
-	printf("%s\n", str);
 	int i;
 	*isVar = 0;
 	for (i = 0; i < nr_symtab_entry; i++)
 	{
 		if (symtab[i].st_info != STT_OBJECT)
 			continue;
+		printf("%d\n", symtab[i].st_info);
 		if (strstr(strtab + symtab[i].st_name, str) == (strtab + symtab[i].st_name))
 		{
 			*isVar = 1;
