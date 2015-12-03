@@ -82,6 +82,7 @@ void load_elf_tables(int argc, char *argv[]) {
 }
 int accessVariable(char *str, int *isVar)
 {
+	printf("%s\n", str);
 	int i;
 	*isVar = 0;
 	for (i = 0; i < nr_symtab_entry; i++)
