@@ -47,8 +47,8 @@ static int cmd_bt(char *args) {
 		int i;
 		for (i = 0; i < 4; i++)
 		{
-			pst.args[i] = swaddr_read(tmp_ebp, 1);
-			tmp_ebp += 1;
+			pst.args[i] = swaddr_read(tmp_ebp, 4);
+			tmp_ebp += 4;
 		}
 		const char *fun_name = accessFunction(tmp_eip);
 		if (fun_name == NULL)
