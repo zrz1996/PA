@@ -41,7 +41,7 @@ static int cmd_bt(char *args) {
 	int num = 0;
 	do
 	{
-		swaddr_t tmp_eip = pst.prev_ebp, tmp_ebp = pst.ret_addr;
+		swaddr_t tmp_ebp = pst.prev_ebp, tmp_eip = pst.ret_addr;
 		pst.prev_ebp = swaddr_read(tmp_ebp, 4); tmp_ebp += 4;
 		pst.ret_addr = swaddr_read(tmp_ebp, 4); tmp_ebp += 4;
 		int i;
