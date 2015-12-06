@@ -86,7 +86,7 @@ int accessVariable(char *str, int *isVar)
 	*isVar = 0;
 	for (i = 0; i < nr_symtab_entry; i++)
 	{
-		if (symtab[i].st_info != 17)
+		if ((symtab[i].st_info & 0x0f) != STT_OBJECT)
 			continue;
 		if (strstr(strtab + symtab[i].st_name, str) == (strtab + symtab[i].st_name))
 		{
@@ -97,4 +97,16 @@ int accessVariable(char *str, int *isVar)
 	printf("no such variable\n");
 	*isVar = 0;
 	return 0;
+}
+const char *accessFunction(swaddr_t addr)
+{
+	int i;
+	for (i = 0; i < nr_symtab_entry; i++)
+	{
+		if ((symtab[i].st_info & 0x0f) != STT_FUNC)
+			continue;
+		if (symtab[i].st_value <= addr && symtab[i].st_value + symtab[i].st_size > addr)
+			return strtab + symtab[i].st_name;
+	}
+	return NULL;
 }

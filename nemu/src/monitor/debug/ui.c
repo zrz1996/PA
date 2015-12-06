@@ -26,6 +26,38 @@ char* rl_gets() {
 	return line_read;
 }
 
+const char *accessFunction(swaddr_t addr);
+
+typedef struct {
+	swaddr_t prev_ebp;
+	swaddr_t ret_addr;
+	uint32_t args[4];
+} PartOfStackFrame;
+
+static int cmd_bt(char *args) {
+	PartOfStackFrame pst;
+	pst.prev_ebp = cpu.ebp;
+	pst.ret_addr = cpu.eip;
+	int num = 0;
+	do
+	{
+		swaddr_t tmp_eip = pst.prev_ebp, tmp_ebp = pst.ret_addr;
+		pst.prev_ebp = swaddr_read(tmp_ebp, 4); tmp_ebp += 4;
+		pst.ret_addr = swaddr_read(tmp_ebp, 4); tmp_ebp += 4;
+		int i;
+		for (i = 0; i < 4; i++)
+		{
+			pst.args[i] = swaddr_read(tmp_ebp, 1);
+			tmp_ebp += 1;
+		}
+		const char *fun_name = accessFunction(tmp_eip);
+		if (fun_name == NULL)
+			fun_name = "Unknown";
+		printf("#%0d  0x%08x in %s ( 0x%x, 0x%x, 0x%x, 0x%x )\n", num, tmp_eip, fun_name, pst.args[0], pst.args[1], pst.args[2], pst.args[3]);
+		num++;
+	} while(pst.prev_ebp); 
+	return 0;
+}
 static int cmd_c(char *args) {
 	cpu_exec(-1);
 	return 0;
@@ -153,6 +185,7 @@ static struct {
 	{ "w", "Add watch point", cmd_w},
 	{ "d", "Delete watch point", cmd_d},
 	{ "x", "Scan memory", cmd_x},
+	{ "bt", "Bacetrace", cmd_bt}
 	/* TODO: Add more commands */
 
 };
