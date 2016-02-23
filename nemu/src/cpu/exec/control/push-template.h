@@ -9,7 +9,7 @@ static void do_execute()
 	else
 	{
 		REG(R_ESP) -= 4;
-		printf("%x\n", R_ESP);
+		printf("%x\n", REG(R_ESP));
 	}
 	printf("%x %x\n", REG(R_ESP), op_src->val);
 	MEM_W(REG(R_ESP), op_src->val);
