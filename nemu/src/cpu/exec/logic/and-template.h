@@ -3,7 +3,7 @@
 #define instr and
 
 static void do_execute () {
-	op_src->val = signExtend(op_src->val, 1);
+	op_src->val = (int32_t)signExtend(op_src->val, 1);
 	DATA_TYPE result = op_dest->val & op_src->val;
 	OPERAND_W(op_dest, result);
 	cpu.cf = 0;

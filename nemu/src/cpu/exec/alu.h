@@ -5,7 +5,6 @@
  		ret = (int32_t)((int8_t)ret);\
  	if (size == 2) \
  		ret = (int32_t)((int16_t)ret);\
- 	printf("%x\n", ret);\
  	ret;\
 })
 #define alu(a, b, type, op) \
