@@ -25,7 +25,7 @@
 		cpu.zf = ret == 0; \
 		cpu.sf = ret >> size; \
 		cpu.pf = !(((ret >> 1) ^ (ret >> 2) ^ (ret >> 4)) & 1); \
-		if (_op)\
+		if (!_op)\
 			cpu.of = (signa == signb) && (signa != cpu.sf);\
 		else\
 			cpu.of = (signa != signb) && (signb == cpu.sf);\
