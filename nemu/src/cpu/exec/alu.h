@@ -15,6 +15,8 @@
  	DATA_TYPE _op = (op); \
  	uint32_t ret = 0; \
  	uint32_t size = DATA_BYTE * 8 - 1; \
+ 	uint32_t signa = (a >> size) & 1; \
+ 	uint32_t signb = (b >> size) & 1; \
 	if (_type) \
 	{\
 		if (_op) \
@@ -23,14 +25,11 @@
 		cpu.zf = ret == 0; \
 		cpu.sf = ret >> size; \
 		cpu.pf = !(((ret >> 1) ^ (ret >> 2) ^ (ret >> 4)) & 1); \
-		cpu.of = (s1 >> size) == (s2 >> size) && (((s1 >> size) & 1) != cpu.sf); \
+		if (_op)\
+			cpu.of = (signa == signb) && (signa != cpu.sf);\
+		else\
+			cpu.of = (signa != signb) && (signb == cpu.sf);\
 		cpu.cf ^= (ret < s1 || (ret == s1 && cpu.cf)) ^ _op; \
- 		if (a == 0 && b == 0x80000000) {\
- 			printf("%x\n", ret);\
- 			printf("sf: %d\n", cpu.sf);\
- 			printf("of: %d\n", cpu.of);\
-			printf("%d\n", (s1 >> size) == (s2 >> size) );\
- 		}\
 	}\
 	else \
 	{\
