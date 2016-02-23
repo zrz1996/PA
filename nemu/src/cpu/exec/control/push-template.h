@@ -11,6 +11,7 @@ static void do_execute()
 		REG(R_ESP) -= 4;
 	printf("%x %x\n", REG(R_ESP), op_src->val);
 	MEM_W(REG(R_ESP), op_src->val);
+	printf("%x\n", REG(R_ESP));
 	print_asm_template1();
 }
 make_instr_helper(r)
