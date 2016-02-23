@@ -29,6 +29,7 @@
  			printf("%x\n", ret);\
  			printf("sf: %d\n", cpu.sf);\
  			printf("of: %d\n", cpu.of);\
+			printf("%d\n", (s1 >> size) == (s2 >> size) );\
  		}\
 	}\
 	else \
