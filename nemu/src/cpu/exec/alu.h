@@ -23,7 +23,7 @@
 		cpu.zf = ret == 0; \
 		cpu.sf = (ret >> size) & 1; \
 		cpu.pf = !(((ret >> 1) ^ (ret >> 2) ^ (ret >> 4)) & 1); \
-		cpu.of = (s1 >> size) == (s2 >> size) && ((s1 >> size) != cpu.sf); \
+		cpu.of = (s1 >> size) == (s2 >> size) && (((s1 >> size) & 1) != cpu.sf); \
 		cpu.cf ^= (ret < s1 || (ret == s1 && cpu.cf)) ^ _op; \
 	}\
 	else \
