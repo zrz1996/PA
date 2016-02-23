@@ -53,7 +53,7 @@ clean: clean-cpp
 ##### some convinient rules #####
 
 #USERPROG := obj/testcase/quick-sort
-USERPROG := obj/testcase/min3
+USERPROG := obj/testcase/bits
 ENTRY := $(USERPROG)
 
 entry: $(ENTRY)
