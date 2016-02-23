@@ -22,7 +22,7 @@ int partition(int *a, int p, int q) {
 }
 
 void quick_sort(int *a, int p, int q) {
-	//nemu_assert(q == 1);
+	nemu_assert(q == 1);
 	if(p >= q) return;
 
 	int m = partition(a, p, q);
