@@ -4,7 +4,10 @@
 
 static void do_execute()
 {
-	REG(R_ESP) -= DATA_BYTE;
+	if (DATA_BYTE == 2)
+		REG(R_ESP) -= 2;
+	else
+		REG(R_ESP) -= 4;
 	MEM_W(REG(R_ESP), op_src->val);
 	print_asm_template1();
 }
