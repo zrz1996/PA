@@ -3,7 +3,6 @@
 #define instr cmp
 static void do_execute () {
 	cpu.cf = 0;
-	printf("%x %x\n", op_dest->val, op_src->val);
 	alu(op_dest->val, op_src->val, 1, 1);
 	print_asm_template2();
 }
