@@ -22,9 +22,9 @@ int main() {
 	}
 	*/
 	int i;
-	for (i = 0; i < 4; i++)
+	for (i = 4; i < 8; i++)
 	{
-		nemu_assert(max(test_data[0], test_data[i]) == test_data[i]);
+		nemu_assert(max(test_data[0], test_data[i]) == test_data[0]);
 	}
 	HIT_GOOD_TRAP;
 
