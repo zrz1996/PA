@@ -4,7 +4,7 @@
 
 static void do_execute()
 {
-	printf("%x\n", REG(R_ESP));
+	printf("%d\n", DATA_BYTE);
 	if (DATA_BYTE == 2)
 		REG(R_ESP) -= 2;
 	else
