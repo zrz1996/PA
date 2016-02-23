@@ -22,7 +22,7 @@ int main() {
 	}
 	*/
 	int i;
-	for (i = 4; i < 8; i++)
+	for (i = 4; i < 5; i++)
 	{
 		nemu_assert(max(test_data[0], test_data[i]) == test_data[0]);
 	}
