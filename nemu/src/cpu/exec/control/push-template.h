@@ -5,10 +5,10 @@
 static void do_execute()
 {
 	if (DATA_BYTE == 2)
-		REG(R_ESP) -= 2;
+		reg_l(R_ESP) -= 2;
 	else
-		REG(R_ESP) -= 4;
-	MEM_W(REG(R_ESP), op_src->val);
+		reg_l(R_ESP) -= 4;
+	MEM_W(reg_l(R_ESP), op_src->val);
 	print_asm_template1();
 }
 make_instr_helper(r)
