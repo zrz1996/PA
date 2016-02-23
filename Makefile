@@ -52,8 +52,8 @@ clean: clean-cpp
 
 ##### some convinient rules #####
 
-#USERPROG := obj/testcase/quick-sort
-USERPROG := obj/testcase/bubble-sort
+USERPROG := obj/testcase/quick-sort
+#USERPROG := obj/testcase/bubble-sort
 ENTRY := $(USERPROG)
 
 entry: $(ENTRY)
