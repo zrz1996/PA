@@ -13,19 +13,19 @@ int ans[] = {0, 0x1, 0x2, 0x7fffffff, 0, 0, 0, 0, 0x1, 0x1, 0x2, 0x7fffffff, 0x1
 #define NR_DATA (sizeof(test_data) / sizeof(test_data[0]))
 
 int main() {
-	/*
 	int i, j, ans_idx = 0;
 	for(i = 0; i < NR_DATA; i ++) {
 		for(j = 0; j < NR_DATA; j ++) {
 			nemu_assert(max(test_data[i], test_data[j]) == ans[ans_idx ++]);
 		}
 	}
-	*/
+	/*
 	int i;
 	for (i = 4; i < 5; i++)
 	{
 		nemu_assert(max(test_data[0], test_data[i]) == test_data[0]);
 	}
+	*/
 	HIT_GOOD_TRAP;
 
 	return 0;
