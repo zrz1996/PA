@@ -8,6 +8,7 @@ static void do_execute()
 		REG(R_ESP) -= 2;
 	else
 		REG(R_ESP) -= 4;
+	printf("%x\n", op_src->val);
 	MEM_W(REG(R_ESP), op_src->val);
 	print_asm_template1();
 }
