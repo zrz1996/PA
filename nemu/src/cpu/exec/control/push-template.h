@@ -4,11 +4,13 @@
 
 static void do_execute()
 {
-	printf("%d\n", DATA_BYTE);
 	if (DATA_BYTE == 2)
 		REG(R_ESP) -= 2;
 	else
+	{
 		REG(R_ESP) -= 4;
+		printf("%x\n", R_ESP);
+	}
 	printf("%x %x\n", REG(R_ESP), op_src->val);
 	MEM_W(REG(R_ESP), op_src->val);
 	printf("%x\n", REG(R_ESP));
