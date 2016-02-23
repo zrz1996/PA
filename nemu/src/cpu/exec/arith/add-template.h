@@ -2,7 +2,6 @@
 #include "../alu.h"
 #define instr add
 static void do_execute () {
-	//DATA_TYPE result = op_dest->val & op_src->val;
 	cpu.cf = 0;
 	DATA_TYPE result = alu(op_dest->val, op_src->val, 1, 0);
 	OPERAND_W(op_dest, result);

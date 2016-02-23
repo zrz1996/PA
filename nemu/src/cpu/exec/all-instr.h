@@ -34,8 +34,6 @@
 
 #include "control/call.h"
 #include "control/push.h"
-//#include "control/je.h"
 #include "control/jmp.h"
-//#include "control/jbe.h"
 #include "control/ret.h"
 #include "control/jcc.h"

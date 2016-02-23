@@ -1,4 +1,5 @@
 #include "cpu/exec/helper.h"
+#include "../alu.h"
 
 #define DATA_BYTE 1
 #include "or-template.h"
