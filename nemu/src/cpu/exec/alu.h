@@ -22,10 +22,14 @@
 		ret = (DATA_TYPE)(s1 + s2 + cpu.cf); \
 		cpu.zf = ret == 0; \
 		cpu.sf = ret >> size; \
- 		printf("%x\n", cpu.sf);\
 		cpu.pf = !(((ret >> 1) ^ (ret >> 2) ^ (ret >> 4)) & 1); \
 		cpu.of = (s1 >> size) == (s2 >> size) && (((s1 >> size) & 1) != cpu.sf); \
 		cpu.cf ^= (ret < s1 || (ret == s1 && cpu.cf)) ^ _op; \
+ 		if (a == 0 && b == 0x80000000) {\
+ 			printf("%x\n", ret);\
+ 			printf("sf: %d\n", cpu.sf);\
+ 			printf("of: %d\n", cpu.of);\
+ 		}\
 	}\
 	else \
 	{\
