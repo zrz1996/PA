@@ -20,9 +20,9 @@
 		if (_op) \
 			s2 = ~s2 + 1; \
 		ret = (DATA_TYPE)(s1 + s2 + cpu.cf); \
- 		if (a == 0 && b == 0x80000000) printf("%x\n", ret);\
 		cpu.zf = ret == 0; \
 		cpu.sf = ret >> size; \
+ 		printf("%x\n", cpu.sf);\
 		cpu.pf = !(((ret >> 1) ^ (ret >> 2) ^ (ret >> 4)) & 1); \
 		cpu.of = (s1 >> size) == (s2 >> size) && ((s1 >> size) != cpu.sf); \
 		cpu.cf ^= (ret < s1 || (ret == s1 && cpu.cf)) ^ _op; \
