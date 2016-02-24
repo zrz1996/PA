@@ -53,7 +53,7 @@ clean: clean-cpp
 ##### some convinient rules #####
 
 #USERPROG := obj/testcase/quick-sort
-USERPROG := obj/testcase/matrix-mul-small
+USERPROG := obj/testcase/matrix-mul
 ENTRY := $(USERPROG)
 
 entry: $(ENTRY)
