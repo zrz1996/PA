@@ -26,8 +26,8 @@ int main() {
 	nemu_assert(A[4] == 4);
 	nemu_assert(b == 3);
 	nemu_assert(A[5] == 3);
-	/*
 	nemu_assert(C[1] == 0xffffff80);
+	/*
 	nemu_assert(A[0] == 0xffffff80);
 	*/
 	HIT_GOOD_TRAP;
