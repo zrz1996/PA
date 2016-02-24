@@ -3,13 +3,12 @@
 #define instr movzx
 
 static void do_execute() {
-	printf("%d\n", (uint8_t)op_src->val);
 	if (ops_decoded.opcode == 0xb6)
 	{
 		if (DATA_BYTE == 2)
-			OPERAND_W(op_dest, (uint16_t)((uint8_t)op_src->val));
+			OPERAND_W(op_dest, (uint8_t)op_src->val);
 		else
-			OPERAND_W(op_dest, (uint32_t)((uint8_t)op_src->val));
+			OPERAND_W(op_dest, ((uint8_t)op_src->val));
 	}
 	else
 		OPERAND_W(op_dest, (uint32_t)((uint16_t)op_src->val));
