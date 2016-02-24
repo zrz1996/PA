@@ -12,11 +12,11 @@ make_helper(cltq) {
 	}
 	else
 	{
-		if (reg_l(R_EAX) < 0)
+		if ((int32_t)reg_l(R_EAX) < 0)
 			reg_l(R_EDX) = 0xffffffff;
 		else
 			reg_l(R_EDX) = 0;
-		printf("%d\n", reg_l(R_EAX) < 0);
+		printf("%d\n", reg_l(R_EDX));
 	}
 	print_asm("cltq");
 	return 1;
