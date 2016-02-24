@@ -15,6 +15,7 @@
 #include "arith/idiv.h"
 #include "arith/div.h"
 #include "arith/sub.h"
+#include "arith/sbb.h"
 #include "arith/add.h"
 #include "arith/adc.h"
 #include "arith/cmp.h"
