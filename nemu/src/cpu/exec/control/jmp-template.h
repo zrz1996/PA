@@ -6,7 +6,7 @@ static void do_execute()
 {
 	if (ops_decoded.opcode == 0xff)
 	{
-		cpu.eip = op_src->val;
+		cpu.eip = swaddr_read(op_src->val, 4);
 		if (DATA_BYTE == 2)
 			cpu.eip &= 0x0000ffff;
 	}
