@@ -16,9 +16,9 @@ int main() {
 	nemu_assert(C[0] == 'a');
 	C[1] = C[0];
 	nemu_assert(C[1] == 'a');
-	/*
 	A[0] = (int)C[0];
 	nemu_assert(A[0] == 'a');
+	/*
 	C[1] = 0x80;
 	A[0] = (int)C[1];
 	nemu_assert(A[1] == 1);
