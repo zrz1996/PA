@@ -3,8 +3,7 @@
 #define instr movsx
 
 static void do_execute() {
-	printf("%x\n", ops_decoded.opcode);
-	if (ops_decoded.opcode == 0xbe)
+	if (ops_decoded.opcode == 0x1be)
 	{
 		if (DATA_BYTE == 2)
 			OPERAND_W(op_dest, (int16_t)((int8_t)op_src->val));

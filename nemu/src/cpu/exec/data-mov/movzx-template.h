@@ -3,7 +3,6 @@
 #define instr movzx
 
 static void do_execute() {
-	printf("%x\n", ops_decoded.opcode);
 	if (ops_decoded.opcode == 0x1b6)
 	{
 		if (DATA_BYTE == 2)
