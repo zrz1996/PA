@@ -3,6 +3,7 @@
 #define instr movsx
 
 static void do_execute() {
+	printf("%x\n", ops_decoded.opcode);
 	if (ops_decoded.opcode == 0xbe)
 	{
 		if (DATA_BYTE == 2)

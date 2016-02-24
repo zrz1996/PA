@@ -4,7 +4,7 @@
 
 static void do_execute() {
 	printf("%x\n", ops_decoded.opcode);
-	if (ops_decoded.opcode == 0xb6)
+	if (ops_decoded.opcode == 0x1b6)
 	{
 		if (DATA_BYTE == 2)
 			OPERAND_W(op_dest, (uint16_t)((uint8_t)op_src->val));
