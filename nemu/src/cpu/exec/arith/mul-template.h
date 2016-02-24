@@ -5,7 +5,6 @@
 static void do_execute() {
 	uint64_t src = op_src->val;
 	uint64_t result = REG(R_EAX) * src;
-	printf("%u\n", REG(R_EAX));
 #if DATA_BYTE == 1
 	reg_w(R_AX) = result;
 #elif DATA_BYTE == 2
