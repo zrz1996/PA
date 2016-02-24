@@ -3,8 +3,8 @@
 #define instr dec
 
 static void do_execute () {
-	DATA_TYPE result = op_src->val - 1;
-	//DATA_TYPE result = alu(op_src, 1, 1, 1);
+	//DATA_TYPE result = op_src->val - 1;
+	DATA_TYPE result = alu(op_src->val, 1, 1, 1);
 	OPERAND_W(op_src, result);
 	print_asm_template1();
 }

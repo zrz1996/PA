@@ -3,12 +3,9 @@
 #define instr inc
 
 static void do_execute () {
-	DATA_TYPE result = op_src->val + 1;
+	//DATA_TYPE result = op_src->val + 1;
+	DATA_TYPE result = alu(op_src->val, 1, 1, 0);
 	OPERAND_W(op_src, result);
-
-	/* TODO: Update EFLAGS. */
-	panic("please implement me");
-
 	print_asm_template1();
 }
 
