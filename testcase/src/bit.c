@@ -36,6 +36,7 @@ int main() {
 	*/
 	set_bp();
 	setbit(buf, 8, 1);
+	/*
 	setbit(buf, 9, 0);
 	setbit(buf, 10, 1);
 	setbit(buf, 11, 0);
@@ -44,6 +45,8 @@ int main() {
 	setbit(buf, 14, 1);
 	setbit(buf, 15, 0);
 	nemu_assert(buf[1] == 0x55);
+	*/
+	nemu_assert(buf[1] == 1);
 	HIT_GOOD_TRAP;
 	return 0;
 }
