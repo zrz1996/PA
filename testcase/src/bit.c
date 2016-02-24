@@ -11,6 +11,7 @@ bool getbit(void *buf, int offset){
 }
 
 void setbit(void *buf, int offset, bool bit){
+	nemu_assert(offset == 8);
 	int byte = offset >> 3;
 	offset &= 7;
 	uint8_t mask = 1 << offset;

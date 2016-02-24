@@ -41,7 +41,7 @@
 		cpu.cf = 0; \
 		cpu.of = 0; \
 		cpu.pf = !(((ret >> 1) ^ (ret >> 2) ^ (ret >> 4)) & 1); \
-		cpu.sf = (ret >> size) & 1; \
+		cpu.sf = ret >> size; \
 	}\
  	ret; \
 })
