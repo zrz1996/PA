@@ -11,7 +11,6 @@ bool getbit(void *buf, int offset){
 }
 
 void setbit(void *buf, int offset, bool bit){
-	nemu_assert(offset == 8);
 	int byte = offset >> 3;
 	offset &= 7;
 	uint8_t mask = 1 << offset;
@@ -25,7 +24,6 @@ int main() {
 
 	buf[0] = 0xaa; 
 	nemu_assert(getbit(buf, 0) == 0);
-	/*
 	nemu_assert(getbit(buf, 1) == 1);
 	nemu_assert(getbit(buf, 2) == 0);
 	nemu_assert(getbit(buf, 3) == 1);
@@ -33,11 +31,7 @@ int main() {
 	nemu_assert(getbit(buf, 5) == 1);
 	nemu_assert(getbit(buf, 6) == 0);
 	nemu_assert(getbit(buf, 7) == 1);
-	nemu_assert(0 + 0 == 0);
-	*/
-	set_bp();
 	setbit(buf, 8, 1);
-	/*
 	setbit(buf, 9, 0);
 	setbit(buf, 10, 1);
 	setbit(buf, 11, 0);
@@ -46,8 +40,6 @@ int main() {
 	setbit(buf, 14, 1);
 	setbit(buf, 15, 0);
 	nemu_assert(buf[1] == 0x55);
-	*/
-	nemu_assert(buf[1] == 1);
 	HIT_GOOD_TRAP;
 	return 0;
 }
