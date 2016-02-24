@@ -11,6 +11,7 @@ long long ans[] = {0LL, 0x1LL, 0x2LL, 0x7fffffffffffffffLL, 0x8000000000000000LL
 #define NR_DATA (sizeof(test_data) / sizeof(test_data[0]))
 
 int main() {
+	nemu_assert(add(test_data[0], test_data[0]) == ans[0]);
 	nemu_assert(add(test_data[0], test_data[1]) == ans[1]);
 	/*
 	int i, j, ans_idx = 0;
