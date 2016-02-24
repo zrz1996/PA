@@ -4,7 +4,7 @@
 
 static void do_execute()
 {
-	DATA_TYPE temp = reg_l(R_ESP);
+	DATA_TYPE temp = swaddr_read(reg_l(R_ESP), DATA_BYTE);
 	OPERAND_W(op_src, temp);
 	reg_l(R_ESP) += DATA_BYTE;
 	print_asm_template1();
