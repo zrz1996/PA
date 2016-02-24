@@ -16,7 +16,7 @@ make_helper(cltq) {
 			reg_l(R_EDX) = 0xffffffff;
 		else
 			reg_l(R_EDX) = 0;
-		printf("%d\n", reg_l(R_EAX));
+		printf("%d\n", reg_l(R_EAX) < 0);
 	}
 	print_asm("cltq");
 	return 1;
