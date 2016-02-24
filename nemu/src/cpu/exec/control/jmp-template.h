@@ -6,7 +6,7 @@ static void do_execute()
 {
 	if (ops_decoded.opcode == 0xff)
 	{
-		cpu.eip = op_src->val;
+		cpu.eip = op_src->val - 2;
 		printf("%x\n", cpu.eip);
 	}
 	else
