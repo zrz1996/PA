@@ -5,6 +5,7 @@
 static void do_execute() {
 	if (ops_decoded.opcode == 0xb6)
 	{
+		printf("%d\n", DATA_BYTE);
 		if (DATA_BYTE == 2)
 			OPERAND_W(op_dest, (uint8_t)op_src->val);
 		else
