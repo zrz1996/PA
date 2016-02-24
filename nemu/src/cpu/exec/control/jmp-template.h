@@ -1,7 +1,6 @@
 #include "cpu/exec/template-start.h"
 
 #define instr jmp
-/*
 static void do_execute()
 {
 	if (ops_decoded.opcode == 0xff)
@@ -15,8 +14,8 @@ static void do_execute()
 	print_asm_template1();
 }
 make_instr_helper(i)
-make_instr_helper(rm)
-*/
+//make_instr_helper(rm)
+/*
 make_helper(concat(jmp_i_, SUFFIX)) {
 	concat(decode_i_, SUFFIX)(eip + 1);
 	cpu.eip += op_src->val;
@@ -25,6 +24,7 @@ make_helper(concat(jmp_i_, SUFFIX)) {
 	print_asm_template1();
 	return 0;
 }
+*/
 make_helper(concat(jmp_rm_, SUFFIX)) {
 	concat(decode_rm_, SUFFIX)(eip + 1);
 	cpu.eip = op_src->val;
