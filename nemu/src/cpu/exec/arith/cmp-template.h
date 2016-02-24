@@ -2,8 +2,16 @@
 #include "../alu.h"
 #define instr cmp
 static void do_execute () {
+	DATA_TYPE result = op_src->val;
+	if (ops_decoded.opcode == 0x83)
+	{
+		if (DATA_BYTE == 2)
+			result = (int16_t)((int8_t)op_src->val);
+		else
+			result = (int32_t)((int8_t)op_src->val);
+	}
 	cpu.cf = 0;
-	alu(op_dest->val, op_src->val, 1, 1);
+	alu(op_dest->val, result, 1, 1);
 	print_asm_template2();
 }
 
