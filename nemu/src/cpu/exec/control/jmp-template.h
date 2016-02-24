@@ -7,15 +7,12 @@ static void do_execute()
 	if (ops_decoded.opcode == 0xff)
 	{
 		cpu.eip = op_src->val;
-		if (DATA_BYTE == 2)
-			cpu.eip &= 0x0000ffff;
+		printf("%x\n", cpu.eip);
 	}
 	else
-	{
 		cpu.eip += op_src->val;
-		if (DATA_BYTE == 2)
-			cpu.eip &= 0x0000ffff;
-	}
+	if (DATA_BYTE == 2)
+		cpu.eip &= 0x0000ffff;
 	print_asm_template1();
 }
 make_instr_helper(i)
