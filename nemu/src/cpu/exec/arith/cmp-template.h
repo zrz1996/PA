@@ -29,7 +29,7 @@ make_helper(concat(cmp_i2a_, SUFFIX)) {
 	op_dest->val = REG(R_EAX);
 	snprintf(op_dest->str, OP_STR_SIZE, "%%%s", REG_NAME(R_EAX));
 	do_execute();
-	return 2;
+	return DATA_BYTE + 1;
 }
 
 #include "cpu/exec/template-end.h"
