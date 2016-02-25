@@ -231,10 +231,10 @@ arith_test:
   mov $0x12, %al
   add $0xef, %al
   call test_cf
-  HIT_GOOD_TRAP
   mov $2147420000, %ecx
   add $100000, %ecx
   call test_of
+  HIT_GOOD_TRAP
   mov $0xffff0000, %ecx
   add $0x10000, %ecx
   call test_zf
