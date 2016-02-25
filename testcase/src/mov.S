@@ -237,11 +237,11 @@ arith_test:
   mov $0xffff0000, %ecx
   add $0x10000, %ecx
   call test_zf
-  HIT_GOOD_TRAP
   // sub
   mov $0, %eax
   sub $1, %eax
   call test_cf
+  HIT_GOOD_TRAP
   mov $0x7fffffff, %eax
   sub $0xffffffff, %eax
   call test_of
