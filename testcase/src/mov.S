@@ -307,7 +307,6 @@ arith_test:
   jne bad
   cmp $-1781136, %eax
   jne bad
-  HIT_GOOD_TRAP
   // neg
   mov $12345678, %eax
   lea -1(%eax), %ecx
@@ -315,6 +314,7 @@ arith_test:
   neg %eax
   cmp %eax, %ecx
   jne bad
+  HIT_GOOD_TRAP
   ret
 
 test_cf:
