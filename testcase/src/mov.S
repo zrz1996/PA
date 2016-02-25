@@ -260,7 +260,6 @@ arith_test:
   mov $0xffffffff, %eax
   adc $1, %eax
   call test_zf
-  HIT_GOOD_TRAP
   // sbb
   mov $0, %eax
   call set_cf
@@ -268,6 +267,7 @@ arith_test:
   call test_cf
   cmp $0xffffffff, %eax
   jne bad
+  HIT_GOOD_TRAP
   // inc
   mov $0x7fff, %ax
   inc %ax
