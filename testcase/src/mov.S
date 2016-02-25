@@ -86,11 +86,13 @@ logic_test:
   xor %edx, %eax
   cmp $0xece8ece8, %eax
   jne bad
+  /*
   // shrd
   mov %ecx, %eax
   shrd %cl, %edx, %eax
   cmp $0xdcba9012, %eax
   jne bad
+  */
   // sar
   sar $4, %eax
   cmp $0xfdcba901, %eax
