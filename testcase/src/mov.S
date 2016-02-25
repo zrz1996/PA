@@ -231,6 +231,7 @@ arith_test:
   mov $0x12, %al
   add $0xef, %al
   call test_cf
+  HIT_GOOD_TRAP
   mov $2147420000, %ecx
   add $100000, %ecx
   call test_of
@@ -314,7 +315,6 @@ arith_test:
   neg %eax
   cmp %eax, %ecx
   jne bad
-  HIT_GOOD_TRAP
   ret
 
 test_cf:
