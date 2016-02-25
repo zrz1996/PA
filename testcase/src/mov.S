@@ -71,7 +71,6 @@ logic_test:
   and %edx, %eax
   cmp $0x12141210, %eax
   jne bad
-  HIT_GOOD_TRAP
   // or
   mov %ecx, %eax
   or %edx, %eax
@@ -87,6 +86,7 @@ logic_test:
   xor %edx, %eax
   cmp $0xece8ece8, %eax
   jne bad
+  HIT_GOOD_TRAP
   // shrd
   mov %ecx, %eax
   shrd %cl, %edx, %eax
