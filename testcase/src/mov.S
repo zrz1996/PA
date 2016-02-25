@@ -12,7 +12,6 @@ start:
   jmp loop_test
 loop_main:
   call string_test
-  HIT_GOOD_TRAP
   call arith_test
   call ctrl_trans_test
   call logic_test
@@ -41,6 +40,7 @@ string_test:
   jne bad
   cmpw $0x0605, 0x22345a
   jne bad
+  HIT_GOOD_TRAP
   // stos
   mov $0x04, %ax
   mov $0x223456, %edi
