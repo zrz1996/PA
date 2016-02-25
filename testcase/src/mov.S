@@ -314,6 +314,7 @@ arith_test:
   neg %eax
   cmp %eax, %ecx
   jne bad
+  HIT_GOOD_TRAP
   ret
 
 test_cf:
