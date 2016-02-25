@@ -86,6 +86,7 @@ logic_test:
   xor %edx, %eax
   cmp $0xece8ece8, %eax
   jne bad
+  HIT_GOOD_TRAP
   /*
   // shrd
   mov %ecx, %eax
@@ -97,7 +98,6 @@ logic_test:
   sar $4, %eax
   cmp $0xfdcba901, %eax
   jne bad
-  HIT_GOOD_TRAP
   // shr
   shr $4, %eax
   cmp $0x0fdcba90, %eax
