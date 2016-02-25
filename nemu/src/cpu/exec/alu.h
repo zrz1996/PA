@@ -29,7 +29,7 @@
 			cpu.of = (signa == signb) && (signa != cpu.sf);\
 		else\
 			cpu.of = (signa != signb) && (signb == cpu.sf);\
-		cpu.cf ^= (ret < s1 || (ret == s1 && cpu.cf)); \
+		cpu.cf ^= (ret < s1 || (ret == s1 && cpu.cf)) ^ _op; \
 	}\
 	else \
 	{\
