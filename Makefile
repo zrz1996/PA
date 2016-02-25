@@ -54,7 +54,8 @@ clean: clean-cpp
 
 #USERPROG := obj/testcase/quick-sort
 USERPROG := obj/testcase/integral
-ENTRY := $(USERPROG)
+#ENTRY := $(USERPROG)
+ENTRY := $(kernel_BIN)
 
 entry: $(ENTRY)
 	objcopy -S -O binary $(ENTRY) entry
