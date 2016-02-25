@@ -53,7 +53,7 @@ clean: clean-cpp
 ##### some convinient rules #####
 
 #USERPROG := obj/testcase/string
-USERPROG := obj/testcase/to-lower-case
+USERPROG := obj/testcase/switch
 ENTRY := $(USERPROG)
 #ENTRY := $(kernel_BIN)
 
