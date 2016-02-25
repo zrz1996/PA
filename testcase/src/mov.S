@@ -267,7 +267,6 @@ arith_test:
   call test_cf
   cmp $0xffffffff, %eax
   jne bad
-  HIT_GOOD_TRAP
   // inc
   mov $0x7fff, %ax
   inc %ax
@@ -277,6 +276,7 @@ arith_test:
   call test_of
   cmp $0x7fff, %ax
   jne bad
+  HIT_GOOD_TRAP
   // mul
   mov $1010101, %eax
   mov $808808808, %ecx
