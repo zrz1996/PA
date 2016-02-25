@@ -227,6 +227,7 @@ ret_test0:
   ret
 
 arith_test:
+/*
   // add
   mov $0x12, %al
   add $0xef, %al
@@ -247,6 +248,7 @@ arith_test:
   mov $0xffffffff, %eax
   sub $0xffffffff, %eax
   call test_zf
+  */
   mov $0, %edx
   sub $0xffffffff, %edx
   call test_pf
