@@ -23,6 +23,9 @@ int main() {
 	for(i = 0; i < 15; i ++) {
 		nemu_assert(switch_case(i - 1) == ans[i]);
 	}
+
+	nemu_assert(i == 15);
+
 	HIT_GOOD_TRAP;
 
 	return 0;
