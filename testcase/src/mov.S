@@ -12,6 +12,7 @@ start:
   jmp loop_test
 loop_main:
   call arith_test
+  HIT_GOOD_TRAP
   call ctrl_trans_test
   call data_trans_test
   call logic_test
@@ -314,7 +315,6 @@ arith_test:
   neg %eax
   cmp %eax, %ecx
   jne bad
-  HIT_GOOD_TRAP
   ret
 
 test_cf:
