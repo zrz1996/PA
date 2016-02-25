@@ -249,10 +249,10 @@ arith_test:
   sub $0xffffffff, %eax
   call test_zf
   mov $0, %edx
+  */
   sub $0xffffffff, %edx
   call test_pf
   HIT_GOOD_TRAP
-  */
   // adc
   call set_cf
   mov $0xffffffff, %eax
