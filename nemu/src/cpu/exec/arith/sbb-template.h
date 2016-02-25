@@ -5,7 +5,6 @@ static void do_execute () {
 	DATA_TYPE result = alu(op_src->val, 0, 1, 0);
 	cpu.cf = 0;
 	result = alu(op_dest->val, result, 1, 1);
-	printf("%d\n", result);
 	OPERAND_W(op_dest, result);
 	print_asm_template2();
 }
