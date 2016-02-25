@@ -24,7 +24,9 @@
 		ret = (DATA_TYPE)(s1 + s2 + cpu.cf); \
 		cpu.zf = ret == 0; \
 		cpu.sf = ret >> size; \
-		cpu.pf = !(((ret >> 1) ^ (ret >> 2) ^ (ret >> 4)) & 1); \
+ 		cpu.pf = ret ^ (ret >> 1) ^ (ret >> 2) ^ (ret >> 3) ^ (ret >> 4); \
+		cpu.pf ^= (ret >> 5) ^ (ret >> 6) ^ (ret >> 7); \
+		cpu.pf = !(cpu.pf & 1); \
 		if (!_op)\
 			cpu.of = (signa == signb) && (signa != cpu.sf);\
 		else\
@@ -42,7 +44,9 @@
 		cpu.zf = ret == 0; \
 		cpu.cf = 0; \
 		cpu.of = 0; \
-		cpu.pf = !(((ret >> 1) ^ (ret >> 2) ^ (ret >> 4)) & 1); \
+ 		cpu.pf = ret ^ (ret >> 1) ^ (ret >> 2) ^ (ret >> 3) ^ (ret >> 4); \
+		cpu.pf ^= (ret >> 5) ^ (ret >> 6) ^ (ret >> 7); \
+		cpu.pf = !(cpu.pf & 1); \
 		cpu.sf = ret >> size; \
 	}\
  	ret; \
