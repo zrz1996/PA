@@ -30,7 +30,7 @@
 		else\
 			cpu.of = (signa != signb) && (signb == cpu.sf);\
 		cpu.cf = (ret < s1 || (ret == s1 && cpu.cf)); \
-		if (_op && ret)\
+		if (_op && s2)\
 			cpu.cf ^= _op;\
 	}\
 	else \
