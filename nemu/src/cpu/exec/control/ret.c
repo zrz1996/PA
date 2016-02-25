@@ -19,9 +19,9 @@ make_helper(ret) {
 
 make_helper(ret_i_w) {
 	decode_i_w(cpu.eip + 1);
-	cpu.eip = swaddr_read(reg_l(R_ESP), 4);
+	cpu.eip = swaddr_read(reg_l(R_ESP), 4) - 3;
 	reg_l(R_ESP) += 4 + op_src->val;
 	print_asm("ret %s", op_src->str);
-	return 2;
+	return 3;
 }
 
