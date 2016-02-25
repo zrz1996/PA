@@ -163,7 +163,7 @@ make_instr_helper(i)
 #define instr jnbe
 static void do_execute()
 {
-	if (cpu.zf == 0 || cpu.cf == 0)
+	if (cpu.zf == 0 && cpu.cf == 0)
 		cpu.eip += signExtend(op_src->val, DATA_BYTE);
 	print_asm_template1();
 }
