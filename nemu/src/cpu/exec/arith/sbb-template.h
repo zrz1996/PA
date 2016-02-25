@@ -2,9 +2,7 @@
 #include "../alu.h"
 #define instr sbb
 static void do_execute () {
-	int t = cpu.cf;
-	DATA_TYPE result = alu(op_src->val, t, 1, 0);
-	printf("%d %d\n", op_src->val, result);
+	DATA_TYPE result = alu(op_src->val, 0, 1, 0);
 	cpu.cf = 0;
 	result = alu(op_dest->val, result, 1, 1);
 	printf("%d\n", result);
