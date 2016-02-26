@@ -17,9 +17,9 @@ static void do_execute () {
 		count --;
 	}
 	*/
-	int size = (DATA_BYTE << 3) - 1;
+	int size = DATA_BYTE << 3;
 	int i;
-	for (i = size; i >= count; i--)
+	for (i = size - 1; i >= count; i--)
 	{
 
 		uint32_t temp = ((out >> (i - count)) & 1) << i;
