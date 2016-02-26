@@ -50,7 +50,6 @@ string_test:
   jne bad
   cmpl $0x04040404, 0x223456
   jne bad
-  HIT_GOOD_TRAP
   cmpw $0x0404, 0x22345a
   jne bad
   // cmps
