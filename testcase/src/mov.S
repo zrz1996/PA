@@ -11,8 +11,8 @@ start:
   mov $30769, %eax // test for 10000000 instrs
   jmp loop_test
 loop_main:
-  call logic_test
   call string_test
+  call logic_test
   call arith_test
   call ctrl_trans_test
   call data_trans_test
@@ -40,6 +40,7 @@ string_test:
   jne bad
   cmpw $0x0605, 0x22345a
   jne bad
+  HIT_GOOD_TRAP
   // stos
   mov $0x04, %ax
   mov $0x223456, %edi
@@ -86,14 +87,11 @@ logic_test:
   xor %edx, %eax
   cmp $0xece8ece8, %eax
   jne bad
-  HIT_GOOD_TRAP
-  /*
   // shrd
   mov %ecx, %eax
   shrd %cl, %edx, %eax
   cmp $0xdcba9012, %eax
   jne bad
-  */
   // sar
   sar $4, %eax
   cmp $0xfdcba901, %eax

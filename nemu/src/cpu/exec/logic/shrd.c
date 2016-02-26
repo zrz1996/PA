@@ -14,3 +14,4 @@
 
 /* for instruction encoding overloading */
 make_helper_v(shrd_i)
+make_helper_v(shrd_r2rm_cl)

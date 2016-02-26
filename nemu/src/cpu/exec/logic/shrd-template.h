@@ -21,10 +21,16 @@ static void do_execute () {
 	print_asm("shrd" str(SUFFIX) " %s,%s,%s", op_src->str, op_dest->str, op_src2->str);
 }
 
+
 make_helper(concat(shrd_i_, SUFFIX)) {
 	int len = concat(decode_si_rm2r_, SUFFIX) (eip + 1);  /* use decode_si_rm2r to read 1 byte immediate */
 	op_dest->val = REG(op_dest->reg);
 	do_execute();
+	return len + 1;
+}
+
+make_helper(concat(shrd_r2rm_cl_, SUFFIX)) {
+	int len = concat(decode_rm2r_, SUFFIX)(eip + 1);
 	return len + 1;
 }
 #endif
