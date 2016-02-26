@@ -122,7 +122,6 @@ data_trans_test:
   cwtl
   cmp $0xfffff001, %eax
   jne bad
-  HIT_GOOD_TRAP
   // cltd
   mov $0xff, %edx
   mov $1, %eax
@@ -173,6 +172,7 @@ data_trans_test:
   jne bad
   cmp %edx, %ecx
   jne bad
+  HIT_GOOD_TRAP
   ret
 test_leave:
   push %ebp
