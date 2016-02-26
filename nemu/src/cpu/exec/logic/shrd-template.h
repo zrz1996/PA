@@ -31,6 +31,7 @@ make_helper(concat(shrd_i_, SUFFIX)) {
 
 make_helper(concat(shrd_r2rm_cl_, SUFFIX)) {
 	int len = concat(decode_rm2r_, SUFFIX)(eip + 1);
+	*(op_src2) = *(op_src);
 	return len + 1;
 }
 #endif
