@@ -9,7 +9,7 @@ make_helper(concat(cwtl_, SUFFIX)) {
 	}
 	else
 	{
-		reg_l(R_EAX) = (int32_t)((int16_t)reg_b(R_AX));
+		reg_l(R_EAX) = (int32_t)((int16_t)reg_w(R_AX));
 	}
 	if (DATA_BYTE == 2)
 		print_asm("cbtw");
