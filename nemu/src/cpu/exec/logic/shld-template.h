@@ -28,7 +28,7 @@ static void do_execute () {
 	}
 	for (i = count - 1; i >= 0; i--)
 	{
-		uint32_t temp = (in >> (i - count + size)) << i;
+		uint32_t temp = (in >> (i - count + size) & 1) << i;
 		out |= temp;
 		out &= temp;
 	}
