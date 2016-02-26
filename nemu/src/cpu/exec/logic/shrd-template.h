@@ -32,6 +32,13 @@ make_helper(concat(shrd_i_, SUFFIX)) {
 make_helper(concat(shrd_r2rm_cl_, SUFFIX)) {
 	int len = concat(decode_rm2r_, SUFFIX)(eip + 1);
 	*(op_src2) = *(op_src);
+	op_src->type = OP_TYPE_REG;
+	op_src->reg = R_CL;
+	op_src->val = reg_b(R_CL);
+#ifdef DEBUG
+	sprintf(op_src->str, "%%cl");
+#endif
+	do_execute();
 	return len + 1;
 }
 #endif
