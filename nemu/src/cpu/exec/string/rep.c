@@ -28,7 +28,6 @@ make_helper(rep) {
 			if (ops_decoded.opcode == 0xa6 || ops_decoded.opcode == 0xa7
 				|| ops_decoded.opcode == 0xae || ops_decoded.opcode == 0xaf)
 			{
-				printf("%x %d\n", ops_decoded.opcode, cpu.zf);
 				if ((rep_code == 0xf3 && cpu.zf == 0) || (rep_code == 0xf2 && cpu.zf == 1))
 					break;
 			}
