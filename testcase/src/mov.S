@@ -48,11 +48,11 @@ string_test:
   rep stosb
   cmp $0x22345c, %edi
   jne bad
+  HIT_GOOD_TRAP
   cmpl $0x04040404, 0x223456
   jne bad
   cmpw $0x0404, 0x22345a
   jne bad
-  HIT_GOOD_TRAP
   // cmps
   mov $5, %ecx
   mov $0x123456, %esi
