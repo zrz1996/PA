@@ -15,26 +15,7 @@ static void do_execute () {
 		in <<= 1;
 		count --;
 	}
-	/*
-	int size = DATA_BYTE << 3;
-	int i;
-	printf("%x %x %d %d\n", out, in, count, size);
-	for (i = size - 1; i >= count; i--)
-	{
-
-		uint32_t temp = ((out >> (i - count)) & 1) << i;
-		out |= temp;
-		out &= temp;
-	}
-	for (i = count - 1; i >= 0; i--)
-	{
-		uint32_t temp = (in >> (i - count + size) & 1) << i;
-		out |= temp;
-		out &= temp;
-	}
-	*/
 	OPERAND_W(op_src2, out);
-	printf("%s %x %x\n", op_src2->str, op_src2->val, out);
 	print_asm("shld" str(SUFFIX) " %s,%s,%s", op_src->str, op_dest->str, op_src2->str);
 }
 

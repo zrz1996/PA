@@ -103,7 +103,6 @@ logic_test:
   shld $4, %edx, %eax
   cmp $0xfdcba90f, %eax
   jne bad
-  HIT_GOOD_TRAP
   // shl
   shl $8, %eax
   cmp $0xcba90f00, %eax
@@ -115,6 +114,7 @@ logic_test:
   sets %al
   cmp $1, %al
   jne bad
+  HIT_GOOD_TRAP
   ret
 
 data_trans_test:
