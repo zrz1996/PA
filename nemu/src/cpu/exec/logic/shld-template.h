@@ -19,6 +19,7 @@ static void do_execute () {
 	*/
 	int size = DATA_BYTE << 3;
 	int i;
+	printf("%x %x %d %d\n", out, in, count, size);
 	for (i = size - 1; i >= count; i--)
 	{
 
