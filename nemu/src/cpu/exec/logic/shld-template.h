@@ -33,7 +33,7 @@ static void do_execute () {
 		out &= temp;
 	}
 	OPERAND_W(op_src2, out);
-
+	printf("%x\n", op_src2->val);
 	print_asm("shld" str(SUFFIX) " %s,%s,%s", op_src->str, op_dest->str, op_src2->str);
 }
 
