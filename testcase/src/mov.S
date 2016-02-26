@@ -38,9 +38,9 @@ string_test:
   rep movsw
   cmpl $0x04030201, 0x223456
   jne bad
+  HIT_GOOD_TRAP
   cmpw $0x0605, 0x22345a
   jne bad
-  HIT_GOOD_TRAP
   // stos
   mov $0x04, %ax
   mov $0x223456, %edi
