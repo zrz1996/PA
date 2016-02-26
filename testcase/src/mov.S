@@ -12,6 +12,7 @@ start:
   jmp loop_test
 loop_main:
   call string_test
+  HIT_GOOD_TRAP
   call logic_test
   call arith_test
   call ctrl_trans_test
@@ -61,7 +62,6 @@ string_test:
   repne cmpsb
   cmp $2, %ecx
   jne bad
-  HIT_GOOD_TRAP
   ret
 
 logic_test:
