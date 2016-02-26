@@ -9,14 +9,13 @@ static void do_execute () {
 
 	uint8_t count = op_src->val;
 	count &= 0x1f;
-	/*
 	while(count != 0) {
 		out <<= 1;
-		out |= (in & 1) << ((DATA_BYTE << 3) - 1);
+		out |= (in >> ((DATA_BYTE << 3) - 1)) & 1;
 		in <<= 1;
 		count --;
 	}
-	*/
+	/*
 	int size = DATA_BYTE << 3;
 	int i;
 	printf("%x %x %d %d\n", out, in, count, size);
@@ -33,6 +32,7 @@ static void do_execute () {
 		out |= temp;
 		out &= temp;
 	}
+	*/
 	OPERAND_W(op_src2, out);
 	printf("%s %x %x\n", op_src2->str, op_src2->val, out);
 	print_asm("shld" str(SUFFIX) " %s,%s,%s", op_src->str, op_dest->str, op_src2->str);
