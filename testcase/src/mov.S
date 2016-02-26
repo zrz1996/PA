@@ -12,7 +12,6 @@ start:
   jmp loop_test
 loop_main:
   call logic_test
-  HIT_GOOD_TRAP
   call arith_test
   call ctrl_trans_test
   call data_trans_test
@@ -92,6 +91,7 @@ logic_test:
   shrd %cl, %edx, %eax
   cmp $0xdcba9012, %eax
   jne bad
+  HIT_GOOD_TRAP
   // sar
   sar $4, %eax
   cmp $0xfdcba901, %eax
