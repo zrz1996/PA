@@ -11,10 +11,11 @@ start:
   mov $30769, %eax // test for 10000000 instrs
   jmp loop_test
 loop_main:
-  call data_trans_test
   call arith_test
   call ctrl_trans_test
+  call data_trans_test
   call string_test
+  HIT_GOOD_TRAP
   call logic_test
   mov 0x10000, %eax
   sub $1, %eax
@@ -172,7 +173,6 @@ data_trans_test:
   jne bad
   cmp %edx, %ecx
   jne bad
-  HIT_GOOD_TRAP
   ret
 test_leave:
   push %ebp
