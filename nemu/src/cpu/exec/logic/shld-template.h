@@ -9,13 +9,29 @@ static void do_execute () {
 
 	uint8_t count = op_src->val;
 	count &= 0x1f;
+	/*
 	while(count != 0) {
 		out <<= 1;
 		out |= (in & 1) << ((DATA_BYTE << 3) - 1);
 		in <<= 1;
 		count --;
 	}
+	*/
+	int size = (DATA_BYTE << 3) - 1;
+	int i;
+	for (i = size; i >= count; i--)
+	{
 
+		uint32_t temp = ((out >> (i - count)) & 1) << i;
+		out |= temp;
+		out &= temp;
+	}
+	for (i = count - 1; i >= 0; i--)
+	{
+		uint32_t temp = (in >> (i - count + size)) << i;
+		out |= temp;
+		out &= temp;
+	}
 	OPERAND_W(op_src2, out);
 
 	print_asm("shld" str(SUFFIX) " %s,%s,%s", op_src->str, op_dest->str, op_src2->str);
