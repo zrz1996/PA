@@ -15,7 +15,6 @@ loop_main:
   call ctrl_trans_test
   call data_trans_test
   call string_test
-  HIT_GOOD_TRAP
   call logic_test
   mov 0x10000, %eax
   sub $1, %eax
@@ -87,6 +86,7 @@ logic_test:
   xor %edx, %eax
   cmp $0xece8ece8, %eax
   jne bad
+  HIT_GOOD_TRAP
   // shrd
   mov %ecx, %eax
   shrd %cl, %edx, %eax
