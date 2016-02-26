@@ -6,6 +6,7 @@ make_helper(rep) {
 	int len;
 	int count = 0;
 	int rep_code = ops_decoded.opcode;
+	printf("%x\n", rep_code);
 	if(instr_fetch(eip + 1, 1) == 0xc3) {
 		/* repz ret */
 		exec(eip + 1);
@@ -27,8 +28,11 @@ make_helper(rep) {
 				);
 			if (ops_decoded.opcode == 0xa6 || ops_decoded.opcode == 0xa7
 				|| ops_decoded.opcode == 0xae || ops_decoded.opcode == 0xaf)
+			{
+				printf("%x\n", ops_decoded.opcode);
 				if ((rep_code == 0xf3 && cpu.zf == 1) || (rep_code == 0xf2 && cpu.zf == 0))
 					break;
+			}
 		}
 		len = 1;
 	}
