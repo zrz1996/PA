@@ -12,7 +12,6 @@ start:
   jmp loop_test
 loop_main:
   call data_trans_test
-  HIT_GOOD_TRAP
   call arith_test
   call ctrl_trans_test
   call string_test
@@ -123,6 +122,7 @@ data_trans_test:
   cwtl
   cmp $0xfffff001, %eax
   jne bad
+  HIT_GOOD_TRAP
   // cltd
   mov $0xff, %edx
   mov $1, %eax
