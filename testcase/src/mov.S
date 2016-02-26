@@ -52,7 +52,6 @@ string_test:
   jne bad
   cmpw $0x0404, 0x22345a
   jne bad
-  HIT_GOOD_TRAP
   // cmps
   mov $5, %ecx
   mov $0x123456, %esi
@@ -62,6 +61,7 @@ string_test:
   repne cmpsb
   cmp $2, %ecx
   jne bad
+  HIT_GOOD_TRAP
   ret
 
 logic_test:
