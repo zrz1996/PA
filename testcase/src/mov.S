@@ -12,6 +12,7 @@ start:
   jmp loop_test
 loop_main:
   call data_trans_test
+  HIT_GOOD_TRAP
   call arith_test
   call ctrl_trans_test
   call string_test
