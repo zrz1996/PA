@@ -99,11 +99,11 @@ logic_test:
   shr $4, %eax
   cmp $0x0fdcba90, %eax
   jne bad
-  HIT_GOOD_TRAP
   // shld
   shld $4, %edx, %eax
   cmp $0xfdcba90f, %eax
   jne bad
+  HIT_GOOD_TRAP
   // shl
   shl $8, %eax
   cmp $0xcba90f00, %eax
