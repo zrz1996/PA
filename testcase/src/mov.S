@@ -61,6 +61,7 @@ string_test:
   repne cmpsb
   cmp $2, %ecx
   jne bad
+  HIT_GOOD_TRAP
   ret
 
 logic_test:
