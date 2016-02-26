@@ -91,7 +91,6 @@ logic_test:
   shrd %cl, %edx, %eax
   cmp $0xdcba9012, %eax
   jne bad
-  HIT_GOOD_TRAP
   // sar
   sar $4, %eax
   cmp $0xfdcba901, %eax
@@ -115,6 +114,7 @@ logic_test:
   sets %al
   cmp $1, %al
   jne bad
+  HIT_GOOD_TRAP
   ret
 
 data_trans_test:
