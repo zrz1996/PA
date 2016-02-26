@@ -58,10 +58,10 @@ string_test:
   mov $0x223456, %edi
   cmpsb
   je bad
+  HIT_GOOD_TRAP
   repne cmpsb
   cmp $2, %ecx
   jne bad
-  HIT_GOOD_TRAP
   ret
 
 logic_test:
