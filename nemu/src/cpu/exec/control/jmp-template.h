@@ -6,7 +6,7 @@ static void do_execute()
 	if (ops_decoded.opcode == 0xeb)
 	{
 		printf("%x\n", cpu.eip);
-		printf(str(DATA_TYPE));
+		printf(str(DATA_TYPE_S));
 	}
 	if (ops_decoded.opcode == 0xff)
 	{
