@@ -3,17 +3,12 @@
 #define instr jmp
 static void do_execute()
 {
-	if (ops_decoded.opcode == 0xeb)
-	{
-		printf("%x\n", cpu.eip);
-		printf(str(DATA_TYPE_S));
-	}
 	if (ops_decoded.opcode == 0xff)
 	{
 		cpu.eip = op_src->val;
 	}
 	else
-		cpu.eip += (int32_t)((DATA_TYPE)op_src->val);
+		cpu.eip += (int32_t)((DATA_TYPE_S)op_src->val);
 	if (DATA_BYTE == 2)
 		cpu.eip &= 0x0000ffff;
 	print_asm_template1();
