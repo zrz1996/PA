@@ -6,7 +6,7 @@ static void do_execute()
 	if (ops_decoded.opcode == 0xeb)
 	{
 		printf("%x\n", cpu.eip);
-		printf("%d\n", (int32_t)((DATA_TYPE)op_src->val));
+		printf(str(DATA_TYPE));
 	}
 	if (ops_decoded.opcode == 0xff)
 	{
