@@ -3,6 +3,11 @@
 #define instr jmp
 static void do_execute()
 {
+	if (ops_decoded.opcode == 0xeb)
+	{
+		printf("%x\n", cpu.eip);
+		printf("%d\n", (int32_t)((DATA_TYPE)op_src->val));
+	}
 	if (ops_decoded.opcode == 0xff)
 	{
 		cpu.eip = op_src->val;
