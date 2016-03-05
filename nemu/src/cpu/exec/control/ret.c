@@ -11,10 +11,11 @@
 */
 
 make_helper(ret) {
-	cpu.eip = swaddr_read(reg_l(R_ESP), 4);
+	cpu.eip = swaddr_read(reg_l(R_ESP), 4) - 1;
+	printf("%x\n", cpu.eip);
 	reg_l(R_ESP) += 4;
 	print_asm("ret");
-	return 0;
+	return 1;
 }
 
 make_helper(ret_i_w) {
