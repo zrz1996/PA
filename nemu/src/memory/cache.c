@@ -125,7 +125,10 @@ uint32_t cache_read(hwaddr_t addr, size_t len)
 		cache_r((addr ^ offset) + NR_BLOCK, buf.temp + NR_BLOCK - offset, len - (NR_BLOCK - offset));
 	}
 	else
+	{
+		printf("...");
 		cache_r(addr, buf.temp, len);
+	}
 	return buf.ret;
 }
 void cache_w(hwaddr_t addr, size_t len, void *data)
