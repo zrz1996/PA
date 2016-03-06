@@ -78,6 +78,7 @@ void cache_init()
 			cache[i][j].check = Block_check;
 			cache[i][j].init(&cache[i][j]);
 		}
+	printf("cache init compelete.\n");
 }
 uint32_t cache_update(uint32_t addr)
 {
