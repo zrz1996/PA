@@ -102,6 +102,7 @@ void cache_r(hwaddr_t addr, void *data, size_t len)
 	uint32_t tag = temp.tag;
 	uint32_t set = temp.set;
 	uint32_t block = temp.block;
+	printf("%x %x %x\n", tag, set, block);
 	int i;
 	for (i = 0; i < NR_LINE; i++)
 		if (cache[set][i].tag == tag && cache[set][i].valid_bit == 1)
@@ -126,7 +127,6 @@ uint32_t cache_read(hwaddr_t addr, size_t len)
 	}
 	else
 	{
-		printf("...\n");
 		cache_r(addr, buf.temp, len);
 	}
 	return buf.ret;
