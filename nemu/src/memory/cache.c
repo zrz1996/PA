@@ -78,7 +78,6 @@ void cache_init()
 			cache[i][j].check = Block_check;
 			cache[i][j].init(&cache[i][j]);
 		}
-	printf("cache init compelete.\n");
 }
 uint32_t cache_update(uint32_t addr)
 {
@@ -114,6 +113,7 @@ void cache_r(hwaddr_t addr, void *data, size_t len)
 }
 uint32_t cache_read(hwaddr_t addr, size_t len)
 {
+	printf("%x %d\n", addr, (int)len);
 	uint32_t offset = addr & (NR_BLOCK - 1);
 	union {
 		uint8_t temp[4];
