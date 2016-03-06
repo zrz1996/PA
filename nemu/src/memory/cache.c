@@ -13,7 +13,7 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 
 typedef union {
 	struct {
-		uint32_t tag: 32 - SET_WIDTH - BLOCK_WIDTH;
+		uint32_t tag: 27 - SET_WIDTH - BLOCK_WIDTH;
 		uint32_t set: SET_WIDTH;
 		uint32_t block: BLOCK_WIDTH;
 	};
