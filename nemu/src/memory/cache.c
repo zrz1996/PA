@@ -126,7 +126,7 @@ uint32_t cache_read(hwaddr_t addr, size_t len)
 	}
 	else
 	{
-		printf("...");
+		printf("...\n");
 		cache_r(addr, buf.temp, len);
 	}
 	return buf.ret;
