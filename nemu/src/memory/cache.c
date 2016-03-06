@@ -13,7 +13,7 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 
 typedef union {
 	struct {
-		uint32_t tag: 27 - SET_WIDTH - BLOCK_WIDTH;
+		uint32_t tag: (32 - SET_WIDTH - BLOCK_WIDTH);
 		uint32_t set: SET_WIDTH;
 		uint32_t block: BLOCK_WIDTH;
 	};
@@ -102,7 +102,7 @@ void cache_r(hwaddr_t addr, void *data, size_t len)
 	uint32_t tag = temp.tag;
 	uint32_t set = temp.set;
 	uint32_t block = temp.block;
-	printf("%x %x %x\n", tag, set, block);
+	printf("%x %x %x %x\n", addr, tag, set, block);
 	int i;
 	for (i = 0; i < NR_LINE; i++)
 		if (cache[set][i].tag == tag && cache[set][i].valid_bit == 1)
