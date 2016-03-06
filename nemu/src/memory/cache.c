@@ -102,7 +102,6 @@ void cache_r(hwaddr_t addr, void *data, size_t len)
 	uint32_t tag = temp.tag;
 	uint32_t set = temp.set;
 	uint32_t block = temp.block;
-	printf("%x %x %x %x\n", addr, tag, set, block);
 	int i;
 	for (i = 0; i < NR_LINE; i++)
 		if (cache[set][i].tag == tag && cache[set][i].valid_bit == 1)
@@ -114,7 +113,6 @@ void cache_r(hwaddr_t addr, void *data, size_t len)
 }
 uint32_t cache_read(hwaddr_t addr, size_t len)
 {
-	printf("%x %d\n", addr, (int)len);
 	uint32_t offset = addr & (NR_BLOCK - 1);
 	union {
 		uint8_t temp[4];
