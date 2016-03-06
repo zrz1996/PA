@@ -5,6 +5,11 @@
 uint32_t dram_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);
 
+
+uint32_t cache_L2_read(hwaddr_t, size_t);
+void cache_L2_write(hwaddr_t, size_t, uint32_t);
+#define CACHE_L2_ENABLE
+
 #define CACHE_DATA_SIZE 16
 
 #define BLOCK_WIDTH 6
@@ -48,7 +53,13 @@ void Block_wirte(Block *this, uint32_t addr)
 	this->tag = get_tag(addr);
 	int i;
 	for (i = 0; i < NR_BLOCK; i++)
+	{
+#ifndef CACHE_L2_ENABLE
 		this->data[i] = dram_read(addr + i, 1);
+#else
+		this->data[i] = cache_L2_read(addr + i, 1);
+#endif
+	}
 	this->valid_bit = 1;
 }
 bool Block_check(Block *this, uint32_t addr)
@@ -153,7 +164,11 @@ void cache_write(hwaddr_t addr, size_t len, uint32_t data)
 		uint32_t ret;
 	}buf;
 	buf.ret = data;
+#ifndef CACHE_L2_ENABLE
 	dram_write(addr, len, data);
+#else
+	cache_L2_write(addr, len, data);
+#endif
 	if (offset + len > NR_BLOCK)
 	{
 		cache_w(addr, NR_BLOCK - offset, buf.temp);
