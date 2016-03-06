@@ -8,7 +8,7 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 
 uint32_t cache_L2_read(hwaddr_t, size_t);
 void cache_L2_write(hwaddr_t, size_t, uint32_t);
-//#define CACHE_L2_ENABLE
+#define CACHE_L2_ENABLE
 
 #define CACHE_DATA_SIZE 16
 
