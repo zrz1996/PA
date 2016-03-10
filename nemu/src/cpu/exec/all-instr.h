@@ -50,3 +50,5 @@
 #include "control/ret.h"
 #include "control/jcc.h"
 #include "control/pop.h"
+
+#include "sys/lgdt.h"
