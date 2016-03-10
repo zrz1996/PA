@@ -6,6 +6,7 @@ make_helper(lgdt) {
 	printf("%x\n", addr);
 	uint32_t limit = swaddr_read(addr, 2);
 	uint32_t base = swaddr_read(addr + 2, 4);
+	printf("%x %x\n", base, limit);
 	cpu.gdtr = ((uint64_t)base << 16) | limit;
 	print_asm("lgdt");
 	return len + 1;
