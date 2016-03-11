@@ -2,7 +2,7 @@
 
 make_helper(lgdt) {
 	uint32_t len = decode_rm_l(eip + 1);
-	uint32_t addr = op_src->val;
+	uint32_t addr = op_src->addr;
 	printf("%x\n", addr);
 	uint16_t limit = lnaddr_read(addr, 2);
 	uint32_t base = lnaddr_read(addr + 2, 4);
