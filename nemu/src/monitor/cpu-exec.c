@@ -20,11 +20,11 @@ char asm_buf[128];
 /* Used with exception handling. */
 jmp_buf jbuf;
 
-void print_bin_instr(swaddr_t eip, int len, uint8_t cr0_temp) {
+void print_bin_instr(swaddr_t eip, int len, uint32_t base) {
 	int i;
 	int l = sprintf(asm_buf, "%8x:   ", eip);
 	for(i = 0; i < len; i ++) {
-		l += sprintf(asm_buf + l, "%02x ", cr0_temp ? swaddr_read(eip + i, 1, 1) : lnaddr_read(eip + i, 1));
+		l += sprintf(asm_buf + l, "%02x ", lnaddr_read(eip + i + base, 1));
 	}
 	sprintf(asm_buf + l, "%*.s", 50 - (12 + 3 * len), "");
 }
@@ -52,7 +52,7 @@ void cpu_exec(volatile uint32_t n) {
 	for(; n > 0; n --) {
 #ifdef DEBUG
 		swaddr_t eip_temp = cpu.eip;
-		uint8_t cr0_temp = cpu.cr0 & 1;
+		uint32_t base = (cpu.cr0 & 1) * cpu.segbase[1];
 		if((n & 0xffff) == 0) {
 			/* Output some dots while executing the program. */
 			fputc('.', stderr);
@@ -64,7 +64,7 @@ void cpu_exec(volatile uint32_t n) {
 		int instr_len = exec(cpu.eip);
 		cpu.eip += instr_len;
 #ifdef DEBUG
-		print_bin_instr(eip_temp, instr_len, cr0_temp);
+		print_bin_instr(eip_temp, instr_len, base);
 		printf("####%x\n", cpu.eip);
 		strcat(asm_buf, assembly);
 		Log_write("%s\n", asm_buf);
