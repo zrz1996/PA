@@ -1,4 +1,6 @@
 #include "cpu/exec/helper.h"
+#include "nemu.h"
+#include "../../lib-common/x86-inc/mmu.h"
 
 #define DATA_BYTE 1
 #include "mov-template.h"
@@ -36,9 +38,22 @@ make_helper(mov_r2c)
 	print_asm("mov" " %s,CR0", op_src->str);
 	return len + 1;
 }
-/*
 make_helper(mov_rm2sr)
 {
-	uint32_t len = decode_rm_w(eip + 1);
+	uint8_t modrm = instr_fetch(eip + 1, 1);
+	uint8_t rn = modrm & 0x7;
+	uint8_t sn = (modrm >> 3) & 0x3;
+	cpu.segreg[sn] = reg_w(rn);
+	uint32_t gdt_addr = cpu.gdtr >> 16;
+	uint32_t index = (cpu.cs >> 3) << 3;
+	gdt_addr += index;
+	union {
+		uint64_t gdt;
+		SegDesc SD;
+	}temp;
+	temp.gdt = ((uint64_t)lnaddr_read(gdt_addr + 4, 4) << 32) | lnaddr_read(gdt_addr, 4);
+	cpu.segbase[sn] = (temp.SD.base_31_24 << 24) + (temp.SD.base_23_16 << 16) + (temp.SD.base_15_0);
+	cpu.seglimit[sn] = (temp.SD.limit_19_16 << 16) + temp.SD.limit_15_0;
+	printf("mov" " %s,%s", regsw[rn], segname[sn]);
+	return 2;
 }
-*/

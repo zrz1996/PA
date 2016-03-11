@@ -81,4 +81,6 @@ extern const char* regsl[];
 extern const char* regsw[];
 extern const char* regsb[];
 
+extern const char* segname[];  
+
 #endif
