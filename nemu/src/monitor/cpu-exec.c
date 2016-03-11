@@ -62,8 +62,8 @@ void cpu_exec(volatile uint32_t n) {
 		/* Execute one instruction, including instruction fetch,
 		 * instruction decode, and the actual execution. */
 		int instr_len = exec(cpu.eip);
-		printf("%x\n", cpu.eip);
 		cpu.eip += instr_len;
+		printf("%x\n", cpu.eip);
 #ifdef DEBUG
 		print_bin_instr(eip_temp, instr_len, cr0_temp);
 		strcat(asm_buf, assembly);
