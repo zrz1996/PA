@@ -22,12 +22,12 @@ make_helper_v(jmp_rm)
 make_helper(ljmp) {
 	cpu.cs = instr_fetch(eip + 1, 2);
 	cpu.eip = instr_fetch(eip + 3, 4) - 7;
-	printf("%x\n", eip);
 	uint32_t gdt_addr = cpu.gdtr >> 16;
 	uint32_t index = cpu.cs >> 3;
 	index <<= 3;
 	gdt_addr += index;
 	uint64_t gdt = ((uint64_t)lnaddr_read(gdt_addr, 4) << 32) | lnaddr_read(gdt_addr + 4, 4);
+	printf("%x\n", eip);
 	union {
 		uint64_t gdt;
 		SegDesc SD;
