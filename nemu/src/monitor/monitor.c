@@ -91,8 +91,12 @@ void restart() {
 	cpu.eflags = 0x2;
 	cpu.cr0 = 0;
 	/* Init CS */
-	cpu.segbase[1] = 0;
-	cpu.seglimit[1] = 0xffffffff;
+	int i;
+	for (i = 0; i < 4; i++)
+	{
+		cpu.segbase[i] = 0;
+		cpu.seglimit[i] = 0xffffffff;
+	}
 	/* Initialize DRAM. */
 	init_ddr3();
 	/* Initialize CACHE. */
