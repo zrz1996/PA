@@ -35,6 +35,7 @@ make_helper(ljmp) {
 	}temp;
 	temp.gdt = gdt;
 	cpu.segbase[1] = (temp.SD.base_31_24 << 24) + (temp.SD.base_23_16 << 16) + (temp.SD.base_15_0);
+	printf("%x\n", cpu.segbase[1]);
 	cpu.seglimit[1] = (temp.SD.limit_19_16 << 16) + temp.SD.limit_15_0;
 	print_asm("ljmp" " 0x%x,0x%x", cpu.cs, cpu.eip + 7);
 	return 7;
