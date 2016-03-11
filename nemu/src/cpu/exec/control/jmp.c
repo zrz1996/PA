@@ -26,8 +26,8 @@ make_helper(ljmp) {
 	uint32_t index = cpu.cs >> 3;
 	index <<= 3;
 	gdt_addr += index;
+	printf("%x %x\n", cpu.cs, cpu.eip + 7);
 	uint64_t gdt = ((uint64_t)lnaddr_read(gdt_addr, 4) << 32) | lnaddr_read(gdt_addr + 4, 4);
-	printf("%x\n", eip);
 	union {
 		uint64_t gdt;
 		SegDesc SD;
