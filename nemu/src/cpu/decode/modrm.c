@@ -109,10 +109,10 @@ int read_ModR_M(swaddr_t eip, Operand *rm, Operand *reg) {
 			case 4: sprintf(rm->str, "%%%s", regsl[m.R_M]); break;
 		}
 #endif
-		printf("#####\n");
 		return 1;
 	}
 	else {
+		printf("#####\n");
 		int instr_len = load_addr(eip, &m, rm);
 		rm->val = lnaddr_read(rm->addr, rm->size);
 		return instr_len;
