@@ -5,6 +5,7 @@ make_helper(lgdt) {
 	//uint32_t base = decode_i_l(eip + 3);
 	uint32_t limit = lnaddr_read(eip + 1, 2);
 	uint32_t base = lnaddr_read(eip + 3, 4);
+	printf("$$$$$\n");
 	cpu.gdtr = (((uint64_t)base) << 16) | limit;
 	print_asm("lgdt");
 	return 7;
