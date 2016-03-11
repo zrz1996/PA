@@ -21,8 +21,8 @@ make_helper_v(jmp_rm)
 
 make_helper(ljmp) {
 	cpu.cs = instr_fetch(eip + 1, 2);
-	printf("%x\n", eip);
 	cpu.eip = instr_fetch(eip + 3, 4) - 7;
+	printf("%x\n", eip);
 	uint32_t gdt_addr = cpu.gdtr >> 16;
 	uint32_t index = cpu.cs >> 3;
 	index <<= 3;
