@@ -86,6 +86,7 @@ int load_addr(swaddr_t eip, ModR_M *m, Operand *rm) {
 int read_ModR_M(swaddr_t eip, Operand *rm, Operand *reg) {
 	ModR_M m;
 	m.val = instr_fetch(eip, 1);
+	printf("#####\n");
 	reg->type = OP_TYPE_REG;
 	reg->reg = m.reg;
 
@@ -112,7 +113,6 @@ int read_ModR_M(swaddr_t eip, Operand *rm, Operand *reg) {
 		return 1;
 	}
 	else {
-		printf("#####\n");
 		int instr_len = load_addr(eip, &m, rm);
 		rm->val = lnaddr_read(rm->addr, rm->size);
 		return instr_len;
