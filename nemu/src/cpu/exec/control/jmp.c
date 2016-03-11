@@ -25,7 +25,6 @@ make_helper(ljmp) {
 	cpu.cs = cs_t;
 	cpu.eip = eip_t;
 	uint32_t gdt_addr = cpu.gdtr >> 16;
-	printf(" gdt addr = %08X\n", gdt_addr);
 	uint32_t index = (cpu.cs >> 3) << 3;
 	gdt_addr += index;
 	union {
@@ -33,10 +32,8 @@ make_helper(ljmp) {
 		SegDesc SD;
 	}temp;
 	temp.gdt = ((uint64_t)lnaddr_read(gdt_addr + 4, 4) << 32) | lnaddr_read(gdt_addr, 4);
-	printf(" gdt = %016lX\n", temp.gdt);
 	cpu.segbase[1] = (temp.SD.base_31_24 << 24) + (temp.SD.base_23_16 << 16) + (temp.SD.base_15_0);
 	cpu.seglimit[1] = (temp.SD.limit_19_16 << 16) + temp.SD.limit_15_0;
-	printf("%x %x\n", cpu.segbase[1], cpu.seglimit[1]);
 	print_asm("ljmp" " 0x%x,0x%x", cpu.cs, cpu.eip + 7);
 	return 7;
 }
