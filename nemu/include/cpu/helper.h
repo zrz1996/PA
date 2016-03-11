@@ -10,7 +10,7 @@
 static inline uint32_t instr_fetch(swaddr_t addr, size_t len) {
 	if (cpu.cr0 & 1)
 	{
-		printf("%x\n", swaddr_read(addr, len, 1));
+		//printf("%x\n", swaddr_read(addr, len, 1));
 		return swaddr_read(addr, len, 1);
 	}
 	else
