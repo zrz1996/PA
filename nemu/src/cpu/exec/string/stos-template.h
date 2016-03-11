@@ -4,7 +4,7 @@
 
 make_helper(concat(stos_, SUFFIX)) {
 	DATA_TYPE temp = REG(R_EAX);
-	swaddr_write(reg_l(R_EDI), DATA_BYTE, temp, 3);
+	swaddr_write(reg_l(R_EDI), DATA_BYTE, temp, 0);
 	if (cpu.df == 0)
 	{
 		reg_l(R_EDI) += DATA_BYTE;

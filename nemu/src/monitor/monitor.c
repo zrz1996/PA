@@ -90,6 +90,9 @@ void restart() {
 	cpu.eip = ENTRY_START;
 	cpu.eflags = 0x2;
 	cpu.cr0 = 0;
+	/* Init CS */
+	cpu.segbase[1] = 0;
+	cpu.seglimit[1] = 0xffffffff;
 	/* Initialize DRAM. */
 	init_ddr3();
 	/* Initialize CACHE. */

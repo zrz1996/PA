@@ -58,9 +58,11 @@ typedef struct {
 	union {
 		uint16_t segreg[4];
 		struct {
-			uint16_t cs, ss, ds, es;
+			uint16_t es, cs, ss, ds;
 		};
 	};
+	uint32_t segbase[4];
+	uint32_t seglimit[4];
 	uint64_t gdtr;
 } CPU_state;
 

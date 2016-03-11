@@ -1469,7 +1469,7 @@ yyreduce:
 
 /* Line 1806 of yacc.c  */
 #line 36 "parser.y"
-    { (yyval) = swaddr_read((yyvsp[(2) - (2)]), 4, 2); }
+    { (yyval) = swaddr_read((yyvsp[(2) - (2)]), 4, 3); }
     break;
 
   case 11:

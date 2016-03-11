@@ -37,6 +37,7 @@ void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 
 lnaddr_t seg_translate(swaddr_t addr, size_t len, uint8_t sreg)
 {
+	/*
 	uint32_t gdt_addr = cpu.gdtr >> 16;
 	uint32_t index = cpu.segreg[sreg] >> 3;
 	index <<= 3;
@@ -48,6 +49,8 @@ lnaddr_t seg_translate(swaddr_t addr, size_t len, uint8_t sreg)
 	}temp;
 	temp.gdt = gdt;
 	uint32_t base = (temp.SD.base_31_24 << 24) + (temp.SD.base_23_16 << 16) + (temp.SD.base_15_0);
+	*/
+	uint32_t base = cpu.segbase[sreg];
 	return addr + base;
 }
 
