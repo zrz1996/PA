@@ -52,8 +52,9 @@ hwaddr_t page_translate(lnaddr_t addr)
 
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 	assert(len == 1 || len == 2 || len == 4);
-	if ((addr & 0x3f000) != ((addr + len) & 0x3f000)) /* cross a page */
+	if ((addr >> 12) != ((addr + len) >> 12)) /* cross a page */
 	{
+		printf("cross a page!\n");
 		assert(0);
 	}
 	else
