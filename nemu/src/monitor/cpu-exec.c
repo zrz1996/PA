@@ -52,7 +52,7 @@ void cpu_exec(volatile uint32_t n) {
 	for(; n > 0; n --) {
 #ifdef DEBUG
 		swaddr_t eip_temp = cpu.eip;
-		uint32_t cr0_temp = cpu.cr0 & 1;
+		uint8_t cr0_temp = cpu.cr0 & 1;
 		if((n & 0xffff) == 0) {
 			/* Output some dots while executing the program. */
 			fputc('.', stderr);
@@ -61,10 +61,10 @@ void cpu_exec(volatile uint32_t n) {
 
 		/* Execute one instruction, including instruction fetch,
 		 * instruction decode, and the actual execution. */
+		printf("%x\n", cpu.eip);
 		int instr_len = exec(cpu.eip);
 
 		cpu.eip += instr_len;
-		printf("%x\n", cpu.eip);
 #ifdef DEBUG
 		print_bin_instr(eip_temp, instr_len, cr0_temp);
 		strcat(asm_buf, assembly);
