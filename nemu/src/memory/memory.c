@@ -70,6 +70,7 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 }
 
 void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
+	printf("w %x\n", addr);
 	assert(len == 1 || len == 2 || len == 4);
 	if ((addr >> 12) != ((addr + len) >> 12)) /* cross a page */
 	{
