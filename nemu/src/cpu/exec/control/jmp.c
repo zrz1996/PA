@@ -33,7 +33,7 @@ make_helper(ljmp) {
 		SegDesc SD;
 	}temp;
 	temp.gdt = ((uint64_t)lnaddr_read(gdt_addr + 4, 4) << 32) | lnaddr_read(gdt_addr, 4);
-	printf("%x %x\n", temp.SD.base_31_24, lnaddr_read(gdt_addr + 4, 4));
+	printf("%x%x %x\n", temp.SD.base_15_0, temp.SD.limit_15_0, lnaddr_read(gdt_addr, 4));
 	cpu.segbase[1] = (temp.SD.base_31_24 << 24) + (temp.SD.base_23_16 << 16) + (temp.SD.base_15_0);
 	cpu.seglimit[1] = (temp.SD.limit_19_16 << 16) + temp.SD.limit_15_0;
 	print_asm("ljmp" " 0x%x,0x%x", cpu.cs, cpu.eip + 7);
