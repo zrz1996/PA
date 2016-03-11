@@ -37,6 +37,5 @@ make_helper(ljmp) {
 	cpu.segbase[1] = (temp.SD.base_31_24 << 24) + (temp.SD.base_23_16 << 16) + (temp.SD.base_15_0);
 	cpu.seglimit[1] = (temp.SD.limit_19_16 << 16) + temp.SD.limit_15_0;
 	print_asm("ljmp" " 0x%x,0x%x", cpu.cs, cpu.eip + 7);
-	printf("%x %x\n", lnaddr_read(gdt_addr, 4), lnaddr_read(gdt_addr + 4, 4));
 	return 7;
 }
