@@ -1,5 +1,6 @@
 #include "common.h"
 #include "nemu.h"
+#include "../../lib-common/x86-inc/mmu.h"
 
 uint32_t dram_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);
@@ -25,30 +26,60 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 #endif
 }
 
+hwaddr_t page_translate(lnaddr_t addr)
+{
+	if (!cpu.cr0.protect_enable || !cpu.cr0.paging)
+		return addr;
+	uint32_t pd1_base = cpu.cr3.page_directory_base;
+	union {
+		struct {
+			uint32_t offset : 12;
+			uint32_t page : 10;
+			uint32_t dir : 10;
+		};
+		uint32_t addr;
+	} temp;
+	temp.addr = addr;
+	PDE dir_entry;
+	dir_entry.val = hwaddr_read(pd1_base + (temp.dir << 2), 4);
+	assert(dir_entry.present);
+	PTE pg_entry;
+	pg_entry.val = hwaddr_read(dir_entry.page_frame + (temp.page << 2), 4);
+	assert(pg_entry.present);
+	return (pg_entry.page_frame << 12) | temp.page;
+}
+
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
-	return hwaddr_read(addr, len);
+	assert(len == 1 || len == 2 || len == 4);
+	if ((addr & 0x3f000) != ((addr + len) & 0x3f000)) /* cross a page */
+	{
+		assert(0);
+	}
+	else
+	{
+		hwaddr_t hwaddr = page_translate(addr);
+		return hwaddr_read(hwaddr, len);
+	}
 }
 
 void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
-	hwaddr_write(addr, len, data);
+	assert(len == 1 || len == 2 || len == 4);
+	if ((addr & 0x3f000) != ((addr + len) & 0x3f000)) /* cross a page */
+	{
+		assert(0);
+	}
+	else
+	{
+		hwaddr_t hwaddr = page_translate(addr);
+		hwaddr_write(hwaddr, len, data);
+	}
 }
 
 
 lnaddr_t seg_translate(swaddr_t addr, size_t len, uint8_t sreg)
 {
-	/*
-	uint32_t gdt_addr = cpu.gdtr >> 16;
-	uint32_t index = cpu.segreg[sreg] >> 3;
-	index <<= 3;
-	gdt_addr += index;
-	uint64_t gdt = ((uint64_t)lnaddr_read(gdt_addr, 4) << 32) | lnaddr_read(gdt_addr + 4, 4);
-	union {
-		uint64_t gdt;
-		SegDesc SD;
-	}temp;
-	temp.gdt = gdt;
-	uint32_t base = (temp.SD.base_31_24 << 24) + (temp.SD.base_23_16 << 16) + (temp.SD.base_15_0);
-	*/
+	if (!cpu.cr0.protect_enable)
+		return addr;
 	uint32_t base = cpu.segbase[sreg];
 	return addr + base;
 }
