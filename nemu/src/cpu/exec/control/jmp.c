@@ -26,6 +26,7 @@ make_helper(ljmp) {
 	cpu.eip = eip_t;
 	uint32_t gdt_addr = cpu.gdtr >> 16;
 	uint32_t index = cpu.cs >> 3;
+	printf("%x %x\n", eip_t + 7, cs_t);
 	printf("%d\n", index);
 	index <<= 3;
 	gdt_addr += index;
