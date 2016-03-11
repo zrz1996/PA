@@ -20,8 +20,10 @@ make_helper_v(jmp_i)
 make_helper_v(jmp_rm)
 
 make_helper(ljmp) {
-	cpu.cs = instr_fetch(eip + 1, 2);
-	cpu.eip = instr_fetch(eip + 3, 4) - 7;
+	uint16_t cs_t = instr_fetch(eip + 1, 2);
+	uint32_t eip_t = instr_fetch(eip + 3, 4) - 7;
+	cpu.cs = cs_t;
+	cpu.eip = eip_t;
 	uint32_t gdt_addr = cpu.gdtr >> 16;
 	uint32_t index = cpu.cs >> 3;
 	index <<= 3;
