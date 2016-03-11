@@ -55,7 +55,12 @@ typedef struct {
 	};
 	swaddr_t eip;
 	uint32_t cr0;
-	uint16_t cs, ss, ds, es;
+	union {
+		uint16_t segreg[4];
+		struct {
+			uint16_t cs, ss, ds, es;
+		};
+	};
 	uint64_t gdtr;
 } CPU_state;
 

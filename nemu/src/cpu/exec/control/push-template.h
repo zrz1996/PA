@@ -8,7 +8,7 @@ static void do_execute()
 		reg_l(R_ESP) -= 2;
 	else
 		reg_l(R_ESP) -= 4;
-	swaddr_write(reg_l(R_ESP), DATA_BYTE == 2 ? 2 : 4, op_src->val);
+	swaddr_write(reg_l(R_ESP), DATA_BYTE == 2 ? 2 : 4, op_src->val, 1);
 	print_asm_template1();
 }
 make_instr_helper(r)
