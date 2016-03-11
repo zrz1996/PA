@@ -54,8 +54,13 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 	assert(len == 1 || len == 2 || len == 4);
 	if ((addr >> 12) != ((addr + len) >> 12)) /* cross a page */
 	{
-		printf("cross a page!\n");
-		assert(0);
+		//printf("cross a page!\n");
+		//assert(0);
+		int len1 = 4096 - (addr & 0xfff);
+		int len2 = len - len1;
+		hwaddr_t hwaddr1 = page_translate(addr);
+		hwaddr_t hwaddr2 = page_translate(addr + len1);
+		return hwaddr_read(hwaddr1, len1) | (hwaddr_read(hwaddr2, len2) << len1);
 	}
 	else
 	{
@@ -68,9 +73,14 @@ void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 	assert(len == 1 || len == 2 || len == 4);
 	if ((addr >> 12) != ((addr + len) >> 12)) /* cross a page */
 	{
-		printf("cross a page!\n");
-		printf("%x %d\n", addr, (int)len);
-		assert(0);
+		//printf("cross a page!\n");
+		//assert(0);
+		int len1 = 4096 - (addr & 0xfff);
+		int len2 = len - len1;
+		hwaddr_t hwaddr1 = page_translate(addr);
+		hwaddr_t hwaddr2 = page_translate(addr + len1);
+		hwaddr_write(hwaddr1, len1, data & ((1 << len1) - 1));
+		hwaddr_write(hwaddr2, len2, data >> len1);
 	}
 	else
 	{
