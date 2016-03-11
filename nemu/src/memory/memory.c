@@ -42,6 +42,7 @@ lnaddr_t seg_translate(swaddr_t addr, size_t len, uint8_t sreg)
 	index <<= 3;
 	gdt_addr += index;
 	uint64_t gdt = ((uint64_t)lnaddr_read(gdt_addr, 4) << 32) | lnaddr_read(gdt_addr + 4, 4);
+	printf("%x\n", (uint32_t)gdt);
 	union {
 		uint64_t gdt;
 		SegDesc SD;
@@ -56,7 +57,6 @@ uint32_t swaddr_read(swaddr_t addr, size_t len, uint8_t sreg) {
 #ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
 #endif
-	printf("%x\n", addr);
 	lnaddr_t lnaddr = seg_translate(addr, len, sreg);
 	return lnaddr_read(lnaddr, len);
 }
