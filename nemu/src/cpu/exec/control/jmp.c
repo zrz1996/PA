@@ -25,7 +25,7 @@ make_helper(ljmp) {
 	cpu.cs = cs_t;
 	cpu.eip = eip_t;
 	uint32_t gdt_addr = cpu.gdtr >> 16;
-	uint32_t index = cpu.cs >> 3;
+	uint32_t index = (cpu.cs >> 3) << 3;
 	gdt_addr += index;
 	union {
 		uint64_t gdt;
