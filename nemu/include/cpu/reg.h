@@ -55,7 +55,8 @@ typedef struct {
 		};
 	};
 	swaddr_t eip;
-	uint32_t cr0;
+	//uint32_t cr0;
+	CR0 cr0;
 	CR3 cr3;
 	union {
 		uint16_t segreg[4];

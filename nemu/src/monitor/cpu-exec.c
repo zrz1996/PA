@@ -52,7 +52,7 @@ void cpu_exec(volatile uint32_t n) {
 	for(; n > 0; n --) {
 #ifdef DEBUG
 		swaddr_t eip_temp = cpu.eip;
-		uint32_t base = (cpu.cr0 & 1) * cpu.segbase[1];
+		uint32_t base = (cpu.cr0.protect_enable) * cpu.segbase[1];
 		if((n & 0xffff) == 0) {
 			/* Output some dots while executing the program. */
 			fputc('.', stderr);

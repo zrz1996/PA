@@ -89,7 +89,7 @@ void restart() {
 	/* Set the initial instruction pointer. */
 	cpu.eip = ENTRY_START;
 	cpu.eflags = 0x2;
-	cpu.cr0 = 0;
+	cpu.cr0.val = 0;
 	/* Init CS */
 	int i;
 	for (i = 0; i < 4; i++)
