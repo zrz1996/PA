@@ -8,6 +8,7 @@
 #define make_helper(name) int name(swaddr_t eip)
 
 static inline uint32_t instr_fetch(swaddr_t addr, size_t len) {
+	printf("%x\n", cpu.cr0 & 1);
 	if (cpu.cr0 & 1)
 		return swaddr_read(addr, len, 0);
 	else
