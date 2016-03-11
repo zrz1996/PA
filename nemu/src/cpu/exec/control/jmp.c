@@ -24,10 +24,9 @@ make_helper(ljmp) {
 	uint16_t cs_t = instr_fetch(eip + 5, 2);
 	cpu.cs = cs_t;
 	cpu.eip = eip_t;
-	printf("%x\n", cpu.eip);
 	uint32_t gdt_addr = cpu.gdtr >> 16;
 	uint32_t index = cpu.cs >> 3;
-	printf("%x %x\n", gdt_addr, index);
+	printf("%d\n", index);
 	index <<= 3;
 	gdt_addr += index;
 	uint64_t gdt = ((uint64_t)lnaddr_read(gdt_addr, 4) << 32) | lnaddr_read(gdt_addr + 4, 4);
