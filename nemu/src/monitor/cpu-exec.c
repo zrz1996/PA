@@ -71,7 +71,6 @@ void cpu_exec(volatile uint32_t n) {
 			printf("%s\n", asm_buf);
 		}
 #endif
-		printf("####%x\n", cpu.eip);
 		if (check_wp())
 		{
 			nemu_state = STOP;
