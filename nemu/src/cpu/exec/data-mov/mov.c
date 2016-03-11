@@ -32,6 +32,7 @@ make_helper(mov_c2r)
 make_helper(mov_r2c)
 {
 	uint32_t len = decode_rm_l(eip + 1);
+	printf("%x\n", len);
 	cpu.cr0 = reg_l(op_src->reg);
 	print_asm("mov" " %%%s,CR0", op_src->str);
 	return len + 1;
