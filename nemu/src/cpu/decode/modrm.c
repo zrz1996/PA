@@ -109,6 +109,7 @@ int read_ModR_M(swaddr_t eip, Operand *rm, Operand *reg) {
 			case 4: sprintf(rm->str, "%%%s", regsl[m.R_M]); break;
 		}
 #endif
+		printf("#####\n");
 		return 1;
 	}
 	else {
