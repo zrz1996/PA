@@ -61,26 +61,22 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 		//assert(0);
 		int len1 = 4096 - (addr & 0xfff);
 		int len2 = len - len1;
-/*
 #ifndef TLB_ENABLE
 		hwaddr_t hwaddr1 = page_translate(addr);
 		hwaddr_t hwaddr2 = page_translate(addr + len1);
 #else
-*/
 		hwaddr_t hwaddr1 = TLB_translate(addr);
 		hwaddr_t hwaddr2 = TLB_translate(addr + len1);
-//#endif
+#endif
 		return hwaddr_read(hwaddr1, len1) | (hwaddr_read(hwaddr2, len2) << len1);
 	}
 	else
 	{
-/*
 #ifndef TLB_ENABLE
 		hwaddr_t hwaddr = page_translate(addr);
 #else
-*/
 		hwaddr_t hwaddr = page_translate(addr);
-//#endif
+#endif
 		return hwaddr_read(hwaddr, len);
 	}
 }
@@ -93,27 +89,23 @@ void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 		//assert(0);
 		int len1 = 4096 - (addr & 0xfff);
 		int len2 = len - len1;
-/*
 #ifndef TLB_ENABLE
 		hwaddr_t hwaddr1 = page_translate(addr);
 		hwaddr_t hwaddr2 = page_translate(addr + len1);
 #else
-*/
 		hwaddr_t hwaddr1 = TLB_translate(addr);
 		hwaddr_t hwaddr2 = TLB_translate(addr + len1);
-//#endif
+#endif
 		hwaddr_write(hwaddr1, len1, data & ((1 << len1) - 1));
 		hwaddr_write(hwaddr2, len2, data >> len1);
 	}
 	else
 	{
-/*
-#ifndef
+#ifndef TLB_ENABLE
 		hwaddr_t hwaddr = page_translate(addr);
 #else
-*/
 		hwaddr_t hwaddr = TLB_translate(addr);
-//#endif
+#endif
 		hwaddr_write(hwaddr, len, data);
 	}
 }
