@@ -3,7 +3,7 @@
 #include <string.h>
 
 #define VMEM_ADDR 0xa0000
-#define VMEM_SIZE 0x10000
+#define VMEM_SIZE 0x20000
 #define SCR_SIZE (320 * 200)
 
 /* Use the function to get the start address of user page directory. */
