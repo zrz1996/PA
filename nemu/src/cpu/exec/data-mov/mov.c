@@ -31,6 +31,8 @@ make_helper(mov_c2r)
 	return len + 1;
 }
 
+void TLB_init();
+
 make_helper(mov_r2c)
 {
 	uint32_t op = instr_fetch(eip + 1, 1);
@@ -44,6 +46,7 @@ make_helper(mov_r2c)
 	if (sn == 3)
 	{
 		cpu.cr3.val = reg_l(rn);
+		TLB_init();
 		print_asm("mov" " %%%s,cr3", regsl[rn]);
 	}
 	return 2;
