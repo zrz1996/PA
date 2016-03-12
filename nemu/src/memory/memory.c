@@ -63,7 +63,7 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 		int len2 = len - len1;
 #ifndef TLB_ENABLE
 		hwaddr_t hwaddr1 = page_translate(addr);
-		printf("%x\n", hwaddr1);
+		printf("%x\n", addr + len1);
 		hwaddr_t hwaddr2 = page_translate(addr + len1);
 #else
 		hwaddr_t hwaddr1 = TLB_translate(addr);
