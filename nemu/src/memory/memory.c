@@ -7,7 +7,7 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 
 void cache_write(hwaddr_t, size_t, uint32_t);
 uint32_t cache_read(hwaddr_t, size_t);
-//#define CACHE_ENABLE
+#define CACHE_ENABLE
 /* Memory accessing interfaces */
 
 
@@ -61,9 +61,9 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 		//assert(0);
 		int len1 = 4096 - (addr & 0xfff);
 		int len2 = len - len1;
-		printf("%x %x\n", len1, (int)len2);
 #ifndef TLB_ENABLE
 		hwaddr_t hwaddr1 = page_translate(addr);
+		printf("%x\n", hwaddr1);
 		hwaddr_t hwaddr2 = page_translate(addr + len1);
 #else
 		hwaddr_t hwaddr1 = TLB_translate(addr);
