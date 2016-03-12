@@ -47,7 +47,7 @@ hwaddr_t page_translate(lnaddr_t addr)
 	PTE pg_entry;
 	pg_entry.val = hwaddr_read((dir_entry.page_frame << 12) + (temp.page << 2), 4);
 	assert(pg_entry.present);
-	return (pg_entry.page_frame << 12) | temp.page;
+	return (pg_entry.page_frame << 12) | temp.offset;
 }
 
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
