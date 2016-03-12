@@ -7,7 +7,7 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 
 void cache_write(hwaddr_t, size_t, uint32_t);
 uint32_t cache_read(hwaddr_t, size_t);
-#define CACHE_ENABLE
+//#define CACHE_ENABLE
 /* Memory accessing interfaces */
 
 
