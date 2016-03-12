@@ -12,7 +12,7 @@ uint32_t cache_read(hwaddr_t, size_t);
 
 
 hwaddr_t TLB_translate(lnaddr_t addr);
-#define TLB_ENABLE
+//#define TLB_ENABLE
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 #ifndef CACHE_ENABLE
