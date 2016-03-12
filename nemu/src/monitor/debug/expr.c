@@ -42,6 +42,16 @@ extern int accessReg(char *str, int *isReg)
 		*isReg = 1;
 		return cpu.eflags;
 	}
+	if (strstr(str, "cr0") != NULL)
+	{
+		*isReg = 1;
+		return cpu.cr0.val;
+	}
+	if (strstr(str, "cr3") != NULL)
+	{
+		*isReg = 1;
+		return cpu.cr3.val;
+	}
 	*isReg = 0;
 	yyerror("no such register!");
 	return 0;
