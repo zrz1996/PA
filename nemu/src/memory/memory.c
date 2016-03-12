@@ -32,7 +32,6 @@ hwaddr_t page_translate(lnaddr_t addr)
 		return addr;
 	printf("@@@@@\n");
 	uint32_t pd1_base = cpu.cr3.page_directory_base;
-	//uint32_t pd1_base = ucr3.page_directory_base;
 	union {
 		struct {
 			uint32_t offset : 12;
