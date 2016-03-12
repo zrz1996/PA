@@ -36,15 +36,15 @@ make_helper(mov_r2c)
 	uint32_t op = instr_fetch(eip + 1, 1);
 	uint8_t rn = op & 0x7;
 	uint8_t sn = (op >> 3) & 7;
-	if (rn == 0)
+	if (sn == 0)
 	{
-		cpu.cr0.val = reg_l(sn);
-		print_asm("mov" " %%%s,cr0", regsl[sn]);
+		cpu.cr0.val = reg_l(rn);
+		print_asm("mov" " %%%s,cr0", regsl[rn]);
 	}
-	if (rn == 3)
+	if (sn == 3)
 	{
-		cpu.cr3.val = reg_l(sn);
-		print_asm("mov" " %%%s,cr3", regsl[sn]);
+		cpu.cr3.val = reg_l(rn);
+		print_asm("mov" " %%%s,cr3", regsl[rn]);
 	}
 	return 2;
 }
