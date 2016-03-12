@@ -33,10 +33,20 @@ make_helper(mov_c2r)
 
 make_helper(mov_r2c)
 {
-	uint32_t len = decode_rm_l(eip + 1);
-	cpu.cr0.val = reg_l(op_src->reg);
-	print_asm("mov" " %s,CR0", op_src->str);
-	return len + 1;
+	uint32_t op = instr_fetch(eip + 1, 1);
+	uint8_t rn = op & 0x7;
+	uint8_t sn = (op >> 3) & 7;
+	if (rn == 0)
+	{
+		cpu.cr0.val = reg_l(sn);
+		print_asm("mov" " %%%s,cr0", regsl[sn]);
+	}
+	if (rn == 3)
+	{
+		cpu.cr3.val = reg_l(sn);
+		print_asm("mov" " %%%s,cr3", regsl[sn]);
+	}
+	return 2;
 }
 make_helper(mov_rm2sr)
 {
@@ -54,6 +64,6 @@ make_helper(mov_rm2sr)
 	temp.gdt = ((uint64_t)lnaddr_read(gdt_addr + 4, 4) << 32) | lnaddr_read(gdt_addr, 4);
 	cpu.segbase[sn] = (temp.SD.base_31_24 << 24) + (temp.SD.base_23_16 << 16) + (temp.SD.base_15_0);
 	cpu.seglimit[sn] = (temp.SD.limit_19_16 << 16) + temp.SD.limit_15_0;
-	print_asm("mov" " %s,%s", regsw[rn], segname[sn]);
+	print_asm("mov" " %%%s,%s", regsw[rn], segname[sn]);
 	return 2;
 }
