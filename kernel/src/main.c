@@ -61,7 +61,6 @@ void init_cond() {
 	sti();
 #endif
 
-	set_bp();
 #ifdef IA32_PAGE
 	/* Initialize the memory manager. */
 	init_mm();
@@ -78,6 +77,7 @@ void init_cond() {
 	video_mapping_write_test();
 #endif
 
+	set_bp();
 	/* Load the program. */
 	uint32_t eip = loader();
 	
