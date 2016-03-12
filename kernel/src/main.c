@@ -25,7 +25,6 @@ void init() {
 	 * is located at 0xc0100000, which is set by the linking options in Makefile.
 	 * Before setting up correct paging, no global variable can be used. */
 	init_page();
-	set_bp();
 	/* After paging is enabled, transform %esp to virtual address. */
 	asm volatile("addl %0, %%esp" : : "i"(KOFFSET));
 #endif
@@ -62,6 +61,7 @@ void init_cond() {
 	sti();
 #endif
 
+	set_bp();
 #ifdef IA32_PAGE
 	/* Initialize the memory manager. */
 	init_mm();
