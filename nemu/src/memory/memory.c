@@ -28,7 +28,6 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 
 hwaddr_t page_translate(lnaddr_t addr)
 {
-	printf("%x\n", addr);
 	if (!cpu.cr0.protect_enable || !cpu.cr0.paging)
 		return addr;
 	uint32_t pd1_base = cpu.cr3.page_directory_base << 12;
