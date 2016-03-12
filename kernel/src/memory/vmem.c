@@ -23,8 +23,7 @@ void create_video_mapping() {
 	uint32_t addr = VMEM_ADDR;
 	uint32_t i = VMEM_ADDR / PAGE_SIZE;
 	for (; addr < VMEM_ADDR + VMEM_SIZE; addr += PAGE_SIZE) {
-		ptable_video[i].val = make_pte(addr);
-		i++;
+		ptable_video[i + 1].val = make_pte(addr);
 	}
 }
 
