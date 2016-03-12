@@ -42,6 +42,7 @@
 
 #include "misc/misc.h"
 #include "misc/cld.h"
+#include "misc/std.h"
 #include "special/special.h"
 
 #include "control/call.h"
