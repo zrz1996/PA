@@ -31,7 +31,7 @@ hwaddr_t page_translate(lnaddr_t addr)
 	if (!cpu.cr0.protect_enable || !cpu.cr0.paging)
 		return addr;
 	printf("@@@@@\n");
-	uint32_t pd1_base = cpu.cr3.page_directory_base;
+	uint32_t pd1_base = cpu.cr3.page_directory_base << 12;
 	union {
 		struct {
 			uint32_t offset : 12;
@@ -45,7 +45,7 @@ hwaddr_t page_translate(lnaddr_t addr)
 	dir_entry.val = hwaddr_read(pd1_base + (temp.dir << 2), 4);
 	assert(dir_entry.present);
 	PTE pg_entry;
-	pg_entry.val = hwaddr_read(dir_entry.page_frame + (temp.page << 2), 4);
+	pg_entry.val = hwaddr_read((dir_entry.page_frame << 12) + (temp.page << 2), 4);
 	assert(pg_entry.present);
 	return (pg_entry.page_frame << 12) | temp.page;
 }
