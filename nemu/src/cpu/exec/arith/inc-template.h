@@ -3,7 +3,7 @@
 #define instr inc
 
 static void do_execute () {
-	//DATA_TYPE result = op_src->val + 1;
+	cpu.cf = 0;
 	DATA_TYPE result = alu(op_src->val, 1, 1, 0);
 	OPERAND_W(op_src, result);
 	print_asm_template1();

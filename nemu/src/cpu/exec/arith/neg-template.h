@@ -1,15 +1,12 @@
 #include "cpu/exec/template-start.h"
+#include "../alu.h"
 
 #define instr neg
 
 static void do_execute() {
-	DATA_TYPE result = -op_src->val;
+	cpu.cf = 0;
+	DATA_TYPE result = alu(0, op_src->val, 1, 1);
 	OPERAND_W(op_src, result);
-
-	/* There is no need to update EFLAGS, since no other instructions 
-	 * in PA will test the flags updated by this instruction.
-	 */
-
 	print_asm_template1();
 }
 

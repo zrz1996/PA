@@ -28,7 +28,7 @@ make_instr_helper(rm)
 #define instr seta
 static void do_execute()
 {
-	if (cpu.zf == 0 || cpu.cf == 0)
+	if (cpu.zf == 0 && cpu.cf == 0)
 		OPERAND_W(op_src, 1);
 	else
 		OPERAND_W(op_src, 0);

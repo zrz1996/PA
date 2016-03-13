@@ -6,12 +6,27 @@ static void do_execute() {
 	if (ops_decoded.opcode == 0x1b6)
 	{
 		if (DATA_BYTE == 2)
-			OPERAND_W(op_dest, (uint16_t)((uint8_t)op_src->val));
+		{
+			if (op_src->type == 0)
+				OPERAND_W(op_dest, (uint16_t)((uint8_t)reg_b(op_src->reg)));
+			else
+				OPERAND_W(op_dest, (uint16_t)((uint8_t)op_src->val));
+		}
 		else
-			OPERAND_W(op_dest, (uint32_t)((uint8_t)op_src->val));
+		{
+			if (op_src->type == 0)
+				OPERAND_W(op_dest, (uint32_t)((uint8_t)reg_b(op_src->reg)));
+			else
+				OPERAND_W(op_dest, (uint32_t)((uint8_t)op_src->val));
+		}
 	}
 	else
-		OPERAND_W(op_dest, (uint32_t)((uint16_t)op_src->val));
+	{
+		if (op_src->type == 0)
+			OPERAND_W(op_dest, (uint32_t)((uint16_t)reg_w(op_src->reg)));
+		else
+			OPERAND_W(op_dest, (uint32_t)((uint16_t)op_src->val));
+	}
 	print_asm_template2();
 }
 
