@@ -7,12 +7,12 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 
 void cache_write(hwaddr_t, size_t, uint32_t);
 uint32_t cache_read(hwaddr_t, size_t);
-//#define CACHE_ENABLE
+#define CACHE_ENABLE
 /* Memory accessing interfaces */
 
 
 hwaddr_t TLB_translate(lnaddr_t addr);
-//#define TLB_ENABLE
+#define TLB_ENABLE
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 #ifndef CACHE_ENABLE
@@ -57,7 +57,6 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 	assert(len == 1 || len == 2 || len == 4);
 	if ((addr >> 12) != ((addr + len - 1) >> 12)) /* cross a page */
 	{
-		//assert(0);
 		int len1 = 4096 - (addr & 0xfff);
 		int len2 = len - len1;
 #ifndef TLB_ENABLE
@@ -67,7 +66,6 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 		hwaddr_t hwaddr1 = TLB_translate(addr);
 		hwaddr_t hwaddr2 = TLB_translate(addr + len1);
 #endif
-		//return hwaddr_read(hwaddr1, len1) | (hwaddr_read(hwaddr2, len2) << len1);
 		uint32_t ret1 = (len1 == 3) ? (hwaddr_read(hwaddr1, 2) | (hwaddr_read(hwaddr1 + 2, 1) << 16)) : hwaddr_read(hwaddr1, len1);
 		uint32_t ret2 = (len2 == 3) ? (hwaddr_read(hwaddr2, 2) | (hwaddr_read(hwaddr2 + 2, 1) << 16)) : hwaddr_read(hwaddr2, len2);
 		return ret1 | (ret2 << (len1 << 3));
