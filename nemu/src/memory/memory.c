@@ -7,12 +7,12 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 
 void cache_write(hwaddr_t, size_t, uint32_t);
 uint32_t cache_read(hwaddr_t, size_t);
-#define CACHE_ENABLE
+//#define CACHE_ENABLE
 /* Memory accessing interfaces */
 
 
 hwaddr_t TLB_translate(lnaddr_t addr);
-#define TLB_ENABLE
+//#define TLB_ENABLE
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 #ifndef CACHE_ENABLE
