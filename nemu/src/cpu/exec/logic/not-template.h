@@ -7,6 +7,7 @@ static void do_execute() {
 	OPERAND_W(op_src, result);
 	cpu.cf = 0;
 	alu(result, 0, 1, 0);
+	cpu.of = cpu.cf = 0;
 	print_asm_template1();
 }
 

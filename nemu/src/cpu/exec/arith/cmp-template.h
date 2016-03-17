@@ -2,7 +2,7 @@
 #include "../alu.h"
 #define instr cmp
 static void do_execute () {
-	DATA_TYPE result = op_src->val;
+	DATA_TYPE_S result = op_src->val;
 	if (ops_decoded.opcode == 0x83)
 	{
 		if (DATA_BYTE == 2)
