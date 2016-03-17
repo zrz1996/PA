@@ -57,7 +57,6 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 	assert(len == 1 || len == 2 || len == 4);
 	if ((addr >> 12) != ((addr + len - 1) >> 12)) /* cross a page */
 	{
-		printf("read cross a page!\n");
 		//assert(0);
 		int len1 = 4096 - (addr & 0xfff);
 		int len2 = len - len1;
@@ -68,7 +67,10 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 		hwaddr_t hwaddr1 = TLB_translate(addr);
 		hwaddr_t hwaddr2 = TLB_translate(addr + len1);
 #endif
-		return hwaddr_read(hwaddr1, len1) | (hwaddr_read(hwaddr2, len2) << len1);
+		//return hwaddr_read(hwaddr1, len1) | (hwaddr_read(hwaddr2, len2) << len1);
+		uint32_t ret1 = (len1 == 3) ? (hwaddr_read(hwaddr1, 2) | (hwaddr_read(hwaddr1 + 2, 1) << 2)) : hwaddr_read(hwaddr1, len1);
+		uint32_t ret2 = (len2 == 3) ? (hwaddr_read(hwaddr2, 2) | (hwaddr_read(hwaddr2 + 2, 1) << 2)) : hwaddr_read(hwaddr2, len2);
+		return ret1 | (ret2 << len1);
 	}
 	else
 	{
@@ -96,8 +98,21 @@ void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 		hwaddr_t hwaddr1 = TLB_translate(addr);
 		hwaddr_t hwaddr2 = TLB_translate(addr + len1);
 #endif
-		hwaddr_write(hwaddr1, len1, data & ((1 << len1) - 1));
-		hwaddr_write(hwaddr2, len2, data >> len1);
+		if (len1 == 3)
+		{
+			hwaddr_write(hwaddr1, 2, data & 0xffff);
+			hwaddr_write(hwaddr1 + 2, 1, (data >> 16) & 0xff);
+		}
+		else
+			hwaddr_write(hwaddr1, len1, data & ((1 << (len1 << 3)) - 1));
+		data >>= (len1 << 3);
+		if (len2 == 3)
+		{
+			hwaddr_write(hwaddr2, 2, data & 0xffff);
+			hwaddr_write(hwaddr2 + 2, 1, (data >> 16) & 0xff);
+		}
+		else
+			hwaddr_write(hwaddr2, len2, data);
 	}
 	else
 	{
