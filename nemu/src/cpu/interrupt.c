@@ -13,6 +13,7 @@ void raise_intr(uint8_t NO) {
 	swaddr_write(reg_l(R_ESP), 4, cpu.cs, 2);
 	reg_l(R_ESP) -= 4;
 	swaddr_write(reg_l(R_ESP), 4, cpu.eip, 2);
+	printf("%x\n", cpu.eip);
 	/* change cs */
 	cpu.cs = (idt >> 16) & 0xffff;
 	/* update cs buffer */
