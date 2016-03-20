@@ -48,6 +48,7 @@ make_helper(int_i) {
 }
 
 make_helper(iret) {
+	assert(cpu.cr0.paging);
 	cpu.eip = swaddr_read(cpu.esp, 4, 2);
 	cpu.esp += 4;
 	cpu.cs = (uint16_t)swaddr_read(cpu.esp, 4, 2);
