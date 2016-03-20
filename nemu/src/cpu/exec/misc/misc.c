@@ -48,7 +48,6 @@ make_helper(int_i) {
 }
 
 make_helper(iret) {
-	assert(cpu.cr0.protect_enable);
 	cpu.eip = swaddr_read(cpu.esp, 4, 2);
 	cpu.esp += 4;
 	cpu.cs = (uint16_t)swaddr_read(cpu.esp, 4, 2);
@@ -57,7 +56,6 @@ make_helper(iret) {
 	cpu.esp += 4;
 	uint32_t gdt_addr = cpu.gdtr >> 16;
 	uint32_t index = (cpu.cs >> 3) << 3;
-	assert((cpu.cs >> 3) < (cpu.gdtr & 0xffff));
 	gdt_addr += index;
 	union {
 	    uint64_t gdt;
@@ -66,6 +64,7 @@ make_helper(iret) {
 	temp.gdt = ((uint64_t)lnaddr_read(gdt_addr + 4, 4) << 32) | lnaddr_read(gdt_addr, 4);
 	cpu.segbase[1] = (temp.SD.base_31_24 << 24) + (temp.SD.base_23_16 << 16) + (temp.SD.base_15_0);
 	cpu.seglimit[1] = (temp.SD.limit_19_16 << 16) + temp.SD.limit_15_0;
+	assert(temp.SD.granularity == 0);
 	printf("cs.base = %x cs.limit = %x\n", cpu.segbase[1], cpu.seglimit[1]);
 	assert(cpu.eip < cpu.seglimit[1]);
 	print_asm("iret");
