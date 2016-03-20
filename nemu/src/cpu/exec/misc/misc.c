@@ -44,7 +44,7 @@ make_helper(int_i) {
 	uint8_t no = instr_fetch(eip + 1, 1);
 	raise_intr(no);
 	print_asm("int 0x%x", no);
-	return 2;
+	return 3;
 }
 
 make_helper(iret) {
