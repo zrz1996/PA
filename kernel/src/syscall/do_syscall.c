@@ -30,7 +30,6 @@ static void sys_write(TrapFrame *tf) {
 		panic("file system unsupport!");
 	}
 	tf->eax = ret;
-	set_bp();
 }
 void do_syscall(TrapFrame *tf) {
 	switch(tf->eax) {
