@@ -42,8 +42,8 @@ make_helper(stc) {
 make_helper(int_i) {
 	void raise_intr(uint8_t NO);
 	uint8_t no = instr_fetch(eip + 1, 1);
-	printf("%x\n", no);
 	raise_intr(no);
+	printf("%x\n", no);
 	print_asm("int 0x%x", no);
 	return 2;
 }
