@@ -48,7 +48,7 @@ make_helper(int_i) {
 }
 
 make_helper(iret) {
-	assert(cpu.cr0.paging);
+	assert(cpu.cr0.protect_enable);
 	cpu.eip = swaddr_read(cpu.esp, 4, 2);
 	cpu.esp += 4;
 	cpu.cs = (uint16_t)swaddr_read(cpu.esp, 4, 2);
@@ -57,6 +57,7 @@ make_helper(iret) {
 	cpu.esp += 4;
 	uint32_t gdt_addr = cpu.gdtr >> 16;
 	uint32_t index = (cpu.cs >> 3) << 3;
+	assert((cpu.cs >> 3) < (cpu.gdtr & 0xffff));
 	gdt_addr += index;
 	union {
 	    uint64_t gdt;
