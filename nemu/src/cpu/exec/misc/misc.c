@@ -69,5 +69,6 @@ make_helper(iret) {
 	if (temp.SD.granularity)
 		cpu.seglimit[1] <<= 12;
 	print_asm("iret");
+	cpu.eip -= 1;
 	return 1;
 }
