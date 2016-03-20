@@ -6,7 +6,6 @@ extern jmp_buf jbuf;
 void raise_intr(uint8_t NO) {
 	lnaddr_t idt_address = (cpu.idtr >> 16) + (NO << 3);
 	uint64_t idt = ((uint64_t)lnaddr_read(idt_address + 4, 4) << 32) | lnaddr_read(idt_address, 4);
-	assert((idt >> 47) & 1);
 	/* push eflags, cs, eip */
 	reg_l(R_ESP) -= 4;
 	swaddr_write(reg_l(R_ESP), 4, cpu.eflags, 2);

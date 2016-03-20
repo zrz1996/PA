@@ -42,10 +42,10 @@ make_helper(stc) {
 make_helper(int_i) {
 	void raise_intr(uint8_t NO);
 	uint8_t no = instr_fetch(eip + 1, 1);
-	print_asm("int 0x%x", no);
-	printf("%x\n", no);
+	cpu.eip += 2;
 	raise_intr(no);
-	return 2;
+	print_asm("int 0x%x", no);
+	return 0;
 }
 
 make_helper(iret) {
