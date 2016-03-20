@@ -66,7 +66,7 @@ typedef struct {
 	};
 	uint32_t segbase[4];
 	uint32_t seglimit[4];
-	uint64_t gdtr;
+	uint64_t gdtr, idtr;
 } CPU_state;
 
 extern CPU_state cpu;

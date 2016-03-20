@@ -53,3 +53,4 @@
 #include "control/pop.h"
 
 #include "sys/lgdt.h"
+#include "sys/lidt.h"
