@@ -17,7 +17,6 @@ static void sys_write(TrapFrame *tf) {
 	char *buf = (char *)tf->ecx;
 	uint32_t len = tf->edx;
 	uint32_t ret = len;
-	set_bp();
 	if (fd == 1 || fd == 2)
 	{
 		while (len--)
