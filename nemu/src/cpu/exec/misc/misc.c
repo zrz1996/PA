@@ -66,8 +66,6 @@ make_helper(iret) {
 	cpu.seglimit[1] = (temp.SD.limit_19_16 << 16) + temp.SD.limit_15_0;
 	if (temp.SD.granularity)
 		cpu.seglimit[1] <<= 12;
-	printf("cs.base = %x cs.limit = %x\n", cpu.segbase[1], cpu.seglimit[1]);
-	assert(cpu.eip < cpu.seglimit[1]);
 	print_asm("iret");
 	return 1;
 }
