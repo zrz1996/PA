@@ -44,6 +44,7 @@ make_helper(int_i) {
 	uint8_t no = instr_fetch(eip + 1, 1);
 	cpu.eip += 2;
 	raise_intr(no);
+	printf("%x\n", cpu.eip);
 	print_asm("int 0x%x", no);
 	return 0;
 }
