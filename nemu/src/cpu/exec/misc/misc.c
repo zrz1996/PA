@@ -1,6 +1,6 @@
 #include "cpu/exec/helper.h"
 #include "cpu/decode/modrm.h"
-
+#include "../../lib-common/x86-inc/mmu.h"
 make_helper(nop) {
 	print_asm("nop");
 	return 1;
@@ -23,10 +23,13 @@ make_helper(lea) {
 	print_asm("leal %s,%%%s", op_src->str, regsl[m.reg]);
 	return 1 + len;
 }
-
-
 make_helper(clc) {
 	cpu.cf = 0;
+	print_asm("clc");
+	return 1;
+}
+make_helper(cli) {
+	cpu._if_ = 0;
 	print_asm("clc");
 	return 1;
 }
@@ -42,4 +45,24 @@ make_helper(int_i) {
 	raise_intr(no);
 	print_asm("int 0x%x", no);
 	return 2;
+}
+
+make_helper(iret) {
+	cpu.eip = swaddr_read(cpu.esp, 4, 2);
+	cpu.esp += 4;
+	cpu.cs = swaddr_read(cpu.esp, 4, 2);
+	cpu.esp += 4;
+	cpu.eflags = swaddr_read(cpu.esp, 4, 2);
+	cpu.esp += 4;
+	uint32_t gdt_addr = cpu.gdtr >> 16;
+	uint32_t index = (cpu.cs >> 3) << 3;
+	gdt_addr += index;
+	union {
+	    uint64_t gdt;
+	    SegDesc SD;
+	}temp;
+	temp.gdt = ((uint64_t)lnaddr_read(gdt_addr + 4, 4) << 32) | lnaddr_read(gdt_addr, 4);
+	cpu.segbase[1] = (temp.SD.base_31_24 << 24) + (temp.SD.base_23_16 << 16) + (temp.SD.base_15_0);
+	cpu.seglimit[1] = (temp.SD.limit_19_16 << 16) + temp.SD.limit_15_0;
+	return 1;
 }
