@@ -40,6 +40,7 @@ make_helper(stc) {
 }
 
 make_helper(int_i) {
+	printf("int");
 	void raise_intr(uint8_t NO);
 	uint8_t no = instr_fetch(eip + 1, 1);
 	raise_intr(no);
