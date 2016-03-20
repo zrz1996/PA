@@ -64,7 +64,8 @@ make_helper(iret) {
 	temp.gdt = ((uint64_t)lnaddr_read(gdt_addr + 4, 4) << 32) | lnaddr_read(gdt_addr, 4);
 	cpu.segbase[1] = (temp.SD.base_31_24 << 24) + (temp.SD.base_23_16 << 16) + (temp.SD.base_15_0);
 	cpu.seglimit[1] = (temp.SD.limit_19_16 << 16) + temp.SD.limit_15_0;
-	assert(temp.SD.granularity == 0);
+	if (temp.SD.granularity)
+		cpu.seglimit[1] <<= 12;
 	printf("cs.base = %x cs.limit = %x\n", cpu.segbase[1], cpu.seglimit[1]);
 	assert(cpu.eip < cpu.seglimit[1]);
 	print_asm("iret");
