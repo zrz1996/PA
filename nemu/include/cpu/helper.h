@@ -10,7 +10,8 @@
 static inline uint32_t instr_fetch(swaddr_t addr, size_t len) {
 	if (cpu.cr0.protect_enable)
 	{
-		//printf("%x\n", swaddr_read(addr, len, 1));
+		if (addr == 0x80480a0)
+			printf("#####");
 		return swaddr_read(addr, len, 1);
 	}
 	else
