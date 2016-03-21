@@ -48,7 +48,6 @@ uint32_t loader() {
 #ifdef IA32_PAGE
 			addr = mm_malloc(ph->p_vaddr, ph->p_memsz);			 
 #endif
-			Log("%x %x\n", ph->p_vaddr, ph->p_vaddr + ph->p_memsz);
 #ifndef HAS_DEVICE
 			ramdisk_read((void *)addr, ELF_OFFSET_IN_DISK + ph->p_offset, ph->p_filesz); 
 #else
@@ -65,6 +64,7 @@ uint32_t loader() {
 			uint32_t new_brk = ph->p_vaddr + ph->p_memsz - 1;
 			if(brk < new_brk) { brk = new_brk; }
 #endif
+			Log("%x %x\n", ph->p_vaddr, ph->p_vaddr + ph->p_memsz);
 		}
 	}
 
