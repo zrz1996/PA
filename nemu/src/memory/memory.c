@@ -72,6 +72,7 @@ hwaddr_t page_translate(lnaddr_t addr)
 
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 	assert(len == 1 || len == 2 || len == 4);
+
 	if ((addr >> 12) != ((addr + len - 1) >> 12)) /* cross a page */
 	{
 		int len1 = 4096 - (addr & 0xfff);
@@ -89,6 +90,8 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 	}
 	else
 	{
+		if (addr == 0x80480a0)
+			printf("%x\n", addr);
 #ifndef TLB_ENABLE
 		hwaddr_t hwaddr = page_translate(addr);
 #else
@@ -155,8 +158,6 @@ uint32_t swaddr_read(swaddr_t addr, size_t len, uint8_t sreg) {
 	if (!cpu.cr0.protect_enable)
 		return lnaddr_read(addr, len);
 	lnaddr_t lnaddr = seg_translate(addr, len, sreg);
-	if (cpu.eip == 0x80480a0)
-		printf("%x\n", lnaddr);
 	return lnaddr_read(lnaddr, len);
 }
 
