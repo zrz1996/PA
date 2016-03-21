@@ -71,7 +71,6 @@ void init_cond() {
 	 * the serial port is available in NEMU.
 	 */
 	Log("Hello, NEMU world!");
-	set_bp();
 #if defined(IA32_PAGE) && defined(HAS_DEVICE)
 	/* Write some test data to the video memory. */
 	video_mapping_write_test();
@@ -93,6 +92,7 @@ void init_cond() {
 #ifdef IA32_PAGE
 	/* Set the %esp for user program, which is one of the
 	 * convention of the "advanced" runtime environment. */
+	set_bp();
 	asm volatile("movl %0, %%esp" : : "i"(KOFFSET));
 #endif
 
