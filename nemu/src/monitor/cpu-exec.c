@@ -2,6 +2,7 @@
 #include "monitor/watchpoint.h"
 #include "cpu/helper.h"
 #include <setjmp.h>
+#include "device/i8259.h"
 
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
@@ -35,6 +36,7 @@ void do_int3() {
 	nemu_state = STOP;
 }
 
+void raise_intr(uint8_t NO);
 /* Simulate how the CPU works. */
 void cpu_exec(volatile uint32_t n) {
 	if(nemu_state == END) {
@@ -78,6 +80,13 @@ void cpu_exec(volatile uint32_t n) {
 		}
 
 		if(nemu_state != RUNNING) { return; }
+#ifdef HAS_DEVICE
+		if(cpu.INTR & cpu._if_) {
+			uint32_t intr_no = i8259_query_intr();
+			i8259_ack_intr();
+			raise_intr(intr_no);
+		}
+#endif
 	}
 
 	if(nemu_state == RUNNING) { nemu_state = STOP; }
