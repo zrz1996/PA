@@ -12,7 +12,7 @@ static inline uint32_t instr_fetch(swaddr_t addr, size_t len) {
 	{
 		if (addr == 0x80480a0)
 		{
-			printf("%x\n", cpu.cs);
+			printf("%x\n", cpu.segbase[1]);
 		}
 		return swaddr_read(addr, len, 1);
 	}
