@@ -49,6 +49,8 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 
 hwaddr_t page_translate(lnaddr_t addr)
 {
+		if (addr == 0x80480a0)
+			printf("%x\n", addr);
 	if (!cpu.cr0.protect_enable || !cpu.cr0.paging)
 		return addr;
 	uint32_t pd1_base = cpu.cr3.page_directory_base << 12;
@@ -90,12 +92,10 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 	}
 	else
 	{
-		if (addr == 0x80480a0)
-			printf("%x\n", addr);
 #ifndef TLB_ENABLE
 		hwaddr_t hwaddr = page_translate(addr);
 #else
-		hwaddr_t hwaddr = page_translate(addr);
+		hwaddr_t hwaddr = TLB_translate(addr);
 #endif
 		return hwaddr_read(hwaddr, len);
 	}
