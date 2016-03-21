@@ -25,7 +25,6 @@ void create_video_mapping() {
 	for (; addr < VMEM_ADDR + VMEM_SIZE; addr += PAGE_SIZE) {
 		ptable_video[i ++].val = make_pte(addr);
 	}
-	Log("video creat compelete");
 }
 
 void video_mapping_write_test() {
@@ -34,7 +33,6 @@ void video_mapping_write_test() {
 	for(i = 0; i < SCR_SIZE / 4; i ++) {
 		buf[i] = i;
 	}
-	Log("video write test");
 }
 
 void video_mapping_read_test() {
@@ -43,7 +41,6 @@ void video_mapping_read_test() {
 	for(i = 0; i < SCR_SIZE / 4; i ++) {
 		assert(buf[i] == i);
 	}
-	Log("video read test");
 }
 
 void video_mapping_clear() {
