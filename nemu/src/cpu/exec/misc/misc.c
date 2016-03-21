@@ -33,6 +33,11 @@ make_helper(cli) {
 	print_asm("clc");
 	return 1;
 }
+make_helper(sti) {
+	cpu._if_ = 1;
+	print_asm("sti");
+	return 1;
+}
 make_helper(stc) {
 	cpu.cf = 1;
 	print_asm("stc");
