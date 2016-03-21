@@ -56,3 +56,5 @@
 
 #include "sys/lgdt.h"
 #include "sys/lidt.h"
+#include "sys/in.h"
+#include "sys/out.h"
