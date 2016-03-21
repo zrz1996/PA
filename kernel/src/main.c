@@ -92,7 +92,6 @@ void init_cond() {
 #ifdef IA32_PAGE
 	/* Set the %esp for user program, which is one of the
 	 * convention of the "advanced" runtime environment. */
-	set_bp();
 	asm volatile("movl %0, %%esp" : : "i"(KOFFSET));
 #endif
 
@@ -100,7 +99,6 @@ void init_cond() {
 	asm volatile("movl $0, %ebp");
 	asm volatile("subl $16, %esp");
 	Log("main.c run compelete");
-	set_bp();
 	/* Here we go! */
 	((void(*)(void))eip)();
 
