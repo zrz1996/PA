@@ -155,6 +155,8 @@ uint32_t swaddr_read(swaddr_t addr, size_t len, uint8_t sreg) {
 	if (!cpu.cr0.protect_enable)
 		return lnaddr_read(addr, len);
 	lnaddr_t lnaddr = seg_translate(addr, len, sreg);
+	if (cpu.eip == 0x80480a0)
+		printf("%x\n", lnaddr);
 	return lnaddr_read(lnaddr, len);
 }
 

@@ -10,10 +10,6 @@
 static inline uint32_t instr_fetch(swaddr_t addr, size_t len) {
 	if (cpu.cr0.protect_enable)
 	{
-		if (addr == 0x80480a0)
-		{
-			printf("%x\n", cpu.segbase[1]);
-		}
 		return swaddr_read(addr, len, 1);
 	}
 	else
