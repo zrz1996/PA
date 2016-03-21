@@ -1,13 +1,14 @@
 #include "common.h"
 #include "nemu.h"
 #include "../../lib-common/x86-inc/mmu.h"
+#include "device/mmio.h"
 
 uint32_t dram_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);
 
 void cache_write(hwaddr_t, size_t, uint32_t);
 uint32_t cache_read(hwaddr_t, size_t);
-#define CACHE_ENABLE
+//#define CACHE_ENABLE
 /* Memory accessing interfaces */
 
 
@@ -15,19 +16,35 @@ hwaddr_t TLB_translate(lnaddr_t addr);
 #define TLB_ENABLE
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
+	int id = is_mmio(addr);
+	if (id != - 1)
+	{
+		return mmio_read(addr, len, id);
+	}
+	else
+	{
 #ifndef CACHE_ENABLE
-	return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
+		return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
 #else
-	return cache_read(addr, len) & (~0u >> ((4 - len) << 3));
+		return cache_read(addr, len) & (~0u >> ((4 - len) << 3));
 #endif
+	}
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
+	int id = is_mmio(addr);
+	if (id != -1)
+	{
+		mmio_write(addr, len, data, id);
+	}
+	else
+	{
 #ifndef CACHE_ENABLE
-	dram_write(addr, len, data);
+		dram_write(addr, len, data);
 #else
-	cache_write(addr, len, data);
+		cache_write(addr, len, data);
 #endif
+	}
 }
 
 hwaddr_t page_translate(lnaddr_t addr)
