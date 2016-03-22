@@ -41,7 +41,7 @@ create_new_letter(void) {
 	/* 字母、初始位置、掉落速度均为随机设定 */
 	head->x = 0;
 	head->y = rand() % (SCR_WIDTH / 8 - 2) * 8 + 8;
-	head->v = F_div_F(int2F(rand() % 1000), int2F(2000)) + f2F(0.5);
+	head->v = F_div_F(int2F(rand() % 1000), int2F(2000)) + f2F(0.5) + 1;
 	head->text = rand() % 26;
 	release_key(head->text); /* 清除过往的按键 */
 }

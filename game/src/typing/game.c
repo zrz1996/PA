@@ -4,7 +4,7 @@
 #include <string.h>
 
 #define FPS 30
-#define CHARACTER_PER_SECOND 30
+#define CHARACTER_PER_SECOND 3
 #define UPDATE_PER_SECOND 100
 
 volatile int tick = 0;
