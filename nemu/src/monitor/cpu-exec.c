@@ -37,6 +37,7 @@ void do_int3() {
 }
 
 void raise_intr(uint8_t NO);
+void device_update();
 /* Simulate how the CPU works. */
 void cpu_exec(volatile uint32_t n) {
 	if(nemu_state == END) {
