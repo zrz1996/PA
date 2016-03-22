@@ -3,7 +3,7 @@
 
 #include <string.h>
 
-#define FPS 100
+#define FPS 30
 #define CHARACTER_PER_SECOND 3
 #define UPDATE_PER_SECOND 100
 
