@@ -46,7 +46,6 @@ make_helper(mov_r2c)
 	if (sn == 3)
 	{
 		cpu.cr3.val = reg_l(rn);
-		printf("%x\n", cpu.cr3.page_directory_base);
 		TLB_init();
 		print_asm("mov" " %%%s,cr3", regsl[rn]);
 	}
