@@ -6,6 +6,12 @@ void add_irq_handle(int, void (*)(void));
 void mm_brk(uint32_t);
 void serial_printc(char);
 
+int fs_open(const char *pathname, int flags);	
+int fs_read(int fd, void *buf, int len);
+int fs_write(int fd, void *buf, int len);
+int fs_lseek(int fd, int offset, int whence);
+int fs_close(int fd);
+
 static void sys_brk(TrapFrame *tf) {
 #ifdef IA32_PAGE
 	mm_brk(tf->ebx);
@@ -21,14 +27,39 @@ static void sys_write(TrapFrame *tf) {
 	{
 		while (len--)
 			serial_printc(*(buf++));
-		//asm volatile (".byte 0xd6" : : "a"(2), "c"(buf), "d"(len));
 	}
 	else
 	{
-		panic("file system unsupport!");
+		ret = fs_write(fd, buf, len);
 	}
 	tf->eax = ret;
 }
+static void sys_open(TrapFrame *tf)
+{
+	const char *filename = (const char *)tf->ebx;
+	int flags = tf->ecx;
+	tf->eax = fs_open(filename, flags);
+}
+static void sys_close(TrapFrame *tf)
+{
+	uint32_t fd = tf->ebx;
+	tf->eax = fs_close(fd);
+}
+static void sys_read(TrapFrame *tf)
+{
+	uint32_t fd = tf->ebx;
+	char *buf = (char *)tf->ecx;
+	uint32_t len = tf->edx;
+	tf->eax = fs_read(fd, buf, len);
+}
+static void sys_lseek(TrapFrame *tf)
+{
+	uint32_t fd = tf->ebx;
+	off_t offset = tf->ecx;
+	uint32_t whence = tf->edx;
+	tf->eax = fs_lseek(fd, offset, whence);
+}
+
 void do_syscall(TrapFrame *tf) {
 	switch(tf->eax) {
 		/* The ``add_irq_handle'' system call is artificial. We use it to 
@@ -45,6 +76,10 @@ void do_syscall(TrapFrame *tf) {
 		case SYS_brk: sys_brk(tf); break;
 		/* TODO: Add more system calls. */
 		case SYS_write: sys_write(tf); break;
+		case SYS_open: sys_open(tf); break;
+		case SYS_close: sys_close(tf); break;
+		case SYS_read: sys_read(tf); break;
+		case SYS_lseek: sys_lseek(tf); break;
 
 		default: panic("Unhandled system call: id = %d", tf->eax);
 	}

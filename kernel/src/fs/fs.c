@@ -1,4 +1,5 @@
 #include "common.h"
+#include "string.h"
 
 typedef struct {
 	char *name;
@@ -31,4 +32,73 @@ void ide_read(uint8_t *, uint32_t, uint32_t);
 void ide_write(uint8_t *, uint32_t, uint32_t);
 
 /* TODO: implement a simplified file system here. */
+typedef struct {
+	bool opened;
+	uint32_t offset;
+} fstate;
+fstate Fstate[NR_FILES + 3];
+int fs_open(const char *pathname, int flags)
+{
+	int i;
+	for (i = 0; i < NR_FILES; i++)
+		if (strcmp(pathname, file_table[i].name) == 0)
+		{
+			Fstate[i + 3].opened = 1;
+			Fstate[i + 3].offset = 0;
+			return i + 3;
+		}
+	panic("file not exist!");
+	return -1;
+}
+int fs_read(int fd, void *buf, int len)
+{
+	if (fd < 3) return -1;
+	assert(fd < NR_FILES + 3);
+	assert(Fstate[fd].opened);
+	int maxlen = file_table[fd - 3].size - Fstate[fd].offset;
+	assert(maxlen >= 0);
+	if (len > maxlen)
+		len = maxlen;
+	ide_read(buf, file_table[fd - 3].disk_offset + Fstate[fd].offset, len);
+	Fstate[fd].offset += len;
+	return len;
+}
+int fs_write(int fd, void *buf, int len)
+{
+	if (fd < 3) return -1;
+	assert(fd < NR_FILES + 3);
+	assert(Fstate[fd].opened);
+	int maxlen = file_table[fd - 3].size - Fstate[fd].offset;
+	assert(maxlen >= 0);
+	if (len > maxlen)
+		len = maxlen;
+	ide_write(buf, file_table[fd - 3].disk_offset + Fstate[fd].offset, len);
+	Fstate[fd].offset += len;
+	return len;
+}
+int fs_lseek(int fd, int offset, int whence)
+{
+	if (fd < 3) return -1;
+	assert(fd < NR_FILES + 3);
+	assert(Fstate[fd].opened);
+	if (whence == SEEK_SET)
+		Fstate[fd].offset = 0;
+	else
+	{
+		if (whence == SEEK_END)
+			Fstate[fd].offset = file_table[fd - 3].size;
+		else
+			if (whence != SEEK_CUR)
+				assert(0);
+	}
+	Fstate[fd].offset += offset;
+	assert(Fstate[fd].offset >= 0 && Fstate[fd].offset <= file_table[fd - 3].size);
+	return Fstate[fd].offset;
+}
+int fs_close(int fd)
+{
+	assert(Fstate[fd].opened);
+	Fstate[fd].opened = 0;
+	return 0;
+}
 
