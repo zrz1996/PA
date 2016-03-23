@@ -576,9 +576,9 @@ main_loop() {
    // Show the trademark screen and splash screen
    //
    PAL_TrademarkScreen();
+   Log("reach here\n");
    PAL_SplashScreen();
 
-   Log("reach here\n");
    //
    // Run the main game routine
    //
