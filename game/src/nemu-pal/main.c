@@ -233,7 +233,6 @@ PAL_TrademarkScreen(
 {
    PAL_SetPalette(3, FALSE);
    PAL_RNGPlay(6, 0, 1000, 25);
-   Log("reach here\n");
    UTIL_Delay(1000);
    PAL_FadeOut(1);
 }
@@ -576,7 +575,6 @@ main_loop() {
    //
    // Show the trademark screen and splash screen
    //
-   Log("reach here\n");
    PAL_TrademarkScreen();
    PAL_SplashScreen();
 

@@ -80,11 +80,9 @@ PAL_RNGReadFrame(
    //
    // Get the offset of the chunk.
    //
-   Log("%d\n", uiRngNum);
    fseek(fpRngMKF, 4 * uiRngNum, SEEK_SET);
    fread(&uiOffset, sizeof(UINT), 1, fpRngMKF);
    fread(&uiNextOffset, sizeof(UINT), 1, fpRngMKF);
-   Log("%d %d\n", uiOffset, uiNextOffset);
    uiOffset = SWAP32(uiOffset);
    uiNextOffset = SWAP32(uiNextOffset);
 	
@@ -101,7 +99,6 @@ PAL_RNGReadFrame(
       return -1;
    }
 
-	Log("reach here\n");
    //
    // Get the number of sub chunks.
    //

@@ -94,12 +94,7 @@ off_t fs_lseek(int fd, off_t offset, int whence)
 	}
 	Fstate[fd].offset += offset;
 	assert(Fstate[fd].offset >= 0);
-	if (Fstate[fd].offset > file_table[fd - 3].size)
-	{
-		Log("fd=%d offset=%d whence= %d foffset=%d filename=%s filesize=%d\n", fd, offset, whence, Fstate[fd].offset, file_table[fd - 3].name, file_table[fd - 3].size);
-		assert(Fstate[fd].offset <= file_table[fd - 3].size);
-		//Fstate[fd].offset = file_table[fd - 3].size;
-	}
+	assert(Fstate[fd].offset <= file_table[fd - 3].size);
 	return Fstate[fd].offset;
 }
 int fs_close(int fd)
