@@ -6,7 +6,7 @@
 
 uint32_t hwaddr_read(hwaddr_t hwaddr, size_t len);
 
-#define NR_ITEM 64
+#define NR_ITEM 128
 
 typedef struct {
 	PTE pg;
@@ -53,7 +53,7 @@ hwaddr_t TLB_translate(lnaddr_t addr)
 	PTE pg_entry;
 	pg_entry.val = hwaddr_read((dir_entry.page_frame << 12) | (temp.page << 2), 4);
 	assert(pg_entry.present);
-	uint32_t len = rand() % NR_ITEM;
+	uint32_t len = rand() & (NR_ITEM - 1);
 	TLB[len].pg = pg_entry;
 	TLB[len].valid_bit = 1;
 	TLB[len].tag = tag;
