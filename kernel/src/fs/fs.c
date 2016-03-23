@@ -81,6 +81,7 @@ int fs_lseek(int fd, int offset, int whence)
 	if (fd < 3) return -1;
 	assert(fd < NR_FILES + 3);
 	assert(Fstate[fd].opened);
+	/*
 	if (whence == SEEK_SET)
 		Fstate[fd].offset = 0;
 	else
@@ -93,6 +94,16 @@ int fs_lseek(int fd, int offset, int whence)
 	}
 	Fstate[fd].offset += offset;
 	assert((Fstate[fd].offset >= 0) && (Fstate[fd].offset <= file_table[fd - 3].size));
+	*/
+	switch (whence) {
+		case SEEK_SET: Fstate[fd].offset = 0; break;
+		case SEEK_CUR: break;
+		case SEEK_END: Fstate[fd].offset = file_table[fd - 3].size; break;
+		default: assert(0);
+	}
+	Fstate[fd].offset += offset;
+	assert(Fstate[fd].offset >= 0);
+	assert(Fstate[fd].offset <= file_table[fd - 3].size);
 	return Fstate[fd].offset;
 }
 int fs_close(int fd)
