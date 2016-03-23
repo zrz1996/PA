@@ -85,7 +85,7 @@ PAL_RNGReadFrame(
    fread(&uiNextOffset, sizeof(UINT), 1, fpRngMKF);
    uiOffset = SWAP32(uiOffset);
    uiNextOffset = SWAP32(uiNextOffset);
-
+	
    //
    // Get the length of the chunk.
    //
@@ -126,7 +126,7 @@ PAL_RNGReadFrame(
    {
       return -2;
    }
-
+	Log("reach here\n");
    if (iChunkLen != 0)
    {
       fseek(fpRngMKF, uiOffset + uiSubOffset, SEEK_SET);
@@ -440,7 +440,6 @@ PAL_RNGPlay(
 
    fp = UTIL_OpenRequiredFile("rng.mkf");
 
-Log("reach here\n");
    for (; iStartFrame <= iEndFrame; iStartFrame++)
    {
       iTime = SDL_GetTicks() + iDelay;
