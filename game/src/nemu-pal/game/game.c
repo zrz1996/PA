@@ -75,12 +75,12 @@ PAL_GameMain(
 {
    DWORD       dwTime;
 
-   assert(0);
    //
    // Show the opening menu.
    //
    gpGlobals->bCurrentSaveSlot = (BYTE)PAL_OpeningMenu();
 
+   assert(0);
    //
    // Initialize game data and set the flags to load the game resources.
    //
