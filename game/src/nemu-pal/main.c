@@ -575,8 +575,8 @@ main_loop() {
    //
    // Show the trademark screen and splash screen
    //
-   PAL_TrademarkScreen();
    Log("reach here\n");
+   PAL_TrademarkScreen();
    PAL_SplashScreen();
 
    //
