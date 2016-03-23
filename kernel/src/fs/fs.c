@@ -76,12 +76,11 @@ int fs_write(int fd, void *buf, int len)
 	Fstate[fd].offset += len;
 	return len;
 }
-int fs_lseek(int fd, int offset, int whence)
+off_t fs_lseek(int fd, off_t offset, int whence)
 {
 	if (fd < 3) return -1;
 	assert(fd < NR_FILES + 3);
 	assert(Fstate[fd].opened);
-	/*
 	if (whence == SEEK_SET)
 		Fstate[fd].offset = 0;
 	else
@@ -91,15 +90,6 @@ int fs_lseek(int fd, int offset, int whence)
 		else
 			if (whence != SEEK_CUR)
 				assert(0);
-	}
-	Fstate[fd].offset += offset;
-	assert((Fstate[fd].offset >= 0) && (Fstate[fd].offset <= file_table[fd - 3].size));
-	*/
-	switch (whence) {
-		case SEEK_SET: Fstate[fd].offset = 0; break;
-		case SEEK_CUR: break;
-		case SEEK_END: Fstate[fd].offset = file_table[fd - 3].size; break;
-		default: assert(0);
 	}
 	Fstate[fd].offset += offset;
 	assert(Fstate[fd].offset >= 0);

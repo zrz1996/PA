@@ -9,7 +9,7 @@ void serial_printc(char);
 int fs_open(const char *pathname, int flags);	
 int fs_read(int fd, void *buf, int len);
 int fs_write(int fd, void *buf, int len);
-int fs_lseek(int fd, int offset, int whence);
+off_t fs_lseek(int fd, off_t offset, int whence);
 int fs_close(int fd);
 
 static void sys_brk(TrapFrame *tf) {
@@ -56,7 +56,7 @@ static void sys_lseek(TrapFrame *tf)
 {
 	uint32_t fd = tf->ebx;
 	off_t offset = tf->ecx;
-	uint32_t whence = tf->edx;
+	int whence = tf->edx;
 	tf->eax = fs_lseek(fd, offset, whence);
 }
 
