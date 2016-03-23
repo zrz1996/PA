@@ -85,7 +85,7 @@ PAL_GameMain(
    //
    PAL_InitGameData(gpGlobals->bCurrentSaveSlot);
 
-   assert(0);
+   Log("reach here\n");
    //
    // Run the main game loop.
    //
