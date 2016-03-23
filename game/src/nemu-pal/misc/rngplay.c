@@ -80,6 +80,7 @@ PAL_RNGReadFrame(
    //
    // Get the offset of the chunk.
    //
+   Log("%d\n", uiRngNum);
    fseek(fpRngMKF, 4 * uiRngNum, SEEK_SET);
    fread(&uiOffset, sizeof(UINT), 1, fpRngMKF);
    fread(&uiNextOffset, sizeof(UINT), 1, fpRngMKF);
