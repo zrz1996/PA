@@ -61,7 +61,7 @@ int fs_read(int fd, void *buf, int len)
 	if (len > maxlen)
 		len = maxlen;
 	ide_read(buf, file_table[fd - 3].disk_offset + Fstate[fd].offset, len);
-	Log("fopen filename=%s len = %d ret = %d\n", file_table[fd - 3].name, *(int *)buf);
+	Log("fopen filename=%s len = %d ret = %d\n", file_table[fd - 3].name, len, *(int *)buf);
 	Fstate[fd].offset += len;
 	return len;
 }
