@@ -71,8 +71,9 @@ hwaddr_t page_translate(lnaddr_t addr)
 }
 
 inline uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
+#ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
-
+#endif
 	if ((addr >> 12) != ((addr + len - 1) >> 12)) /* cross a page */
 	{
 		int len1 = 4096 - (addr & 0xfff);
@@ -100,7 +101,9 @@ inline uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 }
 
 inline void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
+#ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
+#endif
 	if ((addr >> 12) != ((addr + len - 1) >> 12)) /* cross a page */
 	{
 		int len1 = 4096 - (addr & 0xfff);
@@ -140,7 +143,7 @@ inline void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 }
 
 
-inline lnaddr_t seg_translate(swaddr_t addr, size_t len, uint8_t sreg)
+inline lnaddr_t seg_translate(swaddr_t addr, uint8_t sreg)
 {
 	/*
 	if (!cpu.cr0.protect_enable)
@@ -157,7 +160,7 @@ inline uint32_t swaddr_read(swaddr_t addr, size_t len, uint8_t sreg) {
 #endif
 	if (!cpu.cr0.protect_enable)
 		return lnaddr_read(addr, len);
-	lnaddr_t lnaddr = seg_translate(addr, len, sreg);
+	lnaddr_t lnaddr = seg_translate(addr, sreg);
 	return lnaddr_read(lnaddr, len);
 }
 
@@ -167,7 +170,7 @@ inline void swaddr_write(swaddr_t addr, size_t len, uint32_t data, uint8_t sreg)
 #endif
 	if (!cpu.cr0.protect_enable)
 		return lnaddr_write(addr, len, data);
-	lnaddr_t lnaddr = seg_translate(addr, len, sreg);
+	lnaddr_t lnaddr = seg_translate(addr, sreg);
 	lnaddr_write(lnaddr, len, data);
 }
 
