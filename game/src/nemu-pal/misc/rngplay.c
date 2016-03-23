@@ -86,6 +86,7 @@ PAL_RNGReadFrame(
    uiOffset = SWAP32(uiOffset);
    uiNextOffset = SWAP32(uiNextOffset);
 	
+	Log("reach here\n");
    //
    // Get the length of the chunk.
    //
@@ -126,7 +127,6 @@ PAL_RNGReadFrame(
    {
       return -2;
    }
-	Log("reach here\n");
    if (iChunkLen != 0)
    {
       fseek(fpRngMKF, uiOffset + uiSubOffset, SEEK_SET);
