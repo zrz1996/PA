@@ -75,6 +75,7 @@ PAL_GameMain(
 {
    DWORD       dwTime;
 
+   assert(0);
    //
    // Show the opening menu.
    //
