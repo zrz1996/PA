@@ -43,9 +43,10 @@ int fs_open(const char *pathname, int flags)
 	for (i = 0; i < NR_FILES; i++)
 		if (strcmp(pathname, file_table[i].name) == 0)
 		{
-			Fstate[i + 3].opened = 1;
-			Fstate[i + 3].offset = 0;
-			return i + 3;
+			int fd = i + 3;
+			Fstate[fd].opened = 1;
+			Fstate[fd].offset = 0;
+			return fd;
 		}
 	panic("file not exist!");
 	return -1;
@@ -60,6 +61,7 @@ int fs_read(int fd, void *buf, int len)
 	if (len > maxlen)
 		len = maxlen;
 	ide_read(buf, file_table[fd - 3].disk_offset + Fstate[fd].offset, len);
+	Log("fopen filename=%s len = %d ret = %d\n", file_table[fd - 3].name, *(int *)buf);
 	Fstate[fd].offset += len;
 	return len;
 }
