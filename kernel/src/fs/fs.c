@@ -92,7 +92,7 @@ int fs_lseek(int fd, int offset, int whence)
 				assert(0);
 	}
 	Fstate[fd].offset += offset;
-	assert(Fstate[fd].offset >= 0 && Fstate[fd].offset <= file_table[fd - 3].size);
+	assert((Fstate[fd].offset >= 0) && (Fstate[fd].offset <= file_table[fd - 3].size));
 	return Fstate[fd].offset;
 }
 int fs_close(int fd)
