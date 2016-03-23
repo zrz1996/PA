@@ -26,7 +26,7 @@ void create_video_mapping() {
 		ptable_video[i ++].val = make_pte(addr);
 	}
 }
-
+/*
 void video_mapping_write_test() {
 	int i;
 	uint32_t *buf = (void *)VMEM_ADDR;
@@ -46,4 +46,40 @@ void video_mapping_read_test() {
 void video_mapping_clear() {
 	memset((void *)VMEM_ADDR, 0, SCR_SIZE);
 }
+*/
+static uint8_t palette[256][3];
 
+void video_mapping_write_test() {
+	uint32_t *buf = (void *)VMEM_ADDR;
+	for (uint32_t i = 0; i < 256; i++) {
+		out_byte(0x3c7, i);
+		palette[i][0] = in_byte(0x3c9);
+		palette[i][1] = in_byte(0x3c9);
+		palette[i][2] = in_byte(0x3c9);
+	}
+	out_byte(0x3c8, 0);
+	for (uint32_t i = 0; i < 256; i++) {
+		out_byte(0x3c9, header_data_cmap[i][0] >> 2);
+		out_byte(0x3c9, header_data_cmap[i][1] >> 2);
+		out_byte(0x3c9, header_data_cmap[i][2] >> 2);
+	}
+	fast_memcpy(buf, header_data, width * height);
+}
+
+void video_mapping_read_test() {
+	int i;
+	uint32_t *buf = (void *)VMEM_ADDR;
+	for(i = 0; i < SCR_SIZE / 4; i ++) {
+		assert(buf[i] == ((uint32_t *)header_data)[i]);
+	}
+}
+
+void video_mapping_clear() {
+	memset((void *)VMEM_ADDR, 0, SCR_SIZE);
+	out_byte(0x3c8, 0);
+	for (uint32_t i = 0; i < 256; i++) {
+		out_byte(0x3c9, palette[i][0]);
+		out_byte(0x3c9, palette[i][1]);
+		out_byte(0x3c9, palette[i][2]);
+	}
+}

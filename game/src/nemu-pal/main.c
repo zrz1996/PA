@@ -576,7 +576,6 @@ main_loop() {
    // Show the trademark screen and splash screen
    //
    PAL_TrademarkScreen();
-	Log("go to game main");
    PAL_SplashScreen();
    //
    // Run the main game routine
