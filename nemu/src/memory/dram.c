@@ -12,7 +12,7 @@
 #define ROW_WIDTH 10
 #define BANK_WIDTH 3
 #define RANK_WIDTH (27 - COL_WIDTH - ROW_WIDTH - BANK_WIDTH)
-
+#define FAST
 typedef union {
 	struct {
 		uint32_t col	: COL_WIDTH;
@@ -97,6 +97,7 @@ static inline void ddr3_write(hwaddr_t addr, void *data, uint8_t *mask) {
 }
 
 uint32_t inline dram_read(hwaddr_t addr, size_t len) {
+#ifndef FAST
 	uint32_t offset = addr & BURST_MASK;
 	uint8_t temp[2 * BURST_LEN];
 	
@@ -108,9 +109,13 @@ uint32_t inline dram_read(hwaddr_t addr, size_t len) {
 	}
 
 	return unalign_rw(temp + offset, 4);
+#else
+	return unalign_rw((uint8_t *)dram + addr, 4)& (~0u >> ((4 - len) << 3));
+#endif
 }
 
 void dram_write(hwaddr_t addr, size_t len, uint32_t data) {
+#ifndef FAST
 	uint32_t offset = addr & BURST_MASK;
 	uint8_t temp[2 * BURST_LEN];
 	uint8_t mask[2 * BURST_LEN];
@@ -125,4 +130,12 @@ void dram_write(hwaddr_t addr, size_t len, uint32_t data) {
 		/* data cross the burst boundary */
 		ddr3_write(addr + BURST_LEN, temp + BURST_LEN, mask + BURST_LEN);
 	}
+#else
+	switch (len) {
+		case 1: unalign_rw((uint8_t *)dram + addr, 1) = data; break;
+		case 2: unalign_rw((uint8_t *)dram + addr, 2) = data; break;
+		case 3: unalign_rw((uint8_t *)dram + addr, 3) = data; break;
+		case 4: unalign_rw((uint8_t *)dram + addr, 4) = data; break;
+	}
+#endif
 }
