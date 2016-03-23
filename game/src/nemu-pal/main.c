@@ -530,7 +530,6 @@ main_loop() {
    SDL_SetHint(SDL_HINT_WINRT_HANDLE_BACK_BUTTON, "1");
 #endif
 
-   assert(0);
    UTIL_OpenLog();
 
 #ifdef _WIN32
@@ -580,6 +579,7 @@ main_loop() {
    PAL_TrademarkScreen();
    PAL_SplashScreen();
 
+   assert(0);
    //
    // Run the main game routine
    //
