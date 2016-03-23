@@ -148,7 +148,6 @@ PAL_Init(
    PAL_InitResources();
    Log("PAL_InitResources success");
    SOUND_OpenAudio();
-   assert(0);
 #ifdef PAL_WIN95
 #ifdef _DEBUG
    SDL_WM_SetCaption("Pal WIN95 (Debug Build)", NULL);
@@ -162,6 +161,7 @@ PAL_Init(
    SDL_WM_SetCaption("Pal", NULL);
 #endif
 #endif
+   assert(0);
 }
 
 VOID
