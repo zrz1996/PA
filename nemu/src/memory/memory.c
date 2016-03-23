@@ -15,7 +15,7 @@ uint32_t cache_read(hwaddr_t, size_t);
 hwaddr_t TLB_translate(lnaddr_t addr);
 #define TLB_ENABLE
 
-uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
+inline uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	int id = is_mmio(addr);
 	if (id != - 1)
 	{
@@ -31,7 +31,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	}
 }
 
-void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
+inline void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 	int id = is_mmio(addr);
 	if (id != -1)
 	{
@@ -70,7 +70,7 @@ hwaddr_t page_translate(lnaddr_t addr)
 	return (pg_entry.page_frame << 12) | temp.offset;
 }
 
-uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
+inline uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 	assert(len == 1 || len == 2 || len == 4);
 
 	if ((addr >> 12) != ((addr + len - 1) >> 12)) /* cross a page */
@@ -99,7 +99,7 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 	}
 }
 
-void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
+inline void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 	assert(len == 1 || len == 2 || len == 4);
 	if ((addr >> 12) != ((addr + len - 1) >> 12)) /* cross a page */
 	{
@@ -140,16 +140,18 @@ void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 }
 
 
-lnaddr_t seg_translate(swaddr_t addr, size_t len, uint8_t sreg)
+inline lnaddr_t seg_translate(swaddr_t addr, size_t len, uint8_t sreg)
 {
+	/*
 	if (!cpu.cr0.protect_enable)
 		return addr;
+	*/
 	uint32_t base = cpu.segbase[sreg];
 	return addr + base;
 }
 
 
-uint32_t swaddr_read(swaddr_t addr, size_t len, uint8_t sreg) {
+inline uint32_t swaddr_read(swaddr_t addr, size_t len, uint8_t sreg) {
 #ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
 #endif
@@ -159,7 +161,7 @@ uint32_t swaddr_read(swaddr_t addr, size_t len, uint8_t sreg) {
 	return lnaddr_read(lnaddr, len);
 }
 
-void swaddr_write(swaddr_t addr, size_t len, uint32_t data, uint8_t sreg) {
+inline void swaddr_write(swaddr_t addr, size_t len, uint32_t data, uint8_t sreg) {
 #ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
 #endif
