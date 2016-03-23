@@ -14,7 +14,7 @@ $(game_BIN): $(game_OBJS) $(FLOAT) $(NEWLIBC)
 	$(call make_command, $(LD), $(game_LDFLAGS), ld $@, $^)
 	$(call git_commit, "compile game")
 ifeq ($(GAME),nemu-pal)
-	ls -l
+	ls $(game_BIN) -l
 	dd if=/dev/null of=$(game_BIN) seek=2048
 	cat `find $(game_SRC_DIR)/nemu-pal/data -type f | sort` >> $(game_BIN)
 endif
