@@ -18,11 +18,14 @@ Item TLB[NR_ITEM];
 
 void TLB_init()
 {
+	/*
 	int i;
 	for (i = 0; i < NR_ITEM; i++)
 	{
 		TLB[i].valid_bit = 0;
 	}
+	*/
+	memset(TLB, 0, sizeof(TLB));
 }
 
 hwaddr_t TLB_translate(lnaddr_t addr)
