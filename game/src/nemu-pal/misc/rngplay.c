@@ -440,6 +440,7 @@ PAL_RNGPlay(
 
    fp = UTIL_OpenRequiredFile("rng.mkf");
 
+Log("reach here\n");
    for (; iStartFrame <= iEndFrame; iStartFrame++)
    {
       iTime = SDL_GetTicks() + iDelay;
@@ -452,7 +453,6 @@ PAL_RNGPlay(
          fclose(fp);
          return;
       }
-		Log("reach here\n");
       //
       // Update the screen
       //
