@@ -452,7 +452,7 @@ PAL_RNGPlay(
          fclose(fp);
          return;
       }
-
+		Log("reach here\n");
       //
       // Update the screen
       //
