@@ -86,6 +86,7 @@ PAL_RNGReadFrame(
    uiOffset = SWAP32(uiOffset);
    uiNextOffset = SWAP32(uiNextOffset);
 	
+   Log("%d %d\n", uiOffset, uiNextOffset);
    //
    // Get the length of the chunk.
    //
