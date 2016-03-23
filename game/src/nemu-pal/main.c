@@ -232,8 +232,8 @@ PAL_TrademarkScreen(
 --*/
 {
    PAL_SetPalette(3, FALSE);
-   Log("reach here\n");
    PAL_RNGPlay(6, 0, 1000, 25);
+   Log("reach here\n");
    UTIL_Delay(1000);
    PAL_FadeOut(1);
 }
