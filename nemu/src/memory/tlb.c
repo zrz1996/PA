@@ -20,15 +20,21 @@ inline hwaddr_t TLB_translate(lnaddr_t addr)
 	if (!cpu.cr0.protect_enable || !cpu.cr0.paging)
 		return addr;
 	uint32_t tag = addr >> 12;
+#ifdef DEBUG
 	assert(tag < NR_ITEM);
+#endif
 	if (TLB[tag] & 1)
 		return (TLB[tag] ^ 1) | (addr & 0xfff);
 	uint32_t dir_addr = (cpu.cr3.val & 0xfffff000) | ((addr >> 20) & 0xffc);
 	uint32_t dir_entry = hwaddr_read(dir_addr, 4);
+#ifdef DEBUG
 	assert(dir_entry & 1);
+#endif
 	uint32_t pg_addr = (dir_entry & 0xfffff000) | ((addr >> 10) & 0xffc);
 	uint32_t pg_entry = hwaddr_read(pg_addr, 4);
+#ifdef DEBUG
 	assert(pg_entry & 1);
+#endif
 	TLB[tag] = (pg_entry & 0xfffff000) | 1;
 	return (pg_entry & 0xfffff000) | (addr & 0xfff);
 }
