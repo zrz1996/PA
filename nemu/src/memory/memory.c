@@ -14,7 +14,7 @@ uint32_t cache_read(hwaddr_t, size_t);
 
 hwaddr_t TLB_translate(lnaddr_t addr);
 #define TLB_ENABLE
-
+extern uint32_t TLB[];
 inline uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	int id = is_mmio(addr);
 	if (id != - 1)
@@ -83,8 +83,10 @@ inline uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 		hwaddr_t hwaddr2 = page_translate(addr + len1);
 #else
 		hwaddr_t hwaddr1 = TLB_translate(addr);
-		hwaddr_t hwaddr2 = TLB_translate(addr + len1);
+		hwaddr_t hwaddr2 = (TLB[addr >> 12] & 2) ? hwaddr1 : TLB_translate(addr + len1);
 #endif
+		if (hwaddr2 == hwaddr1)
+			return hwaddr_read(hwaddr1, len);
 		uint32_t ret1 = (len1 == 3) ? (hwaddr_read(hwaddr1, 2) | (hwaddr_read(hwaddr1 + 2, 1) << 16)) : hwaddr_read(hwaddr1, len1);
 		uint32_t ret2 = (len2 == 3) ? (hwaddr_read(hwaddr2, 2) | (hwaddr_read(hwaddr2 + 2, 1) << 16)) : hwaddr_read(hwaddr2, len2);
 		return ret1 | (ret2 << (len1 << 3));

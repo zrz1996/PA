@@ -24,7 +24,7 @@ inline hwaddr_t TLB_translate(lnaddr_t addr)
 	assert(tag < NR_ITEM);
 #endif
 	if (TLB[tag] & 1)
-		return (TLB[tag] ^ 1) | (addr & 0xfff);
+		return (TLB[tag] & 0xfffffffc) | (addr & 0xfff);
 	uint32_t dir_addr = (cpu.cr3.val & 0xfffff000) | ((addr >> 20) & 0xffc);
 	uint32_t dir_entry = hwaddr_read(dir_addr, 4);
 #ifdef DEBUG
@@ -36,5 +36,8 @@ inline hwaddr_t TLB_translate(lnaddr_t addr)
 	assert(pg_entry & 1);
 #endif
 	TLB[tag] = (pg_entry & 0xfffff000) | 1;
+	if (tag + 1 != NR_ITEM && (TLB[tag + 1] & 1))
+		if (TLB[tag + 1] == TLB[tag] + 0x1000)
+			TLB[tag] |= 2;
 	return (pg_entry & 0xfffff000) | (addr & 0xfff);
 }
