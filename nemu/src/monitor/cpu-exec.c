@@ -49,7 +49,6 @@ void cpu_exec(volatile uint64_t n) {
 #ifdef DEBUG
 	volatile uint64_t n_temp = n;
 #endif
-	printf("%llu\n", (unsigned long long)n);
 	setjmp(jbuf);
 
 	for(; n > 0; n --) {

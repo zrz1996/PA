@@ -59,7 +59,9 @@ static int cmd_bt(char *args) {
 	return 0;
 }
 static int cmd_c(char *args) {
-	cpu_exec(-1LL);
+	uint64_t n = -1LL;
+	printf("%llu\n", (unsigned long long)n);
+	cpu_exec(n);
 	return 0;
 }
 
