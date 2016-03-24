@@ -82,11 +82,14 @@ process_keys(void (*key_press_callback)(int), void (*key_release_callback)(int))
 		}
 		else
 		{
-			if (key_state[i] == KEY_STATE_RELEASE)
+			if (key_state[i] == KEY_STATE_WAIT_RELEASE)
 			{
 				key_release_callback(keycode_array[i]);
 				key_state[i] = KEY_STATE_EMPTY;
 			}
+			else
+				if (key_state[i] == KEY_STATE_RELEASE)
+					key_state[i] = KEY_STATE_WAIT_RELEASE;
 		}
 	}	
 	sti();
