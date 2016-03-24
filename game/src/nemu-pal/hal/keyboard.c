@@ -17,9 +17,8 @@ static int key_state[NR_KEYS];
 void
 keyboard_event(void) {
 	uint8_t scancode = in_byte(0x60);
-	if (scancode & 0x80)
-		return;
-	scancode &= 0x7f;
+	bool release = !!(scancode & 0x80);
+	scancode &= ~(0x80);
 	int index = -1, i;
 	for (i = 0; i < NR_KEYS; i++)
 		if (scancode == keycode_array[i])
@@ -28,6 +27,8 @@ keyboard_event(void) {
 			break;
 		}
 	if (index == -1)
+		return;
+	if (release)
 		return;
 	if (key_state[index] == KEY_STATE_EMPTY)
 		key_state[index] = KEY_STATE_PRESS;
