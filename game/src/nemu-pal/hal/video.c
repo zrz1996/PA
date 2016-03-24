@@ -85,9 +85,14 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 		if (dsty + h > dst->h)
 			h = dst->h - dsty;
 	}
-	int i;
-	for (i = 0; i < h; i++)
-		memset(dst->pixels + (dsty + i) * dst->w + dstx, color, w);
+	if (w == dst->w)
+		memset(dst->pixels + dsty * dst->w, color, w * h);
+	else
+	{
+		int i;
+		for (i = 0; i < h; i++)
+			memset(dst->pixels + (dsty + i) * dst->w + dstx, color, w);
+	}
 }
 
 void SDL_UpdateRect(SDL_Surface *screen, int x, int y, int w, int h) {

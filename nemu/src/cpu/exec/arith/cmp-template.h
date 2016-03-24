@@ -5,10 +5,13 @@ static void do_execute () {
 	DATA_TYPE_S result = op_src->val;
 	if (ops_decoded.opcode == 0x83)
 	{
+		/*
 		if (DATA_BYTE == 2)
 			result = (int16_t)((int8_t)op_src->val);
 		else
 			result = (int32_t)((int8_t)op_src->val);
+		*/
+		result = (DATA_TYPE)((int8_t)op_src->val);
 	}
 	cpu.cf = 0;
 	alu(op_dest->val, result, 1, 1);
