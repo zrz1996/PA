@@ -39,7 +39,7 @@ void do_int3() {
 void raise_intr(uint8_t NO);
 void device_update();
 /* Simulate how the CPU works. */
-void cpu_exec(volatile uint32_t n) {
+void cpu_exec(volatile uint64_t n) {
 	if(nemu_state == END) {
 		printf("Program execution has ended. To restart the program, exit NEMU and run again.\n");
 		return;
@@ -47,7 +47,7 @@ void cpu_exec(volatile uint32_t n) {
 	nemu_state = RUNNING;
 
 #ifdef DEBUG
-	volatile uint32_t n_temp = n;
+	volatile uint64_t n_temp = n;
 #endif
 
 	setjmp(jbuf);
