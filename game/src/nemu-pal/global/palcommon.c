@@ -23,7 +23,7 @@
 
 #include "palcommon.h"
 #include "my_color.h"
-
+#define COLOR_TABLE_ENABLE
 INT
 PAL_RLEBlitToSurface(
    LPCBITMAPRLE      lpBitmapRLE,
