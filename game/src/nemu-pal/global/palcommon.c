@@ -187,7 +187,8 @@ PAL_RLEBlitWithColorShift(
    UINT          uiLen       = 0;
    UINT          uiWidth     = 0;
    UINT          uiHeight    = 0;
-   BYTE          T, b;
+   BYTE          T;
+   //BYTE          b;
    INT           dx          = PAL_X(pos);
    INT           dy          = PAL_Y(pos);
 

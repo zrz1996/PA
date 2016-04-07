@@ -19,7 +19,7 @@ static BYTE color_shift(BYTE rel, SHORT iColorShift)
 	return b | (rel & 0xF0);
 }
 BYTE color_table[256];
-static void make_color_table(SHORT iColorShift)
+void make_color_table(SHORT iColorShift)
 {
 	int i;
 	if (iColorShift != 0x7fff)
