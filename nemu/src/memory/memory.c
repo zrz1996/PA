@@ -81,7 +81,7 @@ inline uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 		hwaddr_t hwaddr2 = page_translate(addr + len1);
 #else
 		hwaddr_t hwaddr1 = TLB_translate(addr);
-		hwaddr_t hwaddr2 = (TLB[addr >> 12] & 2) ? hwaddr1 : TLB_translate(addr + len1);
+		hwaddr_t hwaddr2 = (TLB[addr >> 12] & 2) ? hwaddr1 + len1 : TLB_translate(addr + len1);
 #endif
 		if (hwaddr2 == hwaddr1)
 			return hwaddr_read(hwaddr1, len);
@@ -113,7 +113,7 @@ inline void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 		hwaddr_t hwaddr2 = page_translate(addr + len1);
 #else
 		hwaddr_t hwaddr1 = TLB_translate(addr);
-		hwaddr_t hwaddr2 = (TLB[addr >> 12] & 2) ? hwaddr1 : TLB_translate(addr + len1);
+		hwaddr_t hwaddr2 = (TLB[addr >> 12] & 2) ? hwaddr1 + len : TLB_translate(addr + len1);
 #endif
 		if (len1 == 3)
 		{
