@@ -188,7 +188,6 @@ PAL_RLEBlitWithColorShift(
    UINT          uiWidth     = 0;
    UINT          uiHeight    = 0;
    BYTE          T;
-   //BYTE          b;
    INT           dx          = PAL_X(pos);
    INT           dy          = PAL_Y(pos);
 
@@ -199,7 +198,9 @@ PAL_RLEBlitWithColorShift(
    {
       return -1;
    }
+#ifdef COLOR_TABLE_ENABLE
    make_color_table(iColorShift);
+#endif
    //
    // Skip the 0x00000002 in the file header.
    //
@@ -270,8 +271,8 @@ PAL_RLEBlitWithColorShift(
             //
             // Put the pixel onto the surface (FIXME: inefficient).
             //
-			/*
-            b = (lpBitmapRLE[j] & 0x0F);
+#ifndef COLOR_TABLE_ENABLE
+            BYTE b = (lpBitmapRLE[j] & 0x0F);
             if ((INT)b + iColorShift > 0x0F)
             {
                b = 0x0F;
@@ -287,9 +288,10 @@ PAL_RLEBlitWithColorShift(
 
             ((LPBYTE)lpDstSurface->pixels)[y * lpDstSurface->pitch + x] =
                (b | (lpBitmapRLE[j] & 0xF0));
-			*/
+#else
             ((LPBYTE)lpDstSurface->pixels)[y * lpDstSurface->pitch + x] =
 				color_table[lpBitmapRLE[j]];
+#endif
          }
          lpBitmapRLE += T;
          i += T;
