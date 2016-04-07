@@ -83,10 +83,14 @@ inline uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 		hwaddr_t hwaddr1 = TLB_translate(addr);
 		hwaddr_t hwaddr2 = (TLB[addr >> 12] & 2) ? hwaddr1 + len1 : TLB_translate(addr + len1);
 #endif
+		/*
 		if (hwaddr2 == hwaddr1)
 			return hwaddr_read(hwaddr1, len);
 		uint32_t ret1 = (len1 == 3) ? (hwaddr_read(hwaddr1, 2) | (hwaddr_read(hwaddr1 + 2, 1) << 16)) : hwaddr_read(hwaddr1, len1);
 		uint32_t ret2 = (len2 == 3) ? (hwaddr_read(hwaddr2, 2) | (hwaddr_read(hwaddr2 + 2, 1) << 16)) : hwaddr_read(hwaddr2, len2);
+		*/
+		uint32_t ret1 = hwaddr_read(hwaddr1, len1);
+		uint32_t ret2 = hwaddr_read(hwaddr2, len2);
 		return ret1 | (ret2 << (len1 << 3));
 	}
 	else
@@ -116,6 +120,7 @@ inline void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 		hwaddr_t hwaddr2 = TLB_translate(addr + len1);
 		//hwaddr_t hwaddr2 = (TLB[addr >> 12] & 2) ? hwaddr1 + len : TLB_translate(addr + len1);
 #endif
+		/*
 		if (len1 == 3)
 		{
 			hwaddr_write(hwaddr1, 2, data & 0xffff);
@@ -131,6 +136,9 @@ inline void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 		}
 		else
 			hwaddr_write(hwaddr2, len2, data);
+		*/
+		hwaddr_write(hwaddr1, len1, data & ((1 << (len1 << 3)) - 1));
+		hwaddr_write(hwaddr2, len2, data >> (len1 << 3));
 	}
 	else
 	{
