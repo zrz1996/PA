@@ -50,8 +50,11 @@ void cpu_exec(volatile uint64_t n) {
 	volatile uint64_t n_temp = n;
 #endif
 	setjmp(jbuf);
-
+#ifdef DEBUG
 	for(; n > 0; n --) {
+#else
+	while (1) {
+#endif
 #ifdef DEBUG
 		swaddr_t eip_temp = cpu.eip;
 		uint32_t base = (cpu.cr0.protect_enable) * cpu.segbase[1];

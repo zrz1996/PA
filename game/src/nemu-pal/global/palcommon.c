@@ -22,6 +22,7 @@
 //
 
 #include "palcommon.h"
+#include "my_color.h"
 
 INT
 PAL_RLEBlitToSurface(
@@ -150,6 +151,8 @@ end:
    return 0;
 }
 
+void make_color_table(SHORT iColorShift);
+
 INT
 PAL_RLEBlitWithColorShift(
    LPCBITMAPRLE      lpBitmapRLE,
@@ -195,7 +198,7 @@ PAL_RLEBlitWithColorShift(
    {
       return -1;
    }
-
+   make_color_table(iColorShift);
    //
    // Skip the 0x00000002 in the file header.
    //
@@ -216,7 +219,7 @@ PAL_RLEBlitWithColorShift(
    // The bitmap is 8-bpp, each pixel will use 1 byte.
    //
    uiLen = uiWidth * uiHeight;
-
+	
    //
    // Start decoding and blitting the bitmap.
    //
@@ -266,6 +269,7 @@ PAL_RLEBlitWithColorShift(
             //
             // Put the pixel onto the surface (FIXME: inefficient).
             //
+			/*
             b = (lpBitmapRLE[j] & 0x0F);
             if ((INT)b + iColorShift > 0x0F)
             {
@@ -282,6 +286,9 @@ PAL_RLEBlitWithColorShift(
 
             ((LPBYTE)lpDstSurface->pixels)[y * lpDstSurface->pitch + x] =
                (b | (lpBitmapRLE[j] & 0xF0));
+			*/
+            ((LPBYTE)lpDstSurface->pixels)[y * lpDstSurface->pitch + x] =
+				color_table[lpBitmapRLE[j]];
          }
          lpBitmapRLE += T;
          i += T;
