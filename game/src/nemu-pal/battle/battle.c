@@ -99,9 +99,10 @@ PAL_BattleMakeScene(
          //
          pos = PAL_XY(PAL_X(pos) + RandomLong(-1, 1), PAL_Y(pos));
       }
-
+	Log("pos1: %x %x", PAL_X(pos), PAL_Y(pos));
       pos = PAL_XY(PAL_X(pos) - PAL_RLEGetWidth(PAL_SpriteGetFrame(g_Battle.rgEnemy[i].lpSprite, g_Battle.rgEnemy[i].wCurrentFrame)) / 2,
          PAL_Y(pos) - PAL_RLEGetHeight(PAL_SpriteGetFrame(g_Battle.rgEnemy[i].lpSprite, g_Battle.rgEnemy[i].wCurrentFrame)));
+	Log("pos2: %x %x", PAL_X(pos), PAL_Y(pos));
 
       if (g_Battle.rgEnemy[i].wObjectID != 0)
       {
