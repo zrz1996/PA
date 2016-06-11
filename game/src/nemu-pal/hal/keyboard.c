@@ -12,88 +12,9 @@ static const int keycode_array[] = {
 	K_s, K_f, K_p
 };
 
-/*
-static int key_state[NR_KEYS];
-
-void
-keyboard_event(void) {
-	uint8_t scancode = in_byte(0x60);
-	bool release = !!(scancode & 0x80);
-	scancode &= ~(0x80);
-	int index = -1, i;
-	for (i = 0; i < NR_KEYS; i++)
-		if (scancode == keycode_array[i])
-		{
-			index = i;
-			break;
-		}
-	if (index == -1)
-		return;
-	if (release)
-		return;
-	if (key_state[index] == KEY_STATE_EMPTY)
-		key_state[index] = KEY_STATE_PRESS;
-	else
-	{
-		if (key_state[index] == KEY_STATE_WAIT_RELEASE)
-			key_state[index] = KEY_STATE_RELEASE;
-	}
-}
-
-static inline int
-get_keycode(int index) {
-	assert(index >= 0 && index < NR_KEYS);
-	return keycode_array[index];
-}
-
-static inline int
-query_key(int index) {
-	assert(index >= 0 && index < NR_KEYS);
-	return key_state[index];
-}
-
-static inline void
-release_key(int index) {
-	assert(index >= 0 && index < NR_KEYS);
-	key_state[index] = KEY_STATE_WAIT_RELEASE;
-}
-
-static inline void
-clear_key(int index) {
-	assert(index >= 0 && index < NR_KEYS);
-	key_state[index] = KEY_STATE_EMPTY;
-}
-
-bool 
-process_keys(void (*key_press_callback)(int), void (*key_release_callback)(int)) {
-	cli();
-	int i;
-	for (i = 0; i < NR_KEYS; i++)
-	{
-		if (key_state[i] == KEY_STATE_PRESS)
-		{
-			key_press_callback(keycode_array[i]);
-			key_state[i] = KEY_STATE_WAIT_RELEASE;
-		}
-		else
-		{
-			if (key_state[i] == KEY_STATE_WAIT_RELEASE)
-			{
-				key_release_callback(keycode_array[i]);
-				key_state[i] = KEY_STATE_EMPTY;
-			}
-			else
-				if (key_state[i] == KEY_STATE_RELEASE)
-					key_state[i] = KEY_STATE_WAIT_RELEASE;
-		}
-	}	
-	sti();
-	return false;
-}
-*/
-static int key_event[NR_KEYS]; // 0:press_event   1:release_event
-static int key_state[NR_KEYS]; // 0:release       1:pressed
-static int key_processed[NR_KEYS];
+static int key_event[NR_KEYS]; 
+static int key_state[NR_KEYS]; 
+static int key_vis[NR_KEYS];
 
 static int find_key_index(int code)
 {
@@ -109,84 +30,67 @@ static int find_key_index(int code)
 #define I8042_DATA_PORT 0x60
 
 void
-keyboard_event(void) {
-	/* Fetch the scancode and update the key states. */
+keyboard_event(void) 
+{
 	int code = (unsigned) (unsigned char) in_byte(I8042_DATA_PORT);
-
-	// the code below is not fully safe
-	// but it doesn't matter because you can't type that fast
-
 	int index = find_key_index(code);
-
-	if (code < 0x80) { // press_event
+	if (code < 0x80) 
+	{ 
 		key_event[index] = 1;
-	} else { // release_event
-		if (key_processed[index]) {
+	} 
+	else 
+	{
+		if (key_vis[index]) 
+		{
 			key_event[index] = 0;
-			key_processed[index] = 0;
+			key_vis[index] = 0;
 		}
 	}
 }
 
 bool 
 process_keys(void (*key_press_callback)(int), void (*key_release_callback)(int)) {
-	//printf("processkeys\n");
 	cli();
-	/* Traverse the key states. Find a key just pressed or released.
-	 * If a pressed key is found, call ``key_press_callback'' with the keycode.
-	 * If a released key is found, call ``key_release_callback'' with the keycode.
-	 * If any such key is found, the function return true.
-	 * If no such key is found, the function return false.
-	 * Remember to enable interrupts before returning from the function.
-	 */
-	//printf("ask for keys\n");
 	bool ret = false;
-	/*
-	   the state machine: (maely machine)
-
-	   [in]:press_event         [in]:press_event
-	   [out]:noevent            [out]:press
-	   +>>>>>>>>   +------<<<<<<<<<<<<------+
-	   |       v   |                        |
-	   +<<<<<<<PRESSED                    RELEASED<<<<<<<+ [in]:release_event
-	   |                        |   v        | [out]:noevent
-	   +------>>>>>>>>>>>>------+   +>>>>>>>>^
-	   [in]:release_event
-	   [out]:release
-	   */
-
 	int index;
-	for (index = 0; index < NR_KEYS; index++) { // process each key
-		int state = key_state[index]; // current machine state: 0: RELEASED  1: PRESSED
-		int event = key_event[index]; // the machine input: [in]:event  0:release_event  1:press_event
-		int out_event; // the machine output: [out]:event  0: noevent  1:press  2:release
-		int next_state; // the next state of machine
-
-		if (state == 0) { // current state is RELEASED
-			if (event == 0) { // in:release_event
-				out_event = 0; // out:noevent
-				next_state = 0; // next:RELEASED
-			} else { // in: press_event
-				out_event = 1; // out:press
-				next_state = 1; // next:PRESSED
+	for (index = 0; index < NR_KEYS; index++) 
+	{ 
+		int state = key_state[index]; 
+		int event = key_event[index]; 
+		int action;
+		int state_trans;
+		if (state == 1) 
+		{
+			if (event == 1) 
+			{
+				state_trans = 1;
+				action = 0;
 			}
-		} else { // current state is PRESSED
-			if (event == 0) { // in:release_event
-				out_event = 2; // out:release
-				next_state = 0; // next:RELEASED
-			} else { // in: press_event
-				out_event = 0; // out:noevent
-				next_state = 1; // next:PRESSED
-			}
+			else
+			{
+				state_trans = 0;
+				action = 2; 
+			}  
 		}
-
-		key_state[index] = next_state;
-		key_processed[index] = 1;
-
-		if (out_event != 0) {
-			if (out_event == 1) key_press_callback(keycode_array[index]);
-			if (out_event == 2) key_release_callback(keycode_array[index]);
-			printf("gen key event: index = %d, event = %d\n", index, out_event);
+		else
+		{
+			if (event == 1) 
+			{
+				state_trans = 1;
+				action = 1; 
+			}
+			else
+			{
+				state_trans = 0;
+				action = 0; 
+			} 
+		} 
+		key_state[index] = state_trans;
+		key_vis[index] = 1;
+		if (action != 0) 
+		{
+			if (action == 1) key_press_callback(keycode_array[index]);
+			if (action == 2) key_release_callback(keycode_array[index]);
 			ret = true;
 			goto done;
 		}
