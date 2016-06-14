@@ -23,14 +23,16 @@ inline void TLB_insert()
 		uint32_t addr = tag << 12;
 		uint32_t dir_addr = (cpu.cr3.val & 0xfffff000) | ((addr >> 20) & 0xffc);
 		uint32_t dir_entry = hwaddr_read(dir_addr, 4);
-		assert(dir_entry & 1);
+		if ((dir_entry & 1) == 0)
+			continue;
 		uint32_t pg_addr = (dir_entry & 0xfffff000) | ((addr >> 10) & 0xffc);
 		uint32_t pg_entry = hwaddr_read(pg_addr, 4);
-		assert(pg_entry & 1);
+		if ((pg_entry & 1) == 0)
+			continue;
 		TLB[tag] = (pg_entry & 0xfffff000) | 1;
 	}
 	for (tag = 0; tag < NR_ITEM - 1; tag++)
-		if (TLB[tag + 1] == TLB[tag] + 0x1000)
+		if ((TLB[tag] & 1) && (TLB[tag + 1] & 1) && TLB[tag + 1] == TLB[tag] + 0x1000)
 			TLB[tag] |= 2;
 }
 inline hwaddr_t TLB_translate(lnaddr_t addr)
