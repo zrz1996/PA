@@ -36,6 +36,7 @@ inline hwaddr_t TLB_translate(lnaddr_t addr)
 	assert(pg_entry & 1);
 #endif
 	TLB[tag] = (pg_entry & 0xfffff000) | 1;
+	printf("%x %x\n", tag, TLB[tag] - 1);
 	if (tag + 1 != NR_ITEM && (TLB[tag + 1] & 1))
 		if (TLB[tag + 1] == TLB[tag] + 0x1000)
 			TLB[tag] |= 2;
