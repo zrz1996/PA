@@ -159,6 +159,7 @@ inline lnaddr_t seg_translate(swaddr_t addr, uint8_t sreg)
 		return addr;
 	*/
 	uint32_t base = cpu.segbase[sreg];
+	assert(base == 0);
 	return addr + base;
 }
 
