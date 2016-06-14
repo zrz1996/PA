@@ -17,7 +17,7 @@ void TLB_init()
 
 inline void TLB_insert()
 {
-	int tag = 0;
+	uint32_t tag = 0;
 	for (; tag < NR_ITEM; tag++)
 	{
 		uint32_t addr = tag << 12;
@@ -42,7 +42,7 @@ inline hwaddr_t TLB_translate(lnaddr_t addr)
 	if (TLB[tag] & 1)
 		return (TLB[tag] & 0xfffffffc) | (addr & 0xfff);
 	TLB_insert();
-		return (TLB[tag] & 0xfffffffc) | (addr & 0xfff);
+	return (TLB[tag] & 0xfffffffc) | (addr & 0xfff);
 		/*
 	uint32_t dir_addr = (cpu.cr3.val & 0xfffff000) | ((addr >> 20) & 0xffc);
 	uint32_t dir_entry = hwaddr_read(dir_addr, 4);
