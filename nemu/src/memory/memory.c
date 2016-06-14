@@ -170,8 +170,11 @@ inline uint32_t swaddr_read(swaddr_t addr, size_t len, uint8_t sreg) {
 #endif
 	if (!cpu.cr0.protect_enable)
 		return lnaddr_read(addr, len);
+	/*
 	lnaddr_t lnaddr = seg_translate(addr, sreg);
 	return lnaddr_read(lnaddr, len);
+	*/
+	return lnaddr_read(addr, len);
 }
 
 inline void swaddr_write(swaddr_t addr, size_t len, uint32_t data, uint8_t sreg) {
